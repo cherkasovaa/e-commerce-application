@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import styles from './main.module.scss';
 import { sum } from './index';
 import testImage from './assets/test.png';
+import { Typography } from '@mui/material';
 
 export const App = (): React.JSX.Element => {
   return (
     <>
-      <p className={styles.title}>Test function = {sum(5)}</p>
+      <Typography> Test function = {sum(5)}</Typography>
       <img src={testImage} alt="test icon" />
     </>
   );

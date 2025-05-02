@@ -31,16 +31,4 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  css: {
-    modules: {
-      localsConvention: 'camelCaseOnly',
-      scopeBehaviour: 'local',
-      generateScopedName: '[name]__[local]___[hash:base64:5]',
-    },
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "./styles/variables.scss" as *;`,
-      },
-    },
-  },
 });
