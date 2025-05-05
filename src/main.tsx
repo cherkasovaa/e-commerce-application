@@ -1,17 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { sum } from './index';
-import testImage from './assets/test.png';
-import { Typography } from '@mui/material';
-
-export const App = (): React.JSX.Element => {
-  return (
-    <>
-      <Typography> Test function = {sum(5)}</Typography>
-      <img src={testImage} alt="test icon" />
-    </>
-  );
-};
+import { App } from './app/App';
 
 const rootElement = document.querySelector('#root');
 
