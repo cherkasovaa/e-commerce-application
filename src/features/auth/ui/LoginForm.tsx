@@ -1,9 +1,8 @@
-import { apiRoot } from '@/shared/api/commercletools';
 import { useEffect } from 'react';
 
 export const LoginForm = () => {
   useEffect(() => {
-    console.log(apiRoot.carts());
+    console.log('initiated login form');
   }, []);
   return <div>LoginForm</div>;
 };
