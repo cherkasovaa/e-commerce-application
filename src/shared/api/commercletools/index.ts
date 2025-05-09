@@ -1,9 +1,7 @@
-import { ClientBuilder } from '@commercetools/ts-client';
-import { authMiddlewareOptions } from './authMiddlewareOptions';
-import { httpMiddlewareOptions } from './httpMiddlewareOptions';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ctpClient } from './clientBuilder';
+import { projectKey } from './constants';
 
-export const ctpClient = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware()
-  .build();
+export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+  projectKey,
+});

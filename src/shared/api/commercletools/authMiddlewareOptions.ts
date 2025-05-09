@@ -8,12 +8,12 @@ import {
 } from './constants';
 
 export const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: apiURL || '',
-  projectKey: projectKey || '',
+  host: apiURL,
+  projectKey: projectKey,
   credentials: {
-    clientId: clientId || '',
-    clientSecret: clientSecret || '',
+    clientId: clientId,
+    clientSecret: clientSecret,
   },
-  scopes: scopes ? scopes.split(',') : [],
+  scopes: scopes.length !== 0 ? scopes.split(',') : [],
   httpClient: fetch,
 };
