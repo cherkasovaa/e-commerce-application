@@ -1,7 +1,3 @@
 import React from 'react';
 
-export const MainPage: React.FC = () => (
-  <>
-    <h1>MainPage</h1>
-  </>
-);
+export const MainPage: React.FC = () => <>MainPage</>;
