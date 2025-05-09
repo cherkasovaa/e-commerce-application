@@ -2,7 +2,7 @@ import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Typography, Box, Stack } from '@mui/material';
 
-import pageNotFoundAnimation from '@/pages/assets/404_animation.lottie';
+import pageNotFoundAnimation from '../assets/404_animation.lottie';
 import {
   BACK_BUTTON_TEXT,
   PAGE_NOT_FOUNT_DESCRIPTION,
