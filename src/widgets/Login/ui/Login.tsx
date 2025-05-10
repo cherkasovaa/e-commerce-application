@@ -1,8 +1,8 @@
+import { type JSX } from 'react';
 import { LoginForm } from '@/features/auth';
-import { RegistrationLink } from '@/features/registrationLink';
 import { Avatar, Paper, Typography } from '@mui/material';
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
-import { type JSX } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Login = (): JSX.Element => {
   return (
@@ -34,8 +34,10 @@ export const Login = (): JSX.Element => {
       >
         Sign in
       </Typography>
-      <LoginForm></LoginForm>
-      <RegistrationLink></RegistrationLink>
+      <LoginForm />
+      <Typography sx={{ textAlign: 'center' }}>
+        Don't have an account yet? <Link to="/register">Register here!</Link>
+      </Typography>
     </Paper>
   );
 };
