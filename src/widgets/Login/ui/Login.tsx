@@ -1,4 +1,5 @@
 import { LoginForm } from '@/features/auth';
+import { RegistrationLink } from '@/features/registrationLink';
 import { Avatar, Paper, Typography } from '@mui/material';
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { type JSX } from 'react';
@@ -34,7 +35,7 @@ export const Login = (): JSX.Element => {
         Sign in
       </Typography>
       <LoginForm></LoginForm>
-      <div>New user?</div>
+      <RegistrationLink></RegistrationLink>
     </Paper>
   );
 };
