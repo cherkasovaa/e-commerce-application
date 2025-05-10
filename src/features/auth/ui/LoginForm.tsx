@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const LoginForm = () => {
   useEffect(() => {
-    console.log('initiated login form');
+    console.log('form initialized');
   }, []);
   return <div>LoginForm</div>;
 };

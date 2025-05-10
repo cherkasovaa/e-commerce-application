@@ -14,6 +14,6 @@ export const authMiddlewareOptions: AuthMiddlewareOptions = {
     clientId: clientId,
     clientSecret: clientSecret,
   },
-  scopes: scopes.length !== 0 ? scopes.split(',') : [],
+  scopes: scopes.split(','),
   httpClient: fetch,
 };
