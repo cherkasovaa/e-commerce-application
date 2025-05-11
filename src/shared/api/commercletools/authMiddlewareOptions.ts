@@ -1,6 +1,6 @@
 import { type AuthMiddlewareOptions } from '@commercetools/ts-client';
 import {
-  apiURL,
+  authURL,
   clientId,
   clientSecret,
   projectKey,
@@ -8,7 +8,7 @@ import {
 } from './constants';
 
 export const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: apiURL,
+  host: authURL,
   projectKey: projectKey,
   credentials: {
     clientId: clientId,
