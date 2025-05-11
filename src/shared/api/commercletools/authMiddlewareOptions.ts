@@ -9,10 +9,10 @@ import {
 
 export const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: authURL,
-  projectKey: projectKey,
+  projectKey,
   credentials: {
-    clientId: clientId,
-    clientSecret: clientSecret,
+    clientId,
+    clientSecret,
   },
   scopes: scopes.split(','),
   httpClient: fetch,
