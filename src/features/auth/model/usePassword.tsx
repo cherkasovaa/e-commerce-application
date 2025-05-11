@@ -24,6 +24,6 @@ export const usePasswordField = () => {
     showPassword,
     handlePasswordChange,
     handleClickShowPassword,
-    isPasswordValid: password.trim() && !validatePassword(password),
+    isPasswordValid: !!password.trim() && !validatePassword(password),
   };
 };
