@@ -8,73 +8,33 @@ import {
   OutlinedInput,
 } from '@mui/material';
 
-import {
-  useState,
-  type FormEvent,
-  type JSX,
-  type ChangeEvent,
-  type MouseEvent,
-} from 'react';
+import { useState, type FormEvent, type JSX } from 'react';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import InputAdornment from '@mui/material/InputAdornment';
-import { validateEmail } from '../model/validateEmail';
-import { validatePassword } from '../model/validatePassword';
+import { useEmailField } from '../model/useEmail';
+import { usePasswordField } from '../model/usePassword';
 
 export const LoginForm = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { email, emailError, handleEmailChange, isEmailValid } =
+    useEmailField();
 
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const {
+    password,
+    passwordError,
+    showPassword,
+    handlePasswordChange,
+    handleClickShowPassword,
+    isPasswordValid,
+  } = usePasswordField();
+
+  const isFormValid = isEmailValid && isPasswordValid;
 
   const [loading, setIsLoading] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const isFormValid =
-    email.trim().length > 0 &&
-    password.trim().length > 0 &&
-    validateEmail(email) === '' &&
-    validatePassword(password) === '';
-
-  const handleClickShowPassword = (): void => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: MouseEvent<HTMLButtonElement>
-  ): void => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (
-    event: MouseEvent<HTMLButtonElement>
-  ): void => {
-    event.preventDefault();
-  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setIsLoading(true);
-  };
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const val = e.target.value;
-    setEmail(val);
-    if (val.trim().length === 0) {
-      setEmailError('');
-    } else {
-      setEmailError(validateEmail(val));
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const val = e.target.value;
-    setPassword(val);
-    if (val.trim().length === 0) {
-      setPasswordError('');
-    } else {
-      setPasswordError(validatePassword(val));
-    }
   };
 
   return (
@@ -120,8 +80,6 @@ export const LoginForm = (): JSX.Element => {
                   showPassword ? 'hide the password' : 'display the password'
                 }
                 onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
                 edge="end"
               >
                 {showPassword ? <VisibilityOff /> : <Visibility />}
