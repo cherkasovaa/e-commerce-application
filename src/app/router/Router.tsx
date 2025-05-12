@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage } from '@/pages/login';
+import { RegisterPage } from '@/pages/register';
 
 export const Router = (): React.JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LoginPage />} />
+      <Route path="/" element={<RegisterPage />} />
     </Routes>
   </BrowserRouter>
 );

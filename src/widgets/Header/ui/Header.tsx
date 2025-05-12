@@ -1,4 +1,4 @@
-import { Button } from '@/shared/ui/Button';
+import { Typography } from '@mui/material';
 export const Header = () => {
-  return <Button>test button</Button>;
+  return <Typography>header plug</Typography>;
 };
