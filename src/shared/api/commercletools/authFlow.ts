@@ -1,29 +1,59 @@
-import { ClientBuilder } from '@commercetools/ts-client';
-import { authMiddlewareOptions } from './authMiddlewareOptions';
+import { type Client, ClientBuilder } from '@commercetools/ts-client';
 import { httpMiddlewareOptions } from './httpMiddlewareOptions';
+import {
+  authURL,
+  scopes,
+  clientId,
+  clientSecret,
+  projectKey,
+} from './constants';
 
-export let currentClient = new ClientBuilder()
-  .withAnonymousSessionFlow(authMiddlewareOptions)
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .build();
+export let currentClient = createAnonymousClient();
 
-export function switchToPasswordFlow(username: string, password: string): void {
-  currentClient = new ClientBuilder()
-    .withPasswordFlow({
-      ...authMiddlewareOptions,
+export async function switchToPasswordFlow(
+  username: string,
+  password: string
+): Promise<void> {
+  const newClient = createClient(username, password);
+
+  currentClient = newClient;
+}
+
+export async function switchToAnonymousFlow(): Promise<void> {
+  const newClient = createAnonymousClient();
+
+  currentClient = newClient;
+}
+
+function createAnonymousClient(): Client {
+  return new ClientBuilder()
+    .withAnonymousSessionFlow({
+      host: authURL,
+      projectKey,
       credentials: {
-        clientId: authMiddlewareOptions.credentials.clientId,
-        clientSecret: authMiddlewareOptions.credentials.clientSecret,
-        user: { username, password },
+        clientId,
+        clientSecret,
       },
+      scopes: scopes.split(','),
+      httpClient: fetch,
     })
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 }
 
-export function switchToAnonymousFlow(): void {
-  currentClient = new ClientBuilder()
-    .withAnonymousSessionFlow(authMiddlewareOptions)
+function createClient(username: string, password: string): Client {
+  return new ClientBuilder()
+    .withPasswordFlow({
+      host: authURL,
+      projectKey,
+      credentials: {
+        clientId,
+        clientSecret,
+        user: { username, password },
+      },
+      scopes: scopes.split(','),
+      httpClient: fetch,
+    })
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 }
