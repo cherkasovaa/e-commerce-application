@@ -51,7 +51,7 @@ export const LoginForm = (): JSX.Element => {
           setIsLoading(false);
         },
         onSuccess: () => {
-          navigate('/main');
+          navigate('/');
         },
         onError: (error) => {
           const message = mapCommerceToolsError(error);
