@@ -22,6 +22,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AddressForm } from '@/features/addressForm';
 
 export const RegisterForm = () => {
   const {
@@ -100,6 +101,17 @@ export const RegisterForm = () => {
           )}
         />
       </LocalizationProvider>
+
+      <AddressForm
+        control={control}
+        title={'Address Information'}
+        fieldNames={{
+          country: 'address.country',
+          city: 'address.city',
+          street: 'address.street',
+          postcode: 'address.postcode',
+        }}
+      ></AddressForm>
 
       <Button variant="outlined" disabled={loading} type="submit">
         {loading ? <CircularProgress size={24} /> : 'Send'}
