@@ -51,7 +51,6 @@ export const LoginForm = (): JSX.Element => {
           setIsLoading(false);
         },
         onSuccess: () => {
-          localStorage.setItem('isAuthenticated', 'true');
           navigate('/main');
         },
         onError: (error) => {

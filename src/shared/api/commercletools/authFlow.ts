@@ -26,6 +26,7 @@ export async function switchToAnonymousFlow(): Promise<void> {
 }
 
 function createAnonymousClient(): Client {
+  localStorage.setItem('isAuthenticated', 'false');
   return new ClientBuilder()
     .withAnonymousSessionFlow({
       host: authURL,
@@ -42,6 +43,7 @@ function createAnonymousClient(): Client {
 }
 
 function createClient(username: string, password: string): Client {
+  localStorage.setItem('isAuthenticated', 'true');
   return new ClientBuilder()
     .withPasswordFlow({
       host: authURL,
