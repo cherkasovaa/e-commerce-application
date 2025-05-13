@@ -3,6 +3,11 @@ import {
   switchToAnonymousFlow,
   switchToPasswordFlow,
 } from '@/shared/api/commercletools/authFlow';
+import {
+  type ClientResponse,
+  type Customer,
+} from '@commercetools/platform-sdk';
+import { type HttpErrorType } from '@commercetools/ts-client';
 import { useMutation } from '@tanstack/react-query';
 
 const loginWithCommercetools = async (credentials: {
@@ -20,7 +25,11 @@ const loginWithCommercetools = async (credentials: {
 };
 
 export const useLogin = () => {
-  const { mutate } = useMutation({
+  const { mutate } = useMutation<
+    ClientResponse<Customer>,
+    HttpErrorType,
+    { email: string; password: string }
+  >({
     mutationFn: loginWithCommercetools,
   });
 

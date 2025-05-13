@@ -10,13 +10,15 @@ import {
 } from '@mui/material';
 
 import { type ChangeEvent, useState, type FormEvent, type JSX } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import InputAdornment from '@mui/material/InputAdornment';
+
 import { useEmailField } from '../model/useEmail';
 import { usePasswordField } from '../model/usePassword';
 import { useLogin } from '../model/useLogin';
-import { useNavigate } from 'react-router-dom';
+import { mapCommerceToolsError } from '../model/mapServerErrors';
 
 export const LoginForm = (): JSX.Element => {
   const { email, emailError, handleEmailChange, isEmailValid } =
@@ -53,9 +55,8 @@ export const LoginForm = (): JSX.Element => {
           navigate('/main');
         },
         onError: (error) => {
-          if (error.code === 'invalid_customer_account_credentials') {
-            setFormError('Сheck your username and password and try again');
-          }
+          const message = mapCommerceToolsError(error);
+          setFormError(message);
         },
       }
     );
