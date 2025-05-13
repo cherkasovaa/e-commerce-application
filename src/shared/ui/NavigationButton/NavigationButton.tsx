@@ -1,4 +1,4 @@
-import type { NavigationButtonProps } from '@/shared/types/NavigationButtonTypes';
+import type { NavigationButtonProps } from '@/shared/ui/NavigationButton/types/NavigationButtonTypes';
 import type { ButtonProps } from '@mui/material';
 import { Button } from '@mui/material';
 import React from 'react';

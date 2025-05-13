@@ -10,24 +10,12 @@ import { Layout } from '../layout/Layout';
 export const Router = (): React.JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Layout>
-            <MainPage />
-          </Layout>
-        }
-      />
-      <Route
-        path="/*"
-        element={
-          <Layout>
-            <NotFoundPage />
-          </Layout>
-        }
-      />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+        <Route path="*" element={<NotFoundPage />} />
 
-      <Route path="/login" element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} />
+      </Route>
       <Route path="/register" element={<RegisterPage />} />
     </Routes>
   </BrowserRouter>
