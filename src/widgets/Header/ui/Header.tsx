@@ -1,5 +1,4 @@
-import React from 'react';
-
-export const Header: React.FC = () => {
-  return <>Header</>;
+import { Typography } from '@mui/material';
+export const Header = () => {
+  return <Typography>header plug</Typography>;
 };
