@@ -1,3 +1,5 @@
+import type { TextFieldConfig } from './types';
+
 export const REGEX = {
   LETTERS_ONLY: /^[A-Za-z]+$/,
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -20,3 +22,10 @@ export const ERROR_MESSAGES = {
 };
 
 export const MIN_AGE = 13;
+
+export const TEXT_FIELDS: TextFieldConfig[] = [
+  { key: 'firstName', label: 'First Name' },
+  { key: 'lastName', label: 'Last Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'password', label: 'Password', type: 'password' },
+];

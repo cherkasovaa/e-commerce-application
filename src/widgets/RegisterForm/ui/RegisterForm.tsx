@@ -12,13 +12,7 @@ import type {
 } from 'react-hook-form';
 import { useForm, Controller } from 'react-hook-form';
 import type { RegisterFormData } from '../model';
-import {
-  validateFirstName,
-  validateLastName,
-  validateEmail,
-  validatePassword,
-  validateAge,
-} from '../model';
+import { validators, TEXT_FIELDS } from '../model';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -48,37 +42,21 @@ export const RegisterForm = () => {
       sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
     >
       <Typography>Register Form</Typography>
-      <TextField
-        label="First Name"
-        {...register('firstName', validateFirstName)}
-        error={!!errors.firstName}
-        helperText={errors.firstName?.message}
-      />
-      <TextField
-        label="Last Name"
-        {...register('lastName', validateLastName)}
-        error={!!errors.lastName}
-        helperText={errors.lastName?.message}
-      />
-      <TextField
-        label="Email"
-        {...register('email', validateEmail)}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
-
-      <TextField
-        label="Password"
-        {...register('password', validatePassword)}
-        error={!!errors.password}
-        helperText={errors.password?.message}
-        type="password"
-      />
+      {TEXT_FIELDS.map(({ key, label, type }) => (
+        <TextField
+          key={key}
+          label={label}
+          {...register(key, validators[key])}
+          type={type}
+          error={!!errors[key]}
+          helperText={errors[key]?.message}
+        />
+      ))}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Controller
           name="birthDate"
           control={control}
-          rules={{ validate: validateAge }}
+          rules={validators.birthDate}
           render={({
             field,
             fieldState,
@@ -88,7 +66,7 @@ export const RegisterForm = () => {
           }) => (
             <DatePicker
               label="Date of Birth"
-              value={field.value || undefined}
+              value={field.value ?? null}
               onChange={(date) => field.onChange(date)}
               slotProps={{
                 textField: {

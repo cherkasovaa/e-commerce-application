@@ -3,46 +3,27 @@ import type { FieldValues } from 'react-hook-form';
 import { Controller, useWatch } from 'react-hook-form';
 import type { CountryType, AddressFormProps } from '../model';
 import {
-  validateCountry,
-  validateCity,
-  validateStreet,
-  validatePostcode,
+  TEXT_FIELDS,
+  useValidators,
+  useCountryList,
+  isDynamicField,
 } from '../model';
-import { useEffect, useState } from 'react';
-import countries from 'i18n-iso-countries';
-import enLocale from 'i18n-iso-countries/langs/en.json';
-
-countries.registerLocale(enLocale);
 
 export const AddressForm = <T extends FieldValues>({
   control,
   title = 'title',
   fieldNames,
 }: AddressFormProps<T>) => {
-  const [countriesList, setCountriesList] = useState<CountryType[]>([]);
-
-  const selectedCountry = useWatch({
-    control,
-    name: fieldNames.country,
-  });
-
-  useEffect(() => {
-    const countriesData = Object.entries(
-      countries.getNames('en', { select: 'official' })
-    ).map(([code, label]) => ({
-      code,
-      label,
-    }));
-
-    setCountriesList(countriesData);
-  }, []);
+  const selectedCountry = useWatch({ control, name: fieldNames.country });
+  const countriesList = useCountryList();
+  const { validators, dynamicValidators } = useValidators<T>();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {title && <Typography variant="subtitle1">{title}</Typography>}
       <Controller
         name={fieldNames.country}
-        rules={validateCountry}
+        rules={validators.country}
         control={control}
         render={({ field, fieldState }) => {
           const value = field.value ?? null;
@@ -69,58 +50,30 @@ export const AddressForm = <T extends FieldValues>({
           );
         }}
       />
-      <Controller
-        name={fieldNames.city}
-        rules={validateCity}
-        control={control}
-        render={({ field, fieldState }) => {
-          const value = field.value ?? '';
-          return (
-            <TextField
-              {...field}
-              value={value}
-              label="City"
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message}
-            ></TextField>
-          );
-        }}
-      />
-      <Controller
-        name={fieldNames.street}
-        rules={validateStreet}
-        control={control}
-        render={({ field, fieldState }) => {
-          const value = field.value ?? '';
-          return (
-            <TextField
-              {...field}
-              value={value}
-              label="Street"
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message}
-            />
-          );
-        }}
-      />
-
-      <Controller
-        name={fieldNames.postcode}
-        control={control}
-        rules={validatePostcode(selectedCountry?.code)}
-        render={({ field, fieldState }) => {
-          const value = field.value ?? '';
-          return (
-            <TextField
-              {...field}
-              value={value}
-              label="Postcode"
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message}
-            />
-          );
-        }}
-      />
+      {TEXT_FIELDS.map(({ key, label }) => {
+        return (
+          <Controller
+            key={key}
+            name={fieldNames[key]}
+            control={control}
+            rules={
+              isDynamicField(key)
+                ? dynamicValidators[key](selectedCountry?.code)
+                : validators[key]
+            }
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                value={field.value ?? ''}
+                label={label}
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+                fullWidth
+              />
+            )}
+          />
+        );
+      })}
     </Box>
   );
 };
