@@ -1,7 +1,5 @@
-import { Header } from '@/widgets/Header';
+// import { Header } from '@/widgets/Header';
 
-export const LoginPage = () => (
-  <>
-    <Header />
-  </>
-);
+// import LockOutlinedIcon from "@mui/icon-material/LockOutlinedIcon"
+
+export const LoginPage = () => <>LoginPage</>;
