@@ -7,14 +7,9 @@ export const Router = (): React.JSX.Element => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route
-        path="/login"
-        element={
-          <AuthorizedRoute>
-            <LoginPage />
-          </AuthorizedRoute>
-        }
-      />
+      <Route element={<AuthorizedRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+      </Route>
     </Routes>
   </BrowserRouter>
 );
