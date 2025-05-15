@@ -3,11 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { APP_NAME } from '@/shared/config/constants';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const Logo: React.FC = () => (
   <Box
     component={Link}
-    to="/"
+    to={APP_PATHS.HOME}
     sx={{
       display: 'flex',
       alignItems: 'center',
@@ -28,7 +29,7 @@ export const Logo: React.FC = () => (
         color: 'inherit',
         textDecoration: 'none',
         textTransform: 'uppercase',
-        display: { xs: 'none', sm: 'block' },
+        display: { xs: 'none', md: 'block' },
       }}
     >
       {APP_NAME}
