@@ -16,7 +16,7 @@ export const Logo: React.FC = () => (
       gap: 1,
     }}
   >
-    <SportsEsportsIcon />
+    <SportsEsportsIcon fontSize="large" />
 
     <Typography
       variant="h6"
@@ -28,6 +28,7 @@ export const Logo: React.FC = () => (
         color: 'inherit',
         textDecoration: 'none',
         textTransform: 'uppercase',
+        display: { xs: 'none', sm: 'block' },
       }}
     >
       {APP_NAME}
