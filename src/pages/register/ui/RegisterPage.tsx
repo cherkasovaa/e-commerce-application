@@ -4,7 +4,7 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SUCCESS_TIME } from '../model';
 import { RegisterSuccess } from '@/widgets/RegisterSuccess';
-import AlreadyRegistered from '@/widgets/AlreadyRegistered/ui/AlreadyRegistered';
+import { AlreadyRegistered } from '@/widgets/AlreadyRegistered';
 
 export const RegisterPage: FC = () => {
   const navigate = useNavigate();

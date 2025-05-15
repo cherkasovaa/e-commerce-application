@@ -1,7 +1,7 @@
 import { Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-const AlreadyRegistered = () => {
+export const AlreadyRegistered = () => {
   return (
     <Typography
       variant="body2"
@@ -26,5 +26,3 @@ const AlreadyRegistered = () => {
     </Typography>
   );
 };
-
-export default AlreadyRegistered;
