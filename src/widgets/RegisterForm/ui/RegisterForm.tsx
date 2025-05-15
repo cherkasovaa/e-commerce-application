@@ -53,7 +53,9 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         onSubmit={handleSubmit(onSubmit)}
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
-        <Typography>Register Form</Typography>
+        <Typography variant="h2" component="h1" sx={{ textAlign: 'center' }}>
+          Register Form
+        </Typography>
         {TEXT_FIELDS.map(({ key, label, type }) => (
           <TextField
             key={key}

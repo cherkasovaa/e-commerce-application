@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export const AlreadyRegistered = () => {
   return (
     <Typography
-      variant="body2"
+      variant="body1"
       color="text.secondary"
       sx={{ textAlign: 'center' }}
     >
