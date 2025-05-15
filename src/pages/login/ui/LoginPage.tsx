@@ -1,5 +1,8 @@
-// import { Header } from '@/widgets/Header';
+import { Login } from '@/widgets/Login';
+import { Container } from '@mui/material';
 
-// import LockOutlinedIcon from "@mui/icon-material/LockOutlinedIcon"
-
-export const LoginPage = () => <>LoginPage</>;
+export const LoginPage = () => (
+  <Container maxWidth="md">
+    <Login />
+  </Container>
+);
