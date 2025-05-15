@@ -1,5 +1,6 @@
 import type { AddressData } from '@/features/addressForm';
 import type { UseControllerProps } from 'react-hook-form';
+import { RESPONSE_ERROR_MESSAGES } from './constants';
 
 export interface RegisterFormData {
   firstName: string;
@@ -22,3 +23,15 @@ export type RegisterFormValidators = {
     K
   >['rules'];
 };
+
+export type ErrorKey =
+  | '400:DuplicateField'
+  | '403'
+  | '404'
+  | '429'
+  | '500'
+  | 'default';
+
+export function isErrorKey(key: string): key is ErrorKey {
+  return Object.keys(RESPONSE_ERROR_MESSAGES).includes(key);
+}

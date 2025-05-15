@@ -11,7 +11,7 @@ export interface CountryType {
 }
 
 export interface AddressData {
-  country: CountryType | null;
+  country: CountryType;
   city: string;
   street: string;
   postcode: string;

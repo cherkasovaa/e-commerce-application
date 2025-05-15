@@ -1,4 +1,4 @@
-import type { TextFieldConfig } from './types';
+import type { TextFieldConfig, ErrorKey } from './types';
 
 export const REGEX = {
   LETTERS_ONLY: /^[A-Za-z]+$/,
@@ -29,3 +29,37 @@ export const TEXT_FIELDS: TextFieldConfig[] = [
   { key: 'email', label: 'Email' },
   { key: 'password', label: 'Password', type: 'password' },
 ];
+
+export const SUCCESS_TIME = 5 * 1000;
+
+export const ERROR_TITLE = 'Oops, an error occurred';
+
+export const RESPONSE_ERROR_MESSAGES: Record<
+  ErrorKey,
+  { title: string; message: string }
+> = {
+  '400:DuplicateField': {
+    title: 'Duplicate Entry',
+    message: 'There is already an existing customer with the provided email.',
+  },
+  403: {
+    title: 'Access Denied',
+    message: 'You do not have permission to perform this action.',
+  },
+  404: {
+    title: 'Not Found',
+    message: 'The requested resource could not be found.',
+  },
+  429: {
+    title: 'Too Many Requests',
+    message: 'You have sent too many requests in a given amount of time.',
+  },
+  500: {
+    title: 'Server Error',
+    message: 'An unexpected error occurred on the server.',
+  },
+  default: {
+    title: 'Unknown Error',
+    message: 'An unexpected error has occurred.',
+  },
+};
