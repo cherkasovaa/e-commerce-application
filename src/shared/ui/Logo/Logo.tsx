@@ -1,15 +1,36 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { APP_NAME } from '@/shared/config/constants';
 
 export const Logo: React.FC = () => (
   <Box
     component={Link}
     to="/"
-    sx={{ color: 'inherit', textDecoration: 'none' }}
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      color: 'inherit',
+      textDecoration: 'none',
+      gap: 1,
+    }}
   >
-    <Typography variant="h6" component="p">
-      Game Shop
+    <SportsEsportsIcon />
+
+    <Typography
+      variant="h6"
+      noWrap
+      sx={{
+        mr: 2,
+        fontWeight: 700,
+        letterSpacing: '.05rem',
+        color: 'inherit',
+        textDecoration: 'none',
+        textTransform: 'uppercase',
+      }}
+    >
+      {APP_NAME}
     </Typography>
   </Box>
 );
