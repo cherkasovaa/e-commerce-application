@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 export const AuthButtons: React.FC = () => (
-  <Box sx={{ display: 'flex', gap: 2 }}>
+  <Box sx={{ display: 'flex', gap: { xs: 1, sm: 2 } }}>
     <NavigationButton to="/login" color="inherit">
       Login
     </NavigationButton>
