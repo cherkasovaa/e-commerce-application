@@ -8,19 +8,21 @@ import { NotFoundPage } from '@/pages/not-found';
 import { Layout } from '../layout/Layout';
 import { CatalogPage } from '@/pages/catalog';
 import { CartPage } from '@/pages/cart';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const Router = (): React.JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path={APP_PATHS.HOME} element={<Layout />}>
         <Route index element={<MainPage />} />
-        <Route path="*" element={<NotFoundPage />} />
 
-        <Route path="login" element={<LoginPage />} />
-        <Route path="catalog" element={<CatalogPage />} />
-        <Route path="cart" element={<CartPage />} />
+        <Route path={APP_PATHS.LOGIN} element={<LoginPage />} />
+        <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
+        <Route path={APP_PATHS.CART} element={<CartPage />} />
+
+        <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path={APP_PATHS.REGISTER} element={<RegisterPage />} />
     </Routes>
   </BrowserRouter>
 );
