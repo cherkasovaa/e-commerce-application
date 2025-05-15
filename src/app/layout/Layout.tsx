@@ -1,4 +1,4 @@
-import { Header } from '@/widgets';
+import { Header } from '@/widgets/Header';
 import { Box, Container } from '@mui/material';
 import React from 'react';
 

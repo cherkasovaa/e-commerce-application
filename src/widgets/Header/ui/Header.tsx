@@ -4,7 +4,7 @@ import { AppBar, Toolbar } from '@mui/material';
 import React from 'react';
 
 export const Header: React.FC = () => {
-  localStorage.setItem('isAuthenticated', 'true');
+  // localStorage.setItem('isAuthenticated', 'true');
   const isAuth = localStorage.getItem('isAuthenticated') === 'true';
 
   return (
