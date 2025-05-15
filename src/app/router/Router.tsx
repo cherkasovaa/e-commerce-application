@@ -6,6 +6,8 @@ import { MainPage } from '@/pages/main';
 import { RegisterPage } from '@/pages/register';
 import { NotFoundPage } from '@/pages/not-found';
 import { Layout } from '../layout/Layout';
+import { CatalogPage } from '@/pages/catalog';
+import { CartPage } from '@/pages/cart';
 
 export const Router = (): React.JSX.Element => (
   <BrowserRouter>
@@ -15,6 +17,8 @@ export const Router = (): React.JSX.Element => (
         <Route path="*" element={<NotFoundPage />} />
 
         <Route path="login" element={<LoginPage />} />
+        <Route path="catalog" element={<CatalogPage />} />
+        <Route path="cart" element={<CartPage />} />
       </Route>
       <Route path="/register" element={<RegisterPage />} />
     </Routes>
