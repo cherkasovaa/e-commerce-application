@@ -35,3 +35,7 @@ export type ErrorKey =
 export function isErrorKey(key: string): key is ErrorKey {
   return Object.keys(RESPONSE_ERROR_MESSAGES).includes(key);
 }
+
+export interface RegisterFormProps {
+  onSuccess: () => void;
+}

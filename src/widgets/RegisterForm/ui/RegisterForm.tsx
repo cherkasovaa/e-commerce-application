@@ -10,7 +10,7 @@ import type {
   ControllerFieldState,
 } from 'react-hook-form';
 import { useForm, Controller } from 'react-hook-form';
-import type { RegisterFormData } from '../model';
+import type { RegisterFormData, RegisterFormProps } from '../model';
 import { validators, TEXT_FIELDS, useRegister, getErrorInfo } from '../model';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,7 +19,7 @@ import { AddressForm } from '@/features/addressForm';
 import { useState } from 'react';
 import { ErrorModal } from '@/shared/ui/ModalError';
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
@@ -35,11 +35,7 @@ export const RegisterForm = () => {
   const onSubmit = (data: RegisterFormData) => {
     registerUser(data, {
       onSuccess: () => {
-        //show success
-        // console.log('success');
-        // setTimeout(() => {}, SUCCESS_TIME);
-        // console.log('redirect');
-        //onSuccess();
+        onSuccess();
       },
       onError: (err) => {
         const { title, message } = getErrorInfo(err);

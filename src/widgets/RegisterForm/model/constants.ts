@@ -30,10 +30,6 @@ export const TEXT_FIELDS: TextFieldConfig[] = [
   { key: 'password', label: 'Password', type: 'password' },
 ];
 
-export const SUCCESS_TIME = 5 * 1000;
-
-export const ERROR_TITLE = 'Oops, an error occurred';
-
 export const RESPONSE_ERROR_MESSAGES: Record<
   ErrorKey,
   { title: string; message: string }
