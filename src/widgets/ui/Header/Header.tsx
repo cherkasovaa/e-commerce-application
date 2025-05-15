@@ -4,14 +4,14 @@ import { AppBar, Toolbar } from '@mui/material';
 import React from 'react';
 
 export const Header: React.FC = () => {
-  const auth = true;
+  const isAuth = localStorage.getItem('isAuthenticated') === 'true';
 
   return (
     <AppBar position="static" color="transparent">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Logo />
 
-        {auth ? <LogoutButton /> : <AuthButtons />}
+        {isAuth ? <LogoutButton /> : <AuthButtons />}
       </Toolbar>
     </AppBar>
   );
