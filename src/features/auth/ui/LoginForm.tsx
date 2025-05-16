@@ -1,20 +1,41 @@
-import { Box, Button, TextField } from '@mui/material';
-import { type FormEvent, useState, type JSX } from 'react';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material';
+
+import { useState, type FormEvent, type JSX } from 'react';
+
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import InputAdornment from '@mui/material/InputAdornment';
+import { useEmailField } from '../model/useEmail';
+import { usePasswordField } from '../model/usePassword';
 
 export const LoginForm = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { email, emailError, handleEmailChange, isEmailValid } =
+    useEmailField();
+
+  const {
+    password,
+    passwordError,
+    showPassword,
+    handlePasswordChange,
+    handleClickShowPassword,
+    isPasswordValid,
+  } = usePasswordField();
+
+  const isFormValid = isEmailValid && isPasswordValid;
 
   const [loading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(email, password);
   };
-
-  const passwordError = false;
-  const emailError = false;
 
   return (
     <Box
@@ -29,29 +50,55 @@ export const LoginForm = (): JSX.Element => {
         mb: 4,
       }}
     >
-      <TextField
-        id="outlined-basic"
-        label="Enter login"
-        variant="outlined"
+      <FormControl variant="outlined" fullWidth color="primary">
+        <InputLabel htmlFor="outlined-adornment-email">Enter email</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-email"
+          value={email}
+          onChange={handleEmailChange}
+          error={!!emailError}
+          label="Enter email"
+        />
+        {emailError && <FormHelperText error>{emailError}</FormHelperText>}
+      </FormControl>
+
+      <FormControl variant="outlined" fullWidth color="primary">
+        <InputLabel htmlFor="outlined-adornment-password">
+          Enter password
+        </InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-password"
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={handlePasswordChange}
+          error={!!passwordError}
+          label="Enter password"
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={
+                  showPassword ? 'hide the password' : 'display the password'
+                }
+                onClick={handleClickShowPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        {passwordError && (
+          <FormHelperText error>{passwordError}</FormHelperText>
+        )}
+      </FormControl>
+
+      <Button
+        type="submit"
+        variant="contained"
         fullWidth
-        autoFocus
-        helperText={emailError}
-        onChange={(e) => setEmail(e.target.value)}
-        color="primary"
-        focused
-      ></TextField>
-      <TextField
-        id="outlined-basic"
-        label="Enter password"
-        variant="outlined"
-        fullWidth
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        helperText={passwordError}
-        color="primary"
-        focused
-      ></TextField>
-      <Button type="submit" variant="contained" fullWidth loading={loading}>
+        loading={loading}
+        disabled={!isFormValid}
+      >
         Submit
       </Button>
     </Box>
