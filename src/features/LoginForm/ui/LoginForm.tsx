@@ -14,11 +14,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { useEmailField } from '../model/useEmail';
-import { usePasswordField } from '../model/usePassword';
-import { useLogin } from '../model/useLogin';
-import { mapCommerceToolsError } from '../model/mapServerErrors';
+import {
+  mapServerErrors,
+  useEmailField,
+  useLogin,
+  usePasswordField,
+} from '../model';
 
 export const LoginForm = (): JSX.Element => {
   const { email, emailError, handleEmailChange, isEmailValid } =
@@ -54,7 +55,7 @@ export const LoginForm = (): JSX.Element => {
           navigate('/');
         },
         onError: (error) => {
-          const message = mapCommerceToolsError(error);
+          const message = mapServerErrors(error);
           setFormError(message);
         },
       }
