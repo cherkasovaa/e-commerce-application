@@ -9,11 +9,9 @@ import {
 } from '@commercetools/platform-sdk';
 import { type HttpErrorType } from '@commercetools/ts-client';
 import { useMutation } from '@tanstack/react-query';
+import { type LoginFormData } from './types';
 
-const loginWithCommercetools = async (credentials: {
-  email: string;
-  password: string;
-}) => {
+const loginWithCommercetools = async (credentials: LoginFormData) => {
   try {
     await switchToPasswordFlow(credentials.email, credentials.password);
     const response = await getApiRoot().me().get().execute();
@@ -28,7 +26,7 @@ export const useLogin = () => {
   const { mutate } = useMutation<
     ClientResponse<Customer>,
     HttpErrorType,
-    { email: string; password: string }
+    LoginFormData
   >({
     mutationFn: loginWithCommercetools,
   });
