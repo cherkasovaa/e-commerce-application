@@ -13,12 +13,16 @@ export const ERROR_MESSAGES = {
   EMAIL_REQUIRED: 'Email is required',
   PASSWORD_REQUIRED: 'Password is required',
   BIRTH_DATE_REQUIRED: 'Date of birth is required',
+  SHIPPING_ADDRESS_REQUIRED: 'Please select a default shipping address',
+  BILLING_ADDRESS_REQUIRED: 'Please select a default billing address',
 
   LETTERS_ONLY: 'Only letters allowed',
   INVALID_EMAIL: 'Enter correct email',
   INVALID_PASSWORD:
     'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
   AGE_RESTRICTION: 'You must be older than 13 years old',
+  INVALID_SHIPPING_ADDRESS: 'Invalid default shipping address',
+  INVALID_BILLING_ADDRESS: 'Invalid default billing address',
 };
 
 export const MIN_AGE = 13;
@@ -58,4 +62,21 @@ export const RESPONSE_ERROR_MESSAGES: Record<
     title: 'Unknown Error',
     message: 'An unexpected error has occurred.',
   },
+};
+
+export const DEFAULT_FORM_VALUE = {
+  firstName: '',
+  secondName: '',
+  email: '',
+  password: '',
+  addresses: [
+    {
+      country: { code: '', label: '' },
+      city: '',
+      street: '',
+      postcode: '',
+    },
+  ],
+  defaultShippingAddress: 0,
+  defaultBillingAddress: 0,
 };
