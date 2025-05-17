@@ -5,14 +5,20 @@ import { type HttpErrorType } from '@commercetools/ts-client';
 export const getErrorInfo = (error: HttpErrorType) => {
   const statusCode = error.error?.statusCode;
   const reasonCode = error.code;
-  const key = `${statusCode}${reasonCode ? ':' + reasonCode : ''}`;
 
-  let errorInfo;
-  if (isErrorKey(key)) {
-    errorInfo = RESPONSE_ERROR_MESSAGES[key];
-  } else {
-    errorInfo = RESPONSE_ERROR_MESSAGES.default;
+  const statusCodeTyped =
+    typeof statusCode === 'string' || typeof statusCode === 'number'
+      ? String(statusCode)
+      : '';
+
+  const detailedKey = `${statusCode}:${reasonCode}`;
+  if (isErrorKey(detailedKey)) {
+    return RESPONSE_ERROR_MESSAGES[detailedKey];
   }
 
-  return errorInfo;
+  if (isErrorKey(statusCodeTyped)) {
+    return RESPONSE_ERROR_MESSAGES[statusCodeTyped];
+  }
+
+  return RESPONSE_ERROR_MESSAGES.default;
 };
