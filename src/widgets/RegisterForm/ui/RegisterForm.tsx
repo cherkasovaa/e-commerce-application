@@ -45,8 +45,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [errorMessage, setErrorMessage] = useState('');
   const {
     fields: addressFields,
-    // append,
-    // remove,
+    append,
+    remove,
   } = useFieldArray({
     name: 'addresses',
     control,
@@ -121,9 +121,27 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
 
         {addressFields.map((field, index) => (
           <Box key={field.id}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: 2,
+              }}
+            >
+              <Typography variant="body1">Address information</Typography>
+              {index > 0 && (
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => remove(index)}
+                >
+                  Delete this address
+                </Button>
+              )}
+            </Box>
             <AddressForm
               control={control}
-              title={'Address Information'}
               fieldNames={{
                 country: `addresses.${index}.country`,
                 city: `addresses.${index}.city`,
@@ -143,7 +161,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               }
             />
             <FormControlLabel
-              label="Set this address as default for shipping"
+              label="Set this address as default for billing"
               control={
                 <Radio
                   checked={watch('defaultBillingAddress') === index}
@@ -168,7 +186,26 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           </Typography>
         )}
 
-        <Button variant="outlined" disabled={isPending} type="submit">
+        <Button
+          variant="outlined"
+          color="info"
+          onClick={() =>
+            append({
+              country: { code: '', label: '' },
+              city: '',
+              street: '',
+              postcode: '',
+            })
+          }
+        >
+          Add another address
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          disabled={isPending}
+          type="submit"
+        >
           {isPending ? <CircularProgress size={24} /> : 'Send'}
         </Button>
       </Box>
