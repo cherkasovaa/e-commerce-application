@@ -15,8 +15,6 @@ export interface AddressData {
   city: string;
   street: string;
   postcode: string;
-  isDefaultShipping: boolean;
-  isDefaultBilling: boolean;
 }
 
 export interface AddressFieldNames<T> {
@@ -24,8 +22,6 @@ export interface AddressFieldNames<T> {
   city: Path<T>;
   street: Path<T>;
   postcode: Path<T>;
-  isDefaultShipping: Path<T>;
-  isDefaultBilling: Path<T>;
 }
 
 export interface AddressFormProps<T extends FieldValues> {
