@@ -20,6 +20,6 @@ export const useEmailField = (): IEmailFieldProps => {
     email,
     emailError,
     handleEmailChange,
-    isEmailValid: !!email.trim() && validateEmail(email) === '',
+    isEmailValid: validateEmail(email) === '',
   };
 };

@@ -1,3 +1,1 @@
-import { LoginForm } from './ui/LoginForm';
-
-export { LoginForm };
+export { LoginForm } from './ui/LoginForm';
