@@ -1,7 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import successImage from '../assets/success.jpg';
+import type { RegisterSuccessProps } from '../model';
+import { decline } from '../model';
 
-export const RegisterSuccess = () => {
+export const RegisterSuccess = ({ counter }: RegisterSuccessProps) => {
   return (
     <Box
       display="flex"
@@ -22,7 +24,8 @@ export const RegisterSuccess = () => {
       ></img>
       <Typography variant="body1">Your registration was successful!</Typography>
       <Typography variant="body1">
-        You will be redirected to the main page in couple seconds
+        You will be redirected to the main page in {counter}{' '}
+        {decline('second', counter)}
       </Typography>
     </Box>
   );
