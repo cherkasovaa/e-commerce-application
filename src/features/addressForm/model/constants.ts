@@ -1,9 +1,5 @@
 import type { TextFieldConfig } from './types';
 
-export const REGEX = {
-  LETTERS_ONLY: /^[A-Za-z]+$/,
-};
-
 export const ERROR_MESSAGES = {
   COUNTRY_REQUIRED: 'Country is required',
   CITY_REQUIRED: 'City is required',

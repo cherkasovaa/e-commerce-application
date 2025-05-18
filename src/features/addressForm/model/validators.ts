@@ -1,7 +1,8 @@
-import { ERROR_MESSAGES, REGEX, MIN_LENGTH } from './constants';
+import { ERROR_MESSAGES, MIN_LENGTH } from './constants';
 import PostalCodes from 'postal-codes-js';
 import type { FieldValues } from 'react-hook-form';
 import type { AddressValidators, AddressDynamicValidators } from './types';
+import { REGEX } from '@/shared/constants';
 
 export const createValidators = <
   T extends FieldValues,
