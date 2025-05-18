@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Router } from './router/Router';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '@/shared/config/theme';
