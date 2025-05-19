@@ -25,7 +25,7 @@ export const RegisterSuccess = ({ counter }: RegisterSuccessProps) => {
       <Typography variant="body1">Your registration was successful!</Typography>
       <Typography variant="body1">
         You will be redirected to the main page in {counter}{' '}
-        {decline('second', counter)}
+        {decline(['second', 'seconds'], counter)}
       </Typography>
     </Box>
   );

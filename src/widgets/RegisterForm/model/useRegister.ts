@@ -10,7 +10,7 @@ import {
 import { type HttpErrorType } from '@commercetools/ts-client';
 import { useMutation } from '@tanstack/react-query';
 import type { RegisterFormData } from './types';
-import { mapDataToCustomerDraft } from './mapDataToCustomerDraft';
+import { mapDataToCustomerDraft } from './helpers';
 
 const registerWithCommercetools = async (data: RegisterFormData) => {
   try {
