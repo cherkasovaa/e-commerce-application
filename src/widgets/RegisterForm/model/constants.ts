@@ -1,11 +1,5 @@
 import type { TextFieldConfig, ErrorKey } from './types';
 
-export const REGEX = {
-  LETTERS_ONLY: /^[A-Za-z]+$/,
-  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-};
-
 export const ERROR_MESSAGES = {
   REQUIRED: 'This field is required',
   FIRST_NAME_REQUIRED: 'First name is required',

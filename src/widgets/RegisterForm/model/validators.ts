@@ -1,5 +1,6 @@
-import { ERROR_MESSAGES, MIN_AGE, REGEX } from './constants';
+import { ERROR_MESSAGES, MIN_AGE } from './constants';
 import type { RegisterFormValidators } from './types';
+import { REGEX } from '@/shared/constants';
 
 export const validators: RegisterFormValidators = {
   firstName: {

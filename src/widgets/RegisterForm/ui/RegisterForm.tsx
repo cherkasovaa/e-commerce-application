@@ -6,7 +6,10 @@ import {
   Box,
   FormControlLabel,
   Radio,
+  IconButton,
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import InputAdornment from '@mui/material/InputAdornment';
 import type {
   ControllerRenderProps,
   ControllerFieldState,
@@ -43,6 +46,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorTitle, setErrorTitle] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const {
     fields: addressFields,
     append,
@@ -56,6 +60,10 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     register('defaultShippingAddress', validators.defaultShippingAddress);
     register('defaultBillingAddress', validators.defaultBillingAddress);
   }, [register]);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = (data: RegisterFormData) => {
     registerUser(data, {
@@ -86,9 +94,28 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             key={key}
             label={label}
             {...register(key, validators[key])}
-            type={type}
+            type={key === 'password' && showPassword ? 'text' : type}
             error={!!errors[key]}
             helperText={errors[key]?.message}
+            slotProps={{
+              input: {
+                endAdornment: key === 'password' && (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? 'hide the password'
+                          : 'display the password'
+                      }
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         ))}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
