@@ -4,14 +4,13 @@ import type { CustomerDraft } from '@commercetools/platform-sdk';
 export function mapDataToCustomerDraft(
   formData: RegisterFormData
 ): CustomerDraft {
-  const addresses = [
-    {
-      streetName: formData.address.street,
-      postalCode: formData.address.postcode,
-      city: formData.address.city,
-      country: formData.address.country.code,
-    },
-  ];
+  const addresses = formData.addresses.map((addressInfo) => ({
+    streetName: addressInfo.street,
+    postalCode: addressInfo.postcode,
+    city: addressInfo.city,
+    country: addressInfo.country.code,
+  }));
+
   const dateOfBirth = formData.birthDate
     ? formData.birthDate instanceof Date
       ? formData.birthDate.toISOString().split('T')[0]
@@ -25,7 +24,7 @@ export function mapDataToCustomerDraft(
     lastName: formData.lastName,
     dateOfBirth,
     addresses,
-    defaultShippingAddress: addresses.length > 0 ? 0 : undefined,
-    defaultBillingAddress: addresses.length > 0 ? 0 : undefined,
+    defaultShippingAddress: formData.defaultShippingAddress,
+    defaultBillingAddress: formData.defaultBillingAddress,
   };
 }

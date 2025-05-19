@@ -42,4 +42,15 @@ export const validators: RegisterFormValidators = {
       return age >= MIN_AGE || ERROR_MESSAGES.AGE_RESTRICTION;
     },
   },
-};
+  defaultShippingAddress: {
+    required: ERROR_MESSAGES.SHIPPING_ADDRESS_REQUIRED,
+    validate: (value) =>
+      (typeof value === 'number' && value >= 0) ||
+      ERROR_MESSAGES.INVALID_SHIPPING_ADDRESS,
+  },
+  defaultBillingAddress: {
+    required: ERROR_MESSAGES.BILLING_ADDRESS_REQUIRED,
+    validate: (value) =>
+      (typeof value === 'number' && value >= 0) ||
+      ERROR_MESSAGES.INVALID_BILLING_ADDRESS,
+  },

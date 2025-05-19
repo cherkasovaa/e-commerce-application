@@ -8,17 +8,19 @@ export interface RegisterFormData {
   email: string;
   password: string;
   birthDate: Date | undefined;
-  address: AddressData;
+  addresses: AddressData[];
+  defaultShippingAddress: number;
+  defaultBillingAddress: number;
 }
 
 export interface TextFieldConfig {
-  key: Exclude<keyof RegisterFormData, 'address' | 'birthDate'>;
+  key: 'firstName' | 'lastName' | 'email' | 'password';
   label: string;
   type?: 'text' | 'password' | 'email';
 }
 
 export type RegisterFormValidators = {
-  [K in keyof Omit<RegisterFormData, 'address'>]: UseControllerProps<
+  [K in keyof Omit<RegisterFormData, 'addresses'>]: UseControllerProps<
     RegisterFormData,
     K
   >['rules'];
