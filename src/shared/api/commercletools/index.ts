@@ -1,7 +1,12 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ctpClient } from './clientBuilder';
+import {
+  type ByProjectKeyRequestBuilder,
+  createApiBuilderFromCtpClient,
+} from '@commercetools/platform-sdk';
 import { projectKey } from './constants';
+import { currentClient } from './authFlow';
 
-export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey,
-});
+export function getApiRoot(): ByProjectKeyRequestBuilder {
+  return createApiBuilderFromCtpClient(currentClient).withProjectKey({
+    projectKey,
+  });
+}

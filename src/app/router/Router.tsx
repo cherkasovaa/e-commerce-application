@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { LoginPage } from '@/pages/login';
+import { AuthorizedRoute } from './AuthenticatedRoute';
 import { MainPage } from '@/pages/main';
 import { RegisterPage } from '@/pages/register';
 import { NotFoundPage } from '@/pages/not-found';
@@ -17,10 +18,13 @@ export const Router = (): React.JSX.Element => (
       <Route path={APP_PATHS.HOME} element={<Layout />}>
         <Route index element={<MainPage />} />
 
-        <Route path={APP_PATHS.LOGIN} element={<LoginPage />} />
+        <Route element={<AuthorizedRoute />}>
+          <Route path={APP_PATHS.LOGIN} element={<LoginPage />} />
+        </Route>
+
+        <Route path="login" element={<LoginPage />} />
         <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
         <Route path={APP_PATHS.CART} element={<CartPage />} />
-
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
       <Route path={APP_PATHS.REGISTER} element={<RegisterPage />} />
