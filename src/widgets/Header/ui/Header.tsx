@@ -6,14 +6,25 @@ import { AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { MenuDesktop } from '@/shared/ui/MenuDesktop/MenuDesktop';
 import { MenuMobile } from '@/shared/ui/MenuMobile/MenuMobile';
 import { APP_ROUTES } from '@/shared/config/routes/routes';
+import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 
 export const Header: FC = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorageService.getAuthStatus());
 
   useEffect(() => {
-    const auth = localStorage.getItem('isAuthenticated') === 'true';
-    setIsAuth(auth);
-  }, []);
+    setIsAuth(localStorageService.getAuthStatus());
+
+    const checkAuthStatus = (): void => {
+      const currentStatus = localStorageService.getAuthStatus();
+      if (isAuth !== currentStatus) {
+        setIsAuth(currentStatus);
+      }
+    };
+
+    const interval = setInterval(checkAuthStatus, 1000);
+
+    return (): void => clearInterval(interval);
+  }, [isAuth]);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -1,8 +1,8 @@
-import { getApiRoot } from '@/shared/api/commercletools';
+import { getApiRoot } from '@/shared/api/commercetools';
 import {
   switchToAnonymousFlow,
   switchToPasswordFlow,
-} from '@/shared/api/commercletools/authFlow';
+} from '@/shared/api/commercetools/authFlow';
 import {
   type ClientResponse,
   type Customer,
