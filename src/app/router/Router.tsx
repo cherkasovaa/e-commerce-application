@@ -22,7 +22,6 @@ export const Router = (): React.JSX.Element => (
           <Route path={APP_PATHS.LOGIN} element={<LoginPage />} />
         </Route>
 
-        <Route path="login" element={<LoginPage />} />
         <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
         <Route path={APP_PATHS.CART} element={<CartPage />} />
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
