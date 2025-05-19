@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField } from '@mui/material';
+import { Autocomplete, Box, Typography, TextField } from '@mui/material';
 import type { FieldValues } from 'react-hook-form';
 import { Controller, useWatch } from 'react-hook-form';
 import type { CountryType, AddressFormProps } from '../model';
@@ -11,6 +11,7 @@ import {
 
 export const AddressForm = <T extends FieldValues>({
   control,
+  title = 'title',
   fieldNames,
 }: AddressFormProps<T>) => {
   const selectedCountry = useWatch({ control, name: fieldNames.country });
@@ -19,6 +20,7 @@ export const AddressForm = <T extends FieldValues>({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {title && <Typography variant="subtitle1">{title}</Typography>}
       <Controller
         name={fieldNames.country}
         rules={validators.country}

@@ -63,7 +63,6 @@ export const RESPONSE_ERROR_MESSAGES: Record<
     message: 'An unexpected error has occurred.',
   },
 };
-
 export const DEFAULT_FORM_VALUE = {
   firstName: '',
   secondName: '',
