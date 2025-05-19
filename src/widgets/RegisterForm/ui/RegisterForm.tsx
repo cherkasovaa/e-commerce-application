@@ -18,6 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { AddressForm } from '@/features/addressForm';
+
 import { ErrorModal } from '@/shared/ui/ModalError';
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
@@ -54,7 +55,9 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         onSubmit={handleSubmit(onSubmit)}
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
-        <Typography>Register Form</Typography>
+        <Typography variant="h2" component="h1" sx={{ textAlign: 'center' }}>
+          Register Form
+        </Typography>
         {TEXT_FIELDS.map(({ key, label, type }) => (
           <TextField
             key={key}
