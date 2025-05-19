@@ -1,8 +1,3 @@
-import { getApiRoot } from '@/shared/api/commercetools';
-import {
-  switchToAnonymousFlow,
-  switchToPasswordFlow,
-} from '@/shared/api/commercetools/authFlow';
 import {
   type ClientResponse,
   type Customer,
@@ -10,6 +5,11 @@ import {
 import { type HttpErrorType } from '@commercetools/ts-client';
 import { useMutation } from '@tanstack/react-query';
 import { type ILoginFormProps } from './types';
+import {
+  switchToAnonymousFlow,
+  switchToPasswordFlow,
+} from '@/shared/api/commerceTools/authFlow';
+import { getApiRoot } from '@/shared/api/commerceTools';
 
 const loginWithCommercetools = async (credentials: ILoginFormProps) => {
   try {
