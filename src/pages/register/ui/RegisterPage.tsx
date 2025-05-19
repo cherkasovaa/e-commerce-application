@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { SUCCESS_TIME } from '../model';
 import { RegisterSuccess } from '@/widgets/RegisterSuccess';
 import { AlreadyRegistered } from '@/widgets/AlreadyRegistered';
-import { useCountDown } from '../model/useCountDown';
+import { useCountDown } from '../model';
 import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const RegisterPage = () => {
