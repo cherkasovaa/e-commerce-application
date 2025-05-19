@@ -6,6 +6,7 @@ import { SUCCESS_TIME } from '../model';
 import { RegisterSuccess } from '@/widgets/RegisterSuccess';
 import { AlreadyRegistered } from '@/widgets/AlreadyRegistered';
 import { useCountDown } from '../model/useCountDown';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const RegisterPage = () => {
   const onSuccess = async () => {
     setIsRegistered(true);
     await startCountDown();
-    navigate('/');
+    navigate(APP_PATHS.HOME);
   };
 
   return (

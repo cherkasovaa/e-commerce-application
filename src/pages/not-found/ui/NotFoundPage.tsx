@@ -9,6 +9,7 @@ import {
   PAGE_NOT_FOUNT_TITLE,
 } from '../constants/constants';
 import { NavigationButton } from '@/shared/ui';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const NotFoundPage: React.FC = () => (
   <>
@@ -38,7 +39,7 @@ export const NotFoundPage: React.FC = () => (
         <Typography component="p">{PAGE_NOT_FOUNT_DESCRIPTION}</Typography>
 
         <NavigationButton
-          to="/"
+          to={APP_PATHS.HOME}
           sx={{
             maxWidth: 'max-content',
             marginTop: 3,

@@ -1,3 +1,4 @@
+import { APP_PATHS } from '@/shared/config/routes/paths';
 import { Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ export const AlreadyRegistered = () => {
       Already have an account?{' '}
       <Link
         component={RouterLink}
-        to="/login"
+        to={APP_PATHS.LOGIN}
         sx={{
           color: 'red',
           fontWeight: 700,

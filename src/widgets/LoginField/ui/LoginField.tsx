@@ -3,6 +3,7 @@ import { LoginForm } from '@/features/LoginForm';
 import { Avatar, Paper, Typography } from '@mui/material';
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { Link } from 'react-router-dom';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const LoginField = (): JSX.Element => {
   return (
@@ -36,7 +37,8 @@ export const LoginField = (): JSX.Element => {
       </Typography>
       <LoginForm />
       <Typography sx={{ textAlign: 'center' }}>
-        Don't have an account yet? <Link to="/register">Register here!</Link>
+        Don't have an account yet?{' '}
+        <Link to={APP_PATHS.REGISTER}>Register here!</Link>
       </Typography>
     </Paper>
   );
