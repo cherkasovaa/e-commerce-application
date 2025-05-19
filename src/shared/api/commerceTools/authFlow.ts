@@ -7,6 +7,7 @@ import {
   clientSecret,
   projectKey,
 } from './constants';
+import { localStorageService } from '../../lib/localStorage/localStorageService';
 
 export let currentClient = createAnonymousClient();
 
@@ -26,7 +27,7 @@ export async function switchToAnonymousFlow(): Promise<void> {
 }
 
 function createAnonymousClient(): Client {
-  localStorage.setItem('isAuthenticated', 'false');
+  localStorageService.setAuthStatus(false);
   return new ClientBuilder()
     .withAnonymousSessionFlow({
       host: authURL,
@@ -43,7 +44,7 @@ function createAnonymousClient(): Client {
 }
 
 function createClient(username: string, password: string): Client {
-  localStorage.setItem('isAuthenticated', 'true');
+  localStorageService.setAuthStatus(true);
   return new ClientBuilder()
     .withPasswordFlow({
       host: authURL,
