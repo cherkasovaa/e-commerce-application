@@ -14,7 +14,7 @@ export const RegisterPage = () => {
   const onSuccess = async () => {
     setIsRegistered(true);
     await startCountDown();
-    navigate('/main');
+    navigate('/');
   };
 
   return (
