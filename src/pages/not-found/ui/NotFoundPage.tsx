@@ -2,13 +2,13 @@ import React from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Typography, Box, Stack } from '@mui/material';
 
-import pageNotFoundAnimation from '@/pages/assets/404_animation.lottie';
+import pageNotFoundAnimation from '../assets/404_animation.lottie';
 import {
   BACK_BUTTON_TEXT,
   PAGE_NOT_FOUNT_DESCRIPTION,
   PAGE_NOT_FOUNT_TITLE,
 } from '../constants/constants';
-import { NavigationButton } from '@/shared/ui/NavigationButton/NavigationButton';
+import { NavigationButton } from '@/shared/ui';
 
 export const NotFoundPage: React.FC = () => (
   <>
@@ -17,7 +17,7 @@ export const NotFoundPage: React.FC = () => (
       spacing={10}
       alignItems="center"
       justifyContent="center"
-      style={{ height: '100%' }}
+      sx={{ height: '100%' }}
     >
       <DotLottieReact
         src={pageNotFoundAnimation}

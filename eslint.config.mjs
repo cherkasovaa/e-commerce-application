@@ -29,10 +29,6 @@ export default [
       'no-undef': 'warn',
       'no-unused-vars': 'error',
       'class-methods-use-this': 'warn',
-      'max-lines-per-function': [
-        'warn',
-        { max: 40, skipBlankLines: true, skipComments: true },
-      ],
     },
   },
 

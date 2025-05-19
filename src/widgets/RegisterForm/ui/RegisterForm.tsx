@@ -5,6 +5,8 @@ import {
   CircularProgress,
   Box,
 } from '@mui/material';
+
+import { useState } from 'react';
 import type {
   ControllerRenderProps,
   ControllerFieldState,
@@ -16,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { AddressForm } from '@/features/addressForm';
-import { useState } from 'react';
+
 import { ErrorModal } from '@/shared/ui/ModalError';
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
