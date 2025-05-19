@@ -1,7 +1,8 @@
-import { Header } from '@/widgets/Header';
+import { Login } from '@/widgets/Login';
+import { Container } from '@mui/material';
 
 export const LoginPage = () => (
-  <>
-    <Header />
-  </>
+  <Container maxWidth="md">
+    <Login />
+  </Container>
 );
