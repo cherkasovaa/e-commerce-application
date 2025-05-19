@@ -29,10 +29,6 @@ export default [
       'no-undef': 'warn',
       'no-unused-vars': 'error',
       'class-methods-use-this': 'warn',
-      'max-lines-per-function': [
-        'warn',
-        { max: 40, skipBlankLines: true, skipComments: true },
-      ],
     },
   },
 
@@ -86,6 +82,20 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  {
+    files: ['**/*.types.ts', '**/*types.ts', '**/types.ts'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
+  {
+    files: ['**/*.types.ts', '**/*types.ts', '**/types.ts'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 

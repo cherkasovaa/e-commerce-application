@@ -12,6 +12,7 @@ export default defineConfig(({ command }) => {
     plugins: [react()],
     base: isBuild ? BASE_URL_PROD : BASE_URL_DEV,
     root: 'src',
+    publicDir: '../public',
     build: {
       outDir: '../dist',
       emptyOutDir: true,
@@ -34,6 +35,7 @@ export default defineConfig(({ command }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
+    assetsInclude: ['**/*.lottie'],
     server: {
       port: 3000,
       open: true,
