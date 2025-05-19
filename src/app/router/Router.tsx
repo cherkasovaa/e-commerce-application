@@ -20,13 +20,13 @@ export const Router = (): React.JSX.Element => (
 
         <Route element={<AuthorizedRoute />}>
           <Route path={APP_PATHS.LOGIN} element={<LoginPage />} />
+          <Route path={APP_PATHS.REGISTER} element={<RegisterPage />} />
         </Route>
 
         <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
         <Route path={APP_PATHS.CART} element={<CartPage />} />
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
-      <Route path={APP_PATHS.REGISTER} element={<RegisterPage />} />
     </Routes>
   </BrowserRouter>
 );
