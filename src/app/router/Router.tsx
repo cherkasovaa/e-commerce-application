@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 
 import { LoginPage } from '@/pages/login';
 import { AuthorizedRoute } from './AuthenticatedRoute';
@@ -13,7 +13,7 @@ import { CartPage } from '@/pages/cart';
 import { APP_PATHS } from '@/shared/config/routes/paths';
 
 export const Router = (): React.JSX.Element => (
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
       <Route path={APP_PATHS.HOME} element={<Layout />}>
         <Route index element={<MainPage />} />
@@ -28,5 +28,5 @@ export const Router = (): React.JSX.Element => (
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
