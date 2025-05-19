@@ -6,19 +6,26 @@ import {
   IconButton,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from '@mui/material';
 
-import { useState, type FormEvent, type JSX } from 'react';
+import { type ChangeEvent, useState, type FormEvent, type JSX } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import InputAdornment from '@mui/material/InputAdornment';
-import { useEmailField } from '../model/useEmail';
-import { usePasswordField } from '../model/usePassword';
+import {
+  mapServerErrors,
+  useEmailField,
+  useLogin,
+  usePasswordField,
+} from '../model';
 
 export const LoginForm = (): JSX.Element => {
   const { email, emailError, handleEmailChange, isEmailValid } =
     useEmailField();
 
+  const navigate = useNavigate();
   const {
     password,
     passwordError,
@@ -29,12 +36,44 @@ export const LoginForm = (): JSX.Element => {
   } = usePasswordField();
 
   const isFormValid = isEmailValid && isPasswordValid;
-
+  const [formError, setFormError] = useState('');
   const [loading, setIsLoading] = useState(false);
+
+  const { login } = useLogin();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setIsLoading(true);
+
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setIsLoading(false);
+        },
+        onSuccess: () => {
+          navigate('/');
+        },
+        onError: (error) => {
+          const message = mapServerErrors(error);
+          setFormError(message);
+        },
+      }
+    );
+  };
+
+  const handleEmailChangeAndClearError = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
+    if (formError) setFormError('');
+    handleEmailChange(e);
+  };
+
+  const handlePasswordChangeAndClearError = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
+    if (formError) setFormError('');
+    handlePasswordChange(e);
   };
 
   return (
@@ -55,7 +94,7 @@ export const LoginForm = (): JSX.Element => {
         <OutlinedInput
           id="outlined-adornment-email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={handleEmailChangeAndClearError}
           error={!!emailError}
           label="Enter email"
         />
@@ -70,7 +109,7 @@ export const LoginForm = (): JSX.Element => {
           id="outlined-adornment-password"
           type={showPassword ? 'text' : 'password'}
           value={password}
-          onChange={handlePasswordChange}
+          onChange={handlePasswordChangeAndClearError}
           error={!!passwordError}
           label="Enter password"
           endAdornment={
@@ -91,7 +130,7 @@ export const LoginForm = (): JSX.Element => {
           <FormHelperText error>{passwordError}</FormHelperText>
         )}
       </FormControl>
-
+      <Typography sx={{ color: 'red' }}>{formError}</Typography>
       <Button
         type="submit"
         variant="contained"

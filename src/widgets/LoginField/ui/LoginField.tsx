@@ -1,11 +1,11 @@
 import { type JSX } from 'react';
-import { LoginForm } from '@/features/auth';
+import { LoginForm } from '@/features/LoginForm';
 import { Avatar, Paper, Typography } from '@mui/material';
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { Link } from 'react-router-dom';
 import { APP_PATHS } from '@/shared/config/routes/paths';
 
-export const Login = (): JSX.Element => {
+export const LoginField = (): JSX.Element => {
   return (
     <Paper
       elevation={10}

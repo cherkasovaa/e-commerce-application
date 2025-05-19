@@ -1,7 +1,8 @@
 import { type ChangeEvent, useState } from 'react';
+import { type IPasswordFieldProps } from './types';
 import { validatePassword } from './validatePassword';
 
-export const usePasswordField = () => {
+export const usePasswordField = (): IPasswordFieldProps => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +25,6 @@ export const usePasswordField = () => {
     showPassword,
     handlePasswordChange,
     handleClickShowPassword,
-    isPasswordValid: !!password.trim() && !validatePassword(password),
+    isPasswordValid: !validatePassword(password),
   };
 };

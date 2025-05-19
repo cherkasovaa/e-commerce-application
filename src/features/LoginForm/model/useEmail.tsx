@@ -1,7 +1,8 @@
 import { type ChangeEvent, useState } from 'react';
+import { type IEmailFieldProps } from './types';
 import { validateEmail } from './validateEmail';
 
-export const useEmailField = () => {
+export const useEmailField = (): IEmailFieldProps => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
@@ -19,6 +20,6 @@ export const useEmailField = () => {
     email,
     emailError,
     handleEmailChange,
-    isEmailValid: !!email.trim() && validateEmail(email) === '',
+    isEmailValid: validateEmail(email) === '',
   };
 };
