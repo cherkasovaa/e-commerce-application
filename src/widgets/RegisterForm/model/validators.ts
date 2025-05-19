@@ -55,3 +55,4 @@ export const validators: RegisterFormValidators = {
       (typeof value === 'number' && value >= 0) ||
       ERROR_MESSAGES.INVALID_BILLING_ADDRESS,
   },
+};
