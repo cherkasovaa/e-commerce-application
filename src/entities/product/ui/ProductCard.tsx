@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { type JSX } from 'react';
 
-interface ProductCardProps {
+interface IProductCardProps {
   product: ProductProjection;
   onDetailsClick: () => void;
 }
@@ -18,7 +18,7 @@ interface ProductCardProps {
 export const ProductCard = ({
   product,
   onDetailsClick,
-}: ProductCardProps): JSX.Element => {
+}: IProductCardProps): JSX.Element => {
   const genre = product.masterVariant.attributes?.find(
     (attr) => attr.name === 'genre'
   )?.value.label;
@@ -41,7 +41,6 @@ export const ProductCard = ({
           '&:hover': {
             transform: 'scale(1.01)',
             boxShadow: `0 0 16px rgba(255, 0, 0, 0.3)`,
-            cursor: 'pointer',
           },
         }}
       >
