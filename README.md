@@ -11,6 +11,11 @@
 7. [Stylelint](https://stylelint.io/) — style linting;
 8. [Husky](https://github.com/typicode/husky#readme) + [lint-staged](https://github.com/lint-staged/lint-staged) + [commitlint](https://commitlint.js.org/) — automation for code and commit message checks.
 
+## Team
+- [Akseeniia](https://github.com/akseee)
+- [Anastasiia Kolmakova](https://github.com/aissatsana)
+- [Alina Cherkasova](https://github.com/cherkasovaa)
+
 ## Project Setup
 
 ### Cloning the repository
