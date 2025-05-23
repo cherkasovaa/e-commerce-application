@@ -4,5 +4,6 @@ export const APP_PATHS = {
   REGISTER: '/register',
   CATALOG: '/catalog',
   CART: '/cart',
+  PRODUCT: '/products/:id',
   NOT_FOUND: '*',
 } as const;
