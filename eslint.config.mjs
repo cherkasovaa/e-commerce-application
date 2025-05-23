@@ -27,7 +27,10 @@ export default [
     rules: {
       'no-console': 'warn',
       'no-undef': 'warn',
-      'no-unused-vars': 'error',
+      'no-unused-vars': [
+        "error",
+        { "argsIgnorePattern": "^_" }
+      ],
       'class-methods-use-this': 'warn',
     },
   },
@@ -91,14 +94,6 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
     },
   },
-  {
-    files: ['**/*.types.ts', '**/*types.ts', '**/types.ts'],
-    rules: {
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-    },
-  },
-
   {
     linterOptions: {
       noInlineConfig: true,
