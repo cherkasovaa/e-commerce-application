@@ -1,4 +1,4 @@
-import type { GenreProps } from '@/shared/types/GenreProps';
+import type { GenreProps } from '@/shared/types/genreProps';
 import { Box, Typography, useTheme } from '@mui/material';
 import type { FC } from 'react';
 

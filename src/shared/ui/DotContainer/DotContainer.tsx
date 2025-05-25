@@ -1,6 +1,6 @@
-import type { FC } from 'react';
-import type { DotContainerProps } from '@/shared/types/DotContainerProps';
+import type { DotContainerProps } from '@/shared/types/dotContainerProps';
 import { Box, useTheme } from '@mui/material';
+import type { FC } from 'react';
 
 export const DotContainer: FC<DotContainerProps> = ({
   images,
