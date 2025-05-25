@@ -47,4 +47,13 @@ export const theme = createTheme({
     borderRadius: 3,
   },
   spacing: 8,
+  custom: {
+    box: {
+      width: 32,
+      height: 32,
+      padding: '7px 0',
+      borderRadius: 3,
+      backgroundColor: '#58e30d',
+    },
+  },
 });
