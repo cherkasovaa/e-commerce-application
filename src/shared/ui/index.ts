@@ -1,6 +1,9 @@
-export { NavigationButton } from './NavigationButton/NavigationButton';
-export { Logo } from './Logo/Logo';
+export { DeveloperContainer } from './DeveloperContainer/DeveloperContainer';
 export { DotContainer } from './DotContainer/DotContainer';
-export { ImageSlide } from './ImageSlide/ImageSlide';
-export { SliderControls } from './SliderControls/SliderControls';
 export { GameRating } from './GameRating/GameRating';
+export { GenreContainer } from './GenreContainer/GenreContainer';
+export { ImageSlide } from './ImageSlide/ImageSlide';
+export { Logo } from './Logo/Logo';
+export { NavigationButton } from './NavigationButton/NavigationButton';
+export { PlatformContainer } from './PlatformContainer/PlatformContainer';
+export { SliderControls } from './SliderControls/SliderControls';
