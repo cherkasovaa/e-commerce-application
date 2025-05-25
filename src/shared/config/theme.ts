@@ -42,6 +42,10 @@ export const theme = createTheme({
       fontSize: '0.875rem',
       fontWeight: 400,
     },
+    caption: {
+      fontSize: '0.75rem',
+      fontWeight: 400,
+    },
   },
   shape: {
     borderRadius: 3,
