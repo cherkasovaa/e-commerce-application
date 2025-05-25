@@ -1,5 +1,6 @@
 import { LANGUAGE } from '@/shared/config/constants';
 import { getProductAttribute } from '@/shared/lib/products/getProductAttribute';
+import { getProductPrice } from '@/shared/lib/products/getProductPrice';
 import type { GameTag } from '@/shared/types/gameTag';
 import {
   DeveloperContainer,
@@ -8,6 +9,7 @@ import {
   GenreContainer,
   PlatformContainer,
 } from '@/shared/ui';
+import { PriceContainer } from '@/shared/ui/PriceContainer/PriceContainer';
 import { ImageSlider } from '@/widgets/ImageSlider';
 import type { ProductProjection } from '@commercetools/platform-sdk';
 import { Grid, Typography, useTheme } from '@mui/material';
@@ -29,6 +31,7 @@ export const ProductDetails = (props: ProductProjection): JSX.Element => {
   const rating = getProductAttribute<number>(props, 'rating');
   const platform = getProductAttribute<Label>(props, 'platform');
   const tags = getProductAttribute<GameTag[]>(props, 'tags');
+  const price = getProductPrice(props.masterVariant?.prices ?? []);
 
   return (
     <Grid container spacing={2}>
@@ -70,6 +73,8 @@ export const ProductDetails = (props: ProductProjection): JSX.Element => {
 
           {tags && <GameTagsContainer values={tags} />}
         </Grid>
+
+        <PriceContainer value={price} />
       </Grid>
     </Grid>
   );

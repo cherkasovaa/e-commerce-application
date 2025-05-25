@@ -6,5 +6,7 @@ export { GenreContainer } from './GenreContainer/GenreContainer';
 export { ImageSlide } from './ImageSlide/ImageSlide';
 export { Logo } from './Logo/Logo';
 export { NavigationButton } from './NavigationButton/NavigationButton';
+export { NotificationComponent } from './NotificationComponent/NotificationComponent';
 export { PlatformContainer } from './PlatformContainer/PlatformContainer';
+export { PriceContainer } from './PriceContainer/PriceContainer';
 export { SliderControls } from './SliderControls/SliderControls';
