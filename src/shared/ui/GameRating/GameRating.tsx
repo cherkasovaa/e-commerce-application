@@ -15,9 +15,7 @@ export const GameRating: FC<GameProps> = ({ value }): JSX.Element => {
   const label = 'Game rating';
 
   return (
-    <Box
-      sx={{ display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem' }}
-    >
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
       <Box
         sx={{
           width: styles.width,
@@ -42,7 +40,13 @@ export const GameRating: FC<GameProps> = ({ value }): JSX.Element => {
           {value}
         </Typography>
       </Box>
-      <Typography component="span" sx={{ color: theme.palette.text.secondary }}>
+      <Typography
+        component="span"
+        sx={{
+          color: theme.palette.text.secondary,
+          fontSize: theme.typography.caption,
+        }}
+      >
         {label}
       </Typography>
     </Box>
