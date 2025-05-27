@@ -1,3 +1,4 @@
+export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
 export { DeveloperContainer } from './DeveloperContainer/DeveloperContainer';
 export { DotContainer } from './DotContainer/DotContainer';
 export { GameRating } from './GameRating/GameRating';
