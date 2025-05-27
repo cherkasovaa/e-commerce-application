@@ -1,8 +1,9 @@
 import { NotFoundPage } from '@/pages/not-found';
 import { getProductById } from '@/shared/api/commerceTools/getProductById';
+import { MediaScreen } from '@/widgets/MediaScreen';
 import { ProductDetails } from '@/widgets/ProductDetails';
 import type { ProductProjection } from '@commercetools/platform-sdk';
-import { Skeleton } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
 import { useEffect, useState, type FC } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -29,5 +30,12 @@ export const ProductPage: FC = () => {
 
   const { key, ...rest } = product;
 
-  return <ProductDetails key={key} {...rest} />;
+  return (
+    <Grid container direction="column" spacing={6}>
+      <ProductDetails key={key} {...rest} />
+      {rest?.masterVariant?.images?.length && (
+        <MediaScreen images={rest.masterVariant.images} />
+      )}
+    </Grid>
+  );
 };
