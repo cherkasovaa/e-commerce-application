@@ -10,7 +10,6 @@ import {
   PlatformContainer,
 } from '@/shared/ui';
 import { PriceContainer } from '@/shared/ui/PriceContainer/PriceContainer';
-import { ImageSlider } from '@/widgets/ImageSlider';
 import type { ProductProjection } from '@commercetools/platform-sdk';
 import { Grid, Typography, useTheme } from '@mui/material';
 import type { JSX } from 'react';
@@ -20,7 +19,6 @@ interface Label {
 }
 
 export const ProductDetails = (props: ProductProjection): JSX.Element => {
-  // console.log(props);
   const theme = useTheme();
 
   const title = props.name?.[LANGUAGE.EN] || 'No name';
@@ -34,48 +32,41 @@ export const ProductDetails = (props: ProductProjection): JSX.Element => {
   const price = getProductPrice(props.masterVariant?.prices ?? []);
 
   return (
-    <Grid container spacing={2}>
-      <Grid container size={{ xs: 12, sm: 5 }}>
-        <ImageSlider images={props.masterVariant.images ?? []} />
+    <Grid
+      container
+      direction="column"
+      sx={{ justifyContent: 'flex-start', p: { xs: '50px 0', md: '100px 0' } }}
+    >
+      <Grid container sx={{ alignItems: 'center', gap: { xs: 1, md: 3 } }}>
+        {rating && <GameRating value={rating} />}
+        {developer && <DeveloperContainer value={developer} />}
+        {genre && <GenreContainer value={genre} />}
       </Grid>
 
-      <Grid
-        container
-        direction="column"
-        size={{ xs: 12, sm: 7 }}
-        sx={{ justifyContent: 'flex-start' }}
-      >
-        <Grid container sx={{ alignItems: 'center', gap: { xs: 1, md: 3 } }}>
-          {rating && <GameRating value={rating} />}
-          {developer && <DeveloperContainer value={developer} />}
-          {genre && <GenreContainer value={genre} />}
-        </Grid>
-
-        <Grid container spacing={3}>
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{ color: theme.palette.text.primary }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            sx={{ color: theme.palette.text.secondary }}
-          >
-            {description}
-          </Typography>
-        </Grid>
-
-        <Grid container sx={{ gap: 2, mt: 3 }}>
-          {platform && <PlatformContainer value={platform} />}
-
-          {tags && <GameTagsContainer values={tags} />}
-        </Grid>
-
-        <PriceContainer value={price} />
+      <Grid container spacing={3} sx={{ maxWidth: { xs: '100%', md: '60%' } }}>
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{ color: theme.palette.text.primary }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="body2"
+          component="p"
+          sx={{ color: theme.palette.text.secondary }}
+        >
+          {description}
+        </Typography>
       </Grid>
+
+      <Grid container sx={{ gap: 2, mt: 3 }}>
+        {platform && <PlatformContainer value={platform} />}
+
+        {tags && <GameTagsContainer values={tags} />}
+      </Grid>
+
+      <PriceContainer value={price} />
     </Grid>
   );
 };

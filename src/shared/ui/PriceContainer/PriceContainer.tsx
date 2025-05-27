@@ -19,7 +19,7 @@ export const PriceContainer: FC<PriceProps> = ({ value }) => {
     <Grid
       container
       direction="column"
-      sx={{ alignItems: 'flex-start', width: '100%' }}
+      sx={{ alignItems: 'flex-start', width: '100%', mt: 7 }}
     >
       {value.hasDiscount && (
         <Grid
