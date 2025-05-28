@@ -1,0 +1,42 @@
+import { ProductCard } from '@/entities/product';
+import { LoadingCircle } from '@/shared/ui/LoadingCircle/LoadingCircle';
+import { type ProductProjection } from '@commercetools/platform-sdk';
+import { Box, Grid, Typography } from '@mui/material';
+import { type JSX } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+interface ProductListProps {
+  products: ProductProjection[];
+  isLoading: boolean;
+}
+
+export const ProductList = ({
+  products,
+  isLoading,
+}: ProductListProps): JSX.Element => {
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
+  if (!products?.length) {
+    return (
+      <Box width="100%" textAlign="center" mt={4}>
+        <Typography variant="h6">No products found</Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Grid container spacing={2}>
+      {products.map((product) => (
+        <ProductCard
+          key={product.key}
+          product={product}
+          onDetailsClick={() => navigate(`/product/${product.id}`)}
+        />
+      ))}
+    </Grid>
+  );
+};
