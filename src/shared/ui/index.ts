@@ -4,7 +4,6 @@ export { DotContainer } from './DotContainer/DotContainer';
 export { GameRating } from './GameRating/GameRating';
 export { GameTagsContainer } from './GameTagsContainer/GameTagsContainer';
 export { GenreContainer } from './GenreContainer/GenreContainer';
-export { ImageSlide } from './ImageSlide/ImageSlide';
 export { Logo } from './Logo/Logo';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
