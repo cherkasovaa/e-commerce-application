@@ -137,6 +137,15 @@ export const CatalogSetting = (): JSX.Element => {
               />
             </Box>
             <ProductList products={products} isLoading={isLoading} />
+            <Box display="flex" justifyContent="center" mt={2}>
+              <Pagination
+                count={Math.ceil(total / Number(params.limit))}
+                page={params.page}
+                onChange={onPageChange}
+                disabled={isLoading}
+                size="large"
+              />
+            </Box>
           </Box>
         </Grid>
       </Grid>
