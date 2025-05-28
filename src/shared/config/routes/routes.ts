@@ -51,4 +51,12 @@ export const APP_ROUTES: AppRoutes[] = [
       title: APP_PAGE_NAMES.CART,
     },
   },
+  {
+    path: APP_PATHS.PROFILE,
+    name: APP_PAGE_NAMES.PROFILE,
+    meta: {
+      showInNavigateMenu: true,
+      title: APP_PAGE_NAMES.PROFILE,
+    },
+  },
 ];

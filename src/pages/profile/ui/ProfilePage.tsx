@@ -1,0 +1,126 @@
+import { useState } from 'react';
+import {
+  Container,
+  Button,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+} from '@mui/material';
+import { Edit, Person, LocationOn } from '@mui/icons-material';
+import { PersonalInfo } from '@/widgets/PersonalInfo';
+import { useGetUserInfo } from '../model/useGetUserInfo';
+import { AddressInfo } from '@/widgets/AddressInfo';
+import { getCountryName } from '../model/helpers';
+
+export const ProfilePage = () => {
+  const [isEditingPersonal, setIsEditingPersonal] = useState(false);
+  const [isEditingAddresses, setIsEditingAddresses] = useState(false);
+  const { data, isLoading, error } = useGetUserInfo();
+
+  if (isLoading) {
+    return (
+      <Container
+        maxWidth="md"
+        sx={{ display: 'flex', justifyContent: 'center', py: 8 }}
+      >
+        {/* <Loader /> */}
+      </Container>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <Container maxWidth="md" sx={{ py: 8 }}>
+        {/* <ServerError /> */}
+      </Container>
+    );
+  }
+
+  const customer = data.body;
+
+  const addresses =
+    customer.addresses?.map((address) => ({
+      id: address.id || '',
+      street: address.streetName || '',
+      city: address.city || '',
+      postalCode: address.postalCode || '',
+      country: getCountryName(address.country),
+    })) || [];
+
+  return (
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Typography variant="h4" component="h1" gutterBottom sx={{ mb: 4 }}>
+        My Profile
+      </Typography>
+
+      <Card sx={{ mb: 3, boxShadow: 2 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={3}
+          >
+            <Box display="flex" alignItems="center" gap={1}>
+              <Person color="primary" />
+              <Typography variant="h6">Personal Information</Typography>
+            </Box>
+            <Button
+              variant="outlined"
+              startIcon={<Edit />}
+              onClick={() => setIsEditingPersonal(true)}
+            >
+              Edit
+            </Button>
+          </Box>
+
+          {isEditingPersonal ? (
+            <div>there will be personal form</div>
+          ) : (
+            <PersonalInfo
+              firstName={customer.firstName || ''}
+              lastName={customer.lastName || ''}
+              birthDate={customer.dateOfBirth || ''}
+            />
+          )}
+        </CardContent>
+      </Card>
+
+      <Card sx={{ boxShadow: 2 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={3}
+          >
+            <Box display="flex" alignItems="center" gap={1}>
+              <LocationOn color="primary" />
+              <Typography variant="h6">
+                Addresses ({addresses.length})
+              </Typography>
+            </Box>
+            <Button
+              variant="outlined"
+              startIcon={<Edit />}
+              onClick={() => setIsEditingAddresses(true)}
+            >
+              Edit
+            </Button>
+          </Box>
+
+          {isEditingAddresses ? (
+            <div>there will be address form</div>
+          ) : (
+            <AddressInfo
+              addresses={addresses}
+              defaultShippingAddressId={customer.defaultShippingAddressId}
+              defaultBillingAddressId={customer.defaultBillingAddressId}
+            />
+          )}
+        </CardContent>
+      </Card>
+    </Container>
+  );
+};
