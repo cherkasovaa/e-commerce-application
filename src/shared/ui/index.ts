@@ -1,12 +1,9 @@
+export { AboutGame } from './AboutGame/AboutGame';
 export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
-export { DeveloperContainer } from './DeveloperContainer/DeveloperContainer';
 export { DotContainer } from './DotContainer/DotContainer';
 export { GameRating } from './GameRating/GameRating';
-export { GameTagsContainer } from './GameTagsContainer/GameTagsContainer';
-export { GenreContainer } from './GenreContainer/GenreContainer';
 export { Logo } from './Logo/Logo';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
-export { PlatformContainer } from './PlatformContainer/PlatformContainer';
 export { PriceContainer } from './PriceContainer/PriceContainer';
 export { SliderControls } from './SliderControls/SliderControls';
