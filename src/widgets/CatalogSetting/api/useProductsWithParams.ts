@@ -9,6 +9,7 @@ export const useProductsWithParams = (
   params: IUseProductsWithParamsProps
 ): IUseProductsWithParamsResponse => {
   const queryKey = ['products', JSON.stringify(params)];
+
   const { data, isLoading, isError } = useQuery({
     queryKey,
     queryFn: () => {

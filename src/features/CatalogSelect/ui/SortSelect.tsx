@@ -14,8 +14,8 @@ export const SortSelect = ({
         label="Sort By"
         onChange={(e) => onChange(e.target.value)}
       >
-        <MenuItem value="name[en-US] asc">Alphabetically, A-Z</MenuItem>
-        <MenuItem value="name[en-US]n desc">Alphabetically, Z-A</MenuItem>
+        <MenuItem value="name.en-US asc">Alphabetically, A-Z</MenuItem>
+        <MenuItem value="name.en-US desc">Alphabetically, Z-A</MenuItem>
         <MenuItem value="price asc">Price: Low to High</MenuItem>
         <MenuItem value="price desc">Price: High to Low</MenuItem>
       </Select>

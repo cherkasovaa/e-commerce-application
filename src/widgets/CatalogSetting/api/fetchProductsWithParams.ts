@@ -8,36 +8,26 @@ export const fetchProductsWithParams = async (
 ): Promise<ProductProjectionPagedSearchResponse> => {
   const { category, searchQuery, sort, limit, page, filters } = params;
 
-  const queryParams = new URLSearchParams();
+  const queryArgs: Record<string, string | string[]> = {
+    limit: String(limit),
+    offset: String((page - 1) * limit),
+    filter: [`categories.id:"${category}"`, ...buildFilters(filters)],
+  };
 
   if (searchQuery) {
-    queryParams.append('text.en', searchQuery);
-    queryParams.append('fuzzy', 'true');
-    queryParams.append('fuzzyLevel', '1');
+    queryArgs['text.en-US'] = searchQuery;
+    queryArgs['fuzzy'] = 'true';
+    queryArgs['fuzzyLevel'] = '1';
   }
 
   if (sort) {
-    queryParams.append('sort', sort);
+    queryArgs['sort'] = sort;
   }
-
-  queryParams.append('limit', String(limit));
-  queryParams.append('offset', String((page - 1) * limit));
-
-  const filterValues = [
-    `categories.id:"${category}"`,
-    ...buildFilters(filters),
-  ];
-
-  filterValues.forEach((filter) => {
-    queryParams.append('filter', filter);
-  });
 
   const result = await getApiRoot()
     .productProjections()
     .search()
-    .post({
-      body: queryParams.toString(),
-    })
+    .get({ queryArgs })
     .execute();
 
   return result.body;
@@ -59,12 +49,14 @@ function buildFilters(filters: IFilterData): string[] {
   }
 
   if (filters.genre) {
-    result.push(`variants.attributes.genre:"${filters.genre}"`);
+    result.push(
+      `variants.attributes.genre.key:"${filters.genre.toLowerCase()}"`
+    );
   }
 
   const selectedTags = Object.entries(filters.tags)
     .filter(([, checked]) => checked)
-    .map(([tag]) => `variants.attributes.tags.key:"${tag}"`);
+    .map(([tag]) => `variants.attributes.tags.key:"${tag.toLowerCase()}"`);
 
   result.push(...selectedTags);
 

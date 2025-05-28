@@ -74,7 +74,7 @@ export const FilterForm = ({
               onChange={(_, value) => field.onChange(value)}
               min={0}
               max={100}
-              step={0.5}
+              step={1}
               valueLabelDisplay="auto"
             />
           )}
@@ -92,7 +92,7 @@ export const FilterForm = ({
               onChange={(_, value) => field.onChange(value)}
               min={0}
               max={10}
-              step={0.5}
+              step={1}
               valueLabelDisplay="auto"
             />
           )}
@@ -113,6 +113,9 @@ export const FilterForm = ({
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 {genres.map((genre) => (
                   <MenuItem key={genre} value={genre}>
                     {genre}

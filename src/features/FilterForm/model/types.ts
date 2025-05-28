@@ -3,8 +3,8 @@ export interface IFilterFormProps {
 }
 
 export interface IFilterData {
-  price: [number, number];
-  rating: [number, number];
+  price: number[];
+  rating: number[];
   tags: Record<string, boolean>;
   genre: string;
 }
