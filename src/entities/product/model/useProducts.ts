@@ -7,7 +7,11 @@ interface IUseProductsResult {
 }
 
 const fetchProductsList = async (): Promise<ProductProjection[]> => {
-  const response = await getApiRoot().productProjections().get().execute();
+  const response = await getApiRoot()
+    .productProjections()
+    .search()
+    .get()
+    .execute();
   return response.body.results;
 };
 

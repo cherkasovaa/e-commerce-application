@@ -6,9 +6,11 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { type JSX } from 'react';
+import { getAttribute } from '../model';
 
 interface IProductCardProps {
   product: ProductProjection;
@@ -19,15 +21,12 @@ export const ProductCard = ({
   product,
   onDetailsClick,
 }: IProductCardProps): JSX.Element => {
-  const genre = product.masterVariant.attributes?.find(
-    (attr) => attr.name === 'genre'
-  )?.value.label;
-  const platform = product.masterVariant.attributes?.find(
-    (attr) => attr.name === 'platform'
-  )?.value.label;
-  const ratingValue = product.masterVariant.attributes?.find(
-    (attr) => attr.name === 'rating'
-  )?.value;
+  const genre = getAttribute(product, 'genre')?.value.label;
+
+  const platform = getAttribute(product, 'platform')?.value.label;
+  const ratingValue = getAttribute(product, 'rating')?.value;
+  const description =
+    product?.description?.['en-US'] ?? 'No description available.';
 
   const image = product.masterVariant.images?.[0]?.url;
   const placeholder =
@@ -85,6 +84,23 @@ export const ProductCard = ({
               {ratingValue}
             </Typography>
           </Box>
+          <Box>
+            <Tooltip title={description} placement="top">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}
+              >
+                {description}
+              </Typography>
+            </Tooltip>
+          </Box>
+
           <Box
             display="flex"
             justifyContent="space-between"
