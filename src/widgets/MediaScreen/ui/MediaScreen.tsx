@@ -1,18 +1,21 @@
 import { ImageSlider } from '@/widgets/ImageSlider';
 import { ModalWindow } from '@/widgets/ModalWindow';
 import type { Image } from '@commercetools/platform-sdk';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, GlobalStyles, Grid, Typography, useTheme } from '@mui/material';
 import { useState, type FC } from 'react';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { getSliderStyles } from '../lib/sliderStyles';
 
 interface MediaScreenProps {
   images: Image[] | undefined;
 }
 
 export const MediaScreen: FC<MediaScreenProps> = ({ images }) => {
+  const theme = useTheme();
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -41,6 +44,7 @@ export const MediaScreen: FC<MediaScreenProps> = ({ images }) => {
 
   return (
     <>
+      <GlobalStyles styles={getSliderStyles(theme)} />
       <Grid
         container
         direction="column"
