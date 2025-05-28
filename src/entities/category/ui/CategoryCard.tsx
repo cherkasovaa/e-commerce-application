@@ -4,23 +4,20 @@ import { type JSX } from 'react';
 
 interface ICategoryCardProps {
   category: Category;
-  imageUrl: string;
   onCategoryClick: () => void;
 }
 
 export const CategoryCard = ({
   category,
-  imageUrl,
   onCategoryClick,
 }: ICategoryCardProps): JSX.Element => {
   return (
-    <Grid size={{ xs: 4, sm: 3, md: 2 }}>
+    <Grid size={{ xs: 12, sm: 6, md: 3 }}>
       <ButtonBase
         onClick={onCategoryClick}
         sx={{
           width: '100%',
-          paddingTop: '100%',
-          borderRadius: 2,
+          paddingTop: { xs: '10%', sm: '30%', md: '40%' },
           overflow: 'hidden',
           position: 'relative',
           transition: 'transform 0.3s ease-in-out',
@@ -33,10 +30,14 @@ export const CategoryCard = ({
           sx={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(https://images.unsplash.com/photo-1664448288134-669f14c3ebbb?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'brightness(0.4)',
+            filter: {
+              xs: 'brightness(0.1)',
+              sm: 'brightness(0.4)',
+              md: 'brightness(0.4)',
+            },
           }}
         />
         <Box
@@ -51,15 +52,14 @@ export const CategoryCard = ({
           <Typography
             variant="subtitle1"
             sx={{
-              fontWeight: 600,
+              fontWeight: 700,
               textAlign: 'center',
               px: 1,
               color: 'white',
               textTransform: 'uppercase',
-              letterSpacing: '-1px',
             }}
           >
-            {category.name['en-GB']}
+            {category.name['en-US']}
           </Typography>
         </Box>
       </ButtonBase>

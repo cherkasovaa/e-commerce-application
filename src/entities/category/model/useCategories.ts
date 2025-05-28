@@ -7,7 +7,14 @@ interface IUseCategoriesResult {
 }
 
 const fetchCategoriesList = async (): Promise<Category[]> => {
-  const response = await getApiRoot().categories().get().execute();
+  const response = await getApiRoot()
+    .categories()
+    .get({
+      queryArgs: {
+        limit: 500,
+      },
+    })
+    .execute();
   return response.body.results;
 };
 
