@@ -5,9 +5,10 @@ import { AdditionalInfoScreen } from '@/widgets/AdditionalInfoScreen';
 import { MediaScreen } from '@/widgets/MediaScreen';
 import { ProductDetails } from '@/widgets/ProductDetails';
 import type { Category, ProductProjection } from '@commercetools/platform-sdk';
-import { Grid, Skeleton } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useEffect, useState, type FC } from 'react';
 import { useParams } from 'react-router-dom';
+import { ProductSkeleton } from './ProductSkeleton';
 
 export const ProductPage: FC = () => {
   const { id } = useParams();
@@ -48,7 +49,7 @@ export const ProductPage: FC = () => {
     fetchData(id);
   }, [id]);
 
-  if (loading) return <Skeleton variant="rounded" width={400} height={400} />;
+  if (loading) return <ProductSkeleton />;
   if (error) return <NotFoundPage />;
   if (!product) return <div>Product not found</div>;
 
