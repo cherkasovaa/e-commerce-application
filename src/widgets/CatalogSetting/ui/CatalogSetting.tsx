@@ -12,12 +12,9 @@ import {
   type SortValue,
 } from '@/features/CatalogSelect/model/types';
 import { useProductsWithParams } from '../api/useProductsWithParams';
-import {
-  DEFAULT_CATEGORY,
-  DEFAULT_FILTERS,
-  DEFAULT_PARAMS,
-} from '../model/constants';
+import { DEFAULT_FILTERS, DEFAULT_PARAMS } from '../model/constants';
 import { type IFilterData } from '@/features/FilterForm/model/types';
+import { DEFAULT_CATEGORY } from '@/entities/category/model/constants';
 
 export const CatalogSetting = (): JSX.Element => {
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
@@ -36,10 +33,13 @@ export const CatalogSetting = (): JSX.Element => {
       searchQuery: searchQuery.trim(),
       page: 1,
     });
+
   const onSortChange = (sort: SortValue): void =>
     updateParams({ category: DEFAULT_CATEGORY, sort, page: 1 });
+
   const onLimitChange = (limit: AmountValue): void =>
     updateParams({ category: DEFAULT_CATEGORY, limit, page: 1 });
+
   const onPageChange = (_e: ChangeEvent<unknown>, page: number): void =>
     updateParams({ category: DEFAULT_CATEGORY, page });
 
@@ -56,7 +56,12 @@ export const CatalogSetting = (): JSX.Element => {
   };
 
   const handleFilterFormData = (filters: IFilterData): void => {
-    setParams((prev) => ({ ...prev, filters, page: 1 }));
+    setParams((prev) => ({
+      ...prev,
+      category: DEFAULT_CATEGORY,
+      filters,
+      page: 1,
+    }));
   };
 
   return (

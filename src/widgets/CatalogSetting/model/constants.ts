@@ -1,7 +1,6 @@
 import { type IFilterData } from '@/features/FilterForm/model/types';
 import { type IProductsParams } from './types';
-
-export const DEFAULT_CATEGORY = '1e7d4bb3-0047-43e7-ac18-6fe7381690d9';
+import { DEFAULT_CATEGORY } from '@/entities/category/model/constants';
 
 export const DEFAULT_FILTERS: IFilterData = {
   price: [0, 100],
