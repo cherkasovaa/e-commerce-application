@@ -1,1 +1,0 @@
-export const DEFAULT_CATEGORY = '1e7d4bb3-0047-43e7-ac18-6fe7381690d9';

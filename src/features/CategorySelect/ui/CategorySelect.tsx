@@ -1,10 +1,10 @@
 import { CategoryCard } from '@/entities/category';
 import { Grid } from '@mui/material';
 import { useSpecificCategory } from '../model/useSpecificCategory';
-import { useState, type JSX } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { type ICategorySelectProps } from '../model/types';
 import { type Category } from '@commercetools/platform-sdk';
-import { DEFAULT_CATEGORY } from '@/entities/category/model/constants';
+import { useDefaultCategoryId } from '@/entities/category/model/getDefaulCategory';
 
 export const CategorySelect = ({
   onCategoryChange,
@@ -12,7 +12,15 @@ export const CategorySelect = ({
   const groupedCategories = useSpecificCategory('groups');
   const saleCategories = useSpecificCategory('sales');
 
-  const [activeCard, setActiveCard] = useState(DEFAULT_CATEGORY);
+  const defaultCategoryId = useDefaultCategoryId();
+
+  const [activeCard, setActiveCard] = useState('');
+
+  useEffect(() => {
+    if (defaultCategoryId) {
+      setActiveCard(defaultCategoryId);
+    }
+  }, [defaultCategoryId]);
 
   const setActive = (cat: Category): void => {
     onCategoryChange(cat.id);

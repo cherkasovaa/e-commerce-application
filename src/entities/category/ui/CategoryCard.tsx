@@ -36,7 +36,7 @@ export const CategoryCard = ({
             backgroundImage: `url(https://images.unsplash.com/photo-1664448288134-669f14c3ebbb?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: active ? 'brightness(0.1)' : 'brightness(0.4)',
+            filter: active ? 'brightness(0.2)' : 'brightness(0.4)',
           }}
         />
         <Box

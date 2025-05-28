@@ -5,7 +5,7 @@ import { FilterForm } from '@/features/FilterForm';
 import { SearchBar } from '@/features/SearchBar';
 import { ProductList } from '@/features/ProductList';
 import { Box, Button, Grid, Pagination, Stack } from '@mui/material';
-import { type ChangeEvent, type JSX, useState } from 'react';
+import { type ChangeEvent, type JSX, useEffect, useState } from 'react';
 import { type IProductsParams } from '../model/types';
 import {
   type AmountValue,
@@ -14,7 +14,7 @@ import {
 import { useProductsWithParams } from '../api/useProductsWithParams';
 import { DEFAULT_FILTERS, DEFAULT_PARAMS } from '../model/constants';
 import { type IFilterData } from '@/features/FilterForm/model/types';
-import { DEFAULT_CATEGORY } from '@/entities/category/model/constants';
+import { useDefaultCategoryId } from '@/entities/category/model/getDefaulCategory';
 
 export const CatalogSetting = (): JSX.Element => {
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
@@ -22,6 +22,15 @@ export const CatalogSetting = (): JSX.Element => {
   const [params, setParams] = useState<IProductsParams>(DEFAULT_PARAMS);
 
   const { products, total, isLoading } = useProductsWithParams(params);
+  const defaultCategoryId = useDefaultCategoryId();
+
+  useEffect(() => {
+    if (!defaultCategoryId) return;
+    setParams({
+      ...DEFAULT_PARAMS,
+      category: defaultCategoryId,
+    });
+  }, [defaultCategoryId]);
 
   const updateParams = (next: Partial<IProductsParams>): void => {
     setParams((prev) => ({ ...prev, ...next }));
@@ -29,19 +38,18 @@ export const CatalogSetting = (): JSX.Element => {
 
   const onSearchSubmit = (searchQuery: string): void =>
     updateParams({
-      category: DEFAULT_CATEGORY,
       searchQuery: searchQuery.trim(),
       page: 1,
     });
 
   const onSortChange = (sort: SortValue): void =>
-    updateParams({ category: DEFAULT_CATEGORY, sort, page: 1 });
+    updateParams({ sort, page: 1 });
 
   const onLimitChange = (limit: AmountValue): void =>
-    updateParams({ category: DEFAULT_CATEGORY, limit, page: 1 });
+    updateParams({ limit, page: 1 });
 
   const onPageChange = (_e: ChangeEvent<unknown>, page: number): void =>
-    updateParams({ category: DEFAULT_CATEGORY, page });
+    updateParams({ page });
 
   const onCategoryChange = (category: string): void => {
     setParams({
@@ -55,14 +63,8 @@ export const CatalogSetting = (): JSX.Element => {
     setIsFilterFormOpen(false);
   };
 
-  const handleFilterFormData = (filters: IFilterData): void => {
-    setParams((prev) => ({
-      ...prev,
-      category: DEFAULT_CATEGORY,
-      filters,
-      page: 1,
-    }));
-  };
+  const handleFilterFormData = (filters: IFilterData): void =>
+    updateParams({ filters, page: 1 });
 
   return (
     <Grid container p={4} size={12}>
