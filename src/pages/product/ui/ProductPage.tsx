@@ -1,6 +1,8 @@
+import { PageMeta } from '@/features/ProductMeta';
 import { NotFoundPage } from '@/pages/not-found';
 import { getCategoriesByIds } from '@/shared/api/commerceTools/getCategoriesByIds';
 import { getProductById } from '@/shared/api/commerceTools/getProductById';
+import { useProductMeta } from '@/shared/lib/hooks/useProductMeta';
 import { AdditionalInfoScreen } from '@/widgets/AdditionalInfoScreen';
 import { MediaScreen } from '@/widgets/MediaScreen';
 import { ProductDetails } from '@/widgets/ProductDetails';
@@ -49,6 +51,8 @@ export const ProductPage: FC = () => {
     fetchData(id);
   }, [id]);
 
+  const metaData = useProductMeta(product);
+
   if (loading) return <ProductSkeleton />;
   if (error) return <NotFoundPage />;
   if (!product) return <div>Product not found</div>;
@@ -56,14 +60,18 @@ export const ProductPage: FC = () => {
   const { key, ...rest } = product;
 
   return (
-    <Grid container direction="column">
-      <ProductDetails key={key} {...rest} />
+    <>
+      {metaData && <PageMeta {...metaData} />}
 
-      {rest?.masterVariant?.images?.length && (
-        <MediaScreen images={rest.masterVariant.images} />
-      )}
+      <Grid container direction="column">
+        <ProductDetails key={key} {...rest} />
 
-      <AdditionalInfoScreen categories={categories} gameData={rest} />
-    </Grid>
+        {rest?.masterVariant?.images?.length && (
+          <MediaScreen images={rest.masterVariant.images} />
+        )}
+
+        <AdditionalInfoScreen categories={categories} gameData={rest} />
+      </Grid>
+    </>
   );
 };
