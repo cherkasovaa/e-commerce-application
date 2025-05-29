@@ -46,6 +46,10 @@ export const ProductCard = ({
             '.discount-flag': {
               opacity: 0,
             },
+            '.price': {
+              transform: 'scale(1.2)',
+              transition: 'transform 0.3s ease-in-out',
+            },
           },
         }}
       >
@@ -160,6 +164,7 @@ export const ProductCard = ({
 
             <Stack display={'flex'} direction={'column'}>
               <Typography
+                className="price"
                 variant="subtitle1"
                 sx={{
                   textAlign: 'right',
@@ -167,6 +172,7 @@ export const ProductCard = ({
                     ? theme.palette.primary.dark
                     : theme.palette.primary.light,
                   fontWeight: 'bold',
+                  transition: 'transform  0.3s ease-in-out',
                 }}
               >
                 {discountedPrice
