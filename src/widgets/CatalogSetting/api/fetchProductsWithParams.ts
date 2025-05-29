@@ -15,7 +15,7 @@ export const fetchProductsWithParams = async (
   };
 
   if (searchQuery) {
-    queryArgs['text.en-US'] = searchQuery;
+    queryArgs['text.en-US'] = searchQuery.toLowerCase();
     queryArgs['fuzzy'] = 'true';
     queryArgs['fuzzyLevel'] = '1';
   }

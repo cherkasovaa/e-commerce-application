@@ -8,6 +8,7 @@ import {
   Grid,
   Tooltip,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { type JSX } from 'react';
 import { getAttribute } from '../model';
@@ -32,6 +33,8 @@ export const ProductCard = ({
   const placeholder =
     'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
+  const theme = useTheme();
+
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
       <Card
@@ -39,7 +42,7 @@ export const ProductCard = ({
           transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           '&:hover': {
             transform: 'scale(1.01)',
-            boxShadow: `0 0 16px rgba(255, 0, 0, 0.3)`,
+            boxShadow: `0 5px 16px ${theme.palette.primary.main}33`,
           },
         }}
       >
@@ -112,6 +115,19 @@ export const ProductCard = ({
               variant="outlined"
               onClick={onDetailsClick}
               color="secondary"
+              sx={{
+                backgroundColor: theme.palette.secondary.main,
+                color: theme.palette.secondary.contrastText,
+                transition:
+                  'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
+                '&:hover': {
+                  backgroundColor: theme.palette.secondary.dark,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.dark
+                  ),
+                  transform: 'scale(1.05)',
+                },
+              }}
             >
               view details
             </Button>
