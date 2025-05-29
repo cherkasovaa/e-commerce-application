@@ -6,6 +6,7 @@ import { NotificationComponent } from '../NotificationComponent/NotificationComp
 interface PriceProps {
   value: ProductPrice | null;
 }
+
 export const PriceContainer: FC<PriceProps> = ({ value }) => {
   const theme = useTheme();
 
