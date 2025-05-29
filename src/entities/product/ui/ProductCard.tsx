@@ -6,12 +6,15 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Stack,
   Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
 import { type JSX } from 'react';
-import { getAttribute } from '../model';
+
+import { useProductDetails } from '../model/useProductDetails';
+import { useProductPrice } from '../model/UseProductPrice';
 
 interface IProductCardProps {
   product: ProductProjection;
@@ -22,31 +25,53 @@ export const ProductCard = ({
   product,
   onDetailsClick,
 }: IProductCardProps): JSX.Element => {
-  const genre = getAttribute(product, 'genre')?.value.label;
-
-  const platform = getAttribute(product, 'platform')?.value.label;
-  const ratingValue = getAttribute(product, 'rating')?.value;
-  const description =
-    product?.description?.['en-US'] ?? 'No description available.';
-
-  const image = product.masterVariant.images?.[0]?.url;
-  const placeholder =
-    'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
-
   const theme = useTheme();
+
+  const { genre, platform, ratingValue, description, image } =
+    useProductDetails(product);
+
+  const { originalPrice, discountedPrice, currency, isDiscounted } =
+    useProductPrice(product);
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
       <Card
         sx={{
           transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+          height: '100%',
+          position: 'relative',
           '&:hover': {
             transform: 'scale(1.01)',
             boxShadow: `0 5px 16px ${theme.palette.primary.main}33`,
+            '.discount-flag': {
+              opacity: 0,
+            },
           },
         }}
       >
-        <CardMedia component="img" image={image || placeholder} height="200" />
+        {isDiscounted && (
+          <Box
+            className="discount-flag"
+            sx={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+              px: 1.5,
+              py: 0.5,
+              borderRadius: '4px',
+              fontSize: '0.75rem',
+              fontWeight: 'bold',
+              transition: 'opacity 0.2s ease',
+              zIndex: 1,
+              opacity: 0.8,
+            }}
+          >
+            On sale!
+          </Box>
+        )}
+        <CardMedia component="img" image={image} height="200" />
 
         <CardContent>
           <Typography
@@ -118,6 +143,7 @@ export const ProductCard = ({
               sx={{
                 backgroundColor: theme.palette.secondary.main,
                 color: theme.palette.secondary.contrastText,
+                border: 'none',
                 transition:
                   'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
                 '&:hover': {
@@ -132,15 +158,39 @@ export const ProductCard = ({
               view details
             </Button>
 
-            <Typography
-              variant="subtitle1"
-              color="primary"
-              sx={{ textAlign: 'right' }}
-            >
-              {product.masterVariant.prices?.[0]
-                ? `${(product.masterVariant.prices[0].value.centAmount / 100).toFixed(2)} ${product.masterVariant.prices[0].value.currencyCode}`
-                : '0 EUR'}
-            </Typography>
+            <Stack display={'flex'} direction={'column'}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  textAlign: 'right',
+                  color: discountedPrice
+                    ? theme.palette.primary.dark
+                    : theme.palette.primary.light,
+                  fontWeight: 'bold',
+                }}
+              >
+                {discountedPrice
+                  ? `${(discountedPrice / 100).toFixed(2)} ${currency}`
+                  : originalPrice
+                    ? `${(originalPrice / 100).toFixed(2)} ${currency}`
+                    : '0 EUR'}
+              </Typography>
+
+              {discountedPrice &&
+                originalPrice &&
+                discountedPrice < originalPrice && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      textAlign: 'right',
+                      color: 'text.secondary',
+                      textDecoration: 'line-through',
+                    }}
+                  >
+                    {(originalPrice / 100).toFixed(2)} {currency}
+                  </Typography>
+                )}
+            </Stack>
           </Box>
         </CardContent>
       </Card>
