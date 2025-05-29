@@ -1,19 +1,16 @@
-import { LANGUAGE } from '@/shared/config/constants';
-import { getProductAttribute } from '@/shared/lib/products/getProductAttribute';
-import { getProductPrice } from '@/shared/lib/products/getProductPrice';
+import type { ProductDetailsProps } from '@/pages/product/model/types';
 import { BreadcrumbsComponent, GameRating } from '@/shared/ui';
 import { PriceContainer } from '@/shared/ui/PriceContainer/PriceContainer';
-import type { ProductProjection } from '@commercetools/platform-sdk';
 import { Grid, Typography, useTheme } from '@mui/material';
 import type { JSX } from 'react';
 
-export const ProductDetails = (props: ProductProjection): JSX.Element => {
+export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
   const theme = useTheme();
   // console.log(props)
-  const title = props.name?.[LANGUAGE.EN] || 'No name';
-  const description = props.description?.[LANGUAGE.EN] || '';
-  const rating = getProductAttribute<number>(props, 'rating');
-  const price = getProductPrice(props.masterVariant?.prices ?? []);
+  const title = props.title;
+  const description = props.description;
+  const rating = props.rating;
+  const price = props.price;
 
   return (
     <Grid container direction="column">

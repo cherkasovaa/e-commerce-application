@@ -3,6 +3,7 @@ import { NotFoundPage } from '@/pages/not-found';
 import { getCategoriesByIds } from '@/shared/api/commerceTools/getCategoriesByIds';
 import { getProductById } from '@/shared/api/commerceTools/getProductById';
 import { useProductMeta } from '@/shared/lib/hooks/useProductMeta';
+import { getDataForProductDetails } from '@/shared/lib/products/getDataForProductDetails';
 import { AdditionalInfoScreen } from '@/widgets/AdditionalInfoScreen';
 import { MediaScreen } from '@/widgets/MediaScreen';
 import { ProductDetails } from '@/widgets/ProductDetails';
@@ -59,18 +60,24 @@ export const ProductPage: FC = () => {
 
   const { key, ...rest } = product;
 
+  const productDetailsData = getDataForProductDetails(product);
+
   return (
     <>
       {metaData && <PageMeta {...metaData} />}
 
       <Grid container direction="column">
-        <ProductDetails key={key} {...rest} />
+        <ProductDetails {...productDetailsData} />
 
         {rest?.masterVariant?.images?.length && (
           <MediaScreen images={rest.masterVariant.images} />
         )}
 
-        <AdditionalInfoScreen categories={categories} gameData={rest} />
+        <AdditionalInfoScreen
+          key={key}
+          categories={categories}
+          gameData={rest}
+        />
       </Grid>
     </>
   );
