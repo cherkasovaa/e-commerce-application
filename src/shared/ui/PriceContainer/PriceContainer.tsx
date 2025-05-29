@@ -10,7 +10,19 @@ export const PriceContainer: FC<PriceProps> = ({ value }) => {
   const theme = useTheme();
 
   if (!value) {
-    return <Typography component="span">Not available</Typography>;
+    return (
+      <Typography
+        variant="h6"
+        component="p"
+        sx={{
+          color: theme.palette.text.primary,
+          letterSpacing: '0.5px',
+          mt: 6,
+        }}
+      >
+        Price Not available
+      </Typography>
+    );
   }
 
   const discount = value.discount ? `-${value.discount}%` : '';
