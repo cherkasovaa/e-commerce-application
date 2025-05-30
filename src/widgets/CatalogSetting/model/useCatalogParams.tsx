@@ -8,7 +8,6 @@ import {
   type AmountValue,
 } from '@/features/CatalogSelect/model/types';
 import { type IFilterData } from '@/features/FilterForm/model/types';
-import { useProductsWithParams } from '../api/useProductsWithParams';
 
 export const useCatalogParams = () => {
   const [params, setParams] = useState<IProductsParams>(DEFAULT_PARAMS);
@@ -54,14 +53,9 @@ export const useCatalogParams = () => {
       updateParams({ filters, page: 1 }),
   };
 
-  const { products, total, isLoading } = useProductsWithParams(params);
-
   return {
     params,
     activeCategory,
-    products,
-    total,
-    isLoading,
     ...handlers,
   };
 };

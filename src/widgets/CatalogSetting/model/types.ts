@@ -28,4 +28,5 @@ export interface IUseProductsWithParamsResponse {
   total: number;
   isLoading: boolean;
   isError: boolean;
+  error: Error | null;
 }

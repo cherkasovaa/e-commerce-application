@@ -10,7 +10,7 @@ export const useProductsWithParams = (
 ): IUseProductsWithParamsResponse => {
   const queryKey = ['products', JSON.stringify(params)];
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey,
     queryFn: () => {
       return fetchProductsWithParams(params);
@@ -24,5 +24,6 @@ export const useProductsWithParams = (
     total: data?.total ?? 0,
     isLoading,
     isError,
+    error,
   };
 };

@@ -5,20 +5,20 @@ import { FilterForm } from '@/features/FilterForm';
 import { SearchBar } from '@/features/SearchBar';
 import { ProductList } from '@/features/ProductList';
 import { Box, Button, Grid, Pagination, Stack } from '@mui/material';
-import { type JSX, useState } from 'react';
+import { type JSX, useEffect, useState } from 'react';
 
 import { useCatalogParams } from '../model/useCatalogParams';
 import { CatalogBreadcrumbs } from '@/features/CatalogBreadcrumbs';
+import { useProductsWithParams } from '../api/useProductsWithParams';
+import { ErrorModal } from '@/shared/ui/ModalError';
 
 export const CatalogSetting = (): JSX.Element => {
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const {
     params,
     activeCategory,
-    products,
-    total,
-    isLoading,
     onSearchSubmit,
     onSortChange,
     onLimitChange,
@@ -27,8 +27,23 @@ export const CatalogSetting = (): JSX.Element => {
     onFilterSubmit,
   } = useCatalogParams();
 
+  const { products, total, isLoading, isError, error } =
+    useProductsWithParams(params);
+
+  useEffect(() => {
+    if (isError) setShowError(true);
+  }, [isError]);
+
   return (
     <Grid container p={4} size={12}>
+      <ErrorModal
+        open={showError}
+        title={`Error fetching data from server: ${error?.message}`}
+        message={'Try again later'}
+        onClose={() => {
+          setShowError(false);
+        }}
+      />
       <CategorySelect
         onCategoryChange={onCategoryChange}
         activeCategoryId={activeCategory?.id}
