@@ -10,7 +10,11 @@ const fetchProductsList = async (): Promise<ProductProjection[]> => {
   const response = await getApiRoot()
     .productProjections()
     .search()
-    .get()
+    .get({
+      queryArgs: {
+        limit: 500,
+      },
+    })
     .execute();
   return response.body.results;
 };
