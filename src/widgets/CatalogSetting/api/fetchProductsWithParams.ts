@@ -54,6 +54,12 @@ function buildFilters(filters: IFilterData): string[] {
     );
   }
 
+  if (filters.platform) {
+    result.push(
+      `variants.attributes.platform.key:"${filters.platform.toLowerCase()}"`
+    );
+  }
+
   const selectedTags = Object.entries(filters.tags)
     .filter(([, checked]) => checked)
     .map(([tag]) => `variants.attributes.tags.key:"${tag.toLowerCase()}"`);
