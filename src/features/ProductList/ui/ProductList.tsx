@@ -37,7 +37,7 @@ export const ProductList = ({
         <ProductCard
           key={product.key}
           product={product}
-          onDetailsClick={() => navigate(`/product/${product.id}`)}
+          onDetailsClick={() => navigate(`/catalog/${product.id}`)}
         />
       ))}
     </Grid>

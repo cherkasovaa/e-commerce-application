@@ -1,6 +1,7 @@
+import { type Category } from '@commercetools/platform-sdk';
 import { useCategories } from './useCategories';
 
-export const useDefaultCategoryId = (): string | undefined => {
+export const useDefaultCategoryId = (): Category | undefined => {
   const { categories } = useCategories();
 
   if (!categories || !categories.length) return undefined;
@@ -9,5 +10,5 @@ export const useDefaultCategoryId = (): string | undefined => {
     (category) => category.key === 'all-games'
   );
 
-  return defaultCategory?.id || categories[0].id;
+  return defaultCategory || categories[0];
 };
