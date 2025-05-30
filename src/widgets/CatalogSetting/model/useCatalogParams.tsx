@@ -2,7 +2,7 @@ import { useDefaultCategoryId } from '@/entities/category/model/getDefaulCategor
 import { DEFAULT_FILTERS, DEFAULT_PARAMS } from './constants';
 import { type IProductsParams } from './types';
 import { type Category } from '@commercetools/platform-sdk';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   type SortValue,
   type AmountValue,
@@ -22,40 +22,56 @@ export const useCatalogParams = () => {
     setParams({ ...DEFAULT_PARAMS, category: defaultCategory.id });
   }, [defaultCategory]);
 
-  const updateParams = (next: Partial<IProductsParams>): void => {
+  const updateParams = useCallback((next: Partial<IProductsParams>): void => {
     setParams((prev) => ({ ...prev, ...next }));
-  };
+  }, []);
 
-  const handlers = {
-    onCategoryChange: (category: Category): void => {
-      setActiveCategory(category);
-      setParams({
-        category: category.id,
-        page: 1,
-        searchQuery: '',
-        sort: DEFAULT_PARAMS.sort,
-        limit: DEFAULT_PARAMS.limit,
-        filters: DEFAULT_FILTERS,
-      });
-    },
+  const onCategoryChange = useCallback((category: Category): void => {
+    setActiveCategory(category);
+    setParams({
+      category: category.id,
+      page: 1,
+      searchQuery: '',
+      sort: DEFAULT_PARAMS.sort,
+      limit: DEFAULT_PARAMS.limit,
+      filters: DEFAULT_FILTERS,
+    });
+  }, []);
 
-    onSearchSubmit: (searchQuery: string): void =>
+  const onSearchSubmit = useCallback(
+    (searchQuery: string): void =>
       updateParams({ searchQuery: searchQuery.trim(), page: 1 }),
+    [updateParams]
+  );
 
-    onSortChange: (sort: SortValue): void => updateParams({ sort, page: 1 }),
+  const onSortChange = useCallback(
+    (sort: SortValue): void => updateParams({ sort, page: 1 }),
+    [updateParams]
+  );
 
-    onLimitChange: (limit: AmountValue): void =>
-      updateParams({ limit, page: 1 }),
+  const onLimitChange = useCallback(
+    (limit: AmountValue): void => updateParams({ limit, page: 1 }),
+    [updateParams]
+  );
 
-    onPageChange: (_e: unknown, page: number): void => updateParams({ page }),
+  const onPageChange = useCallback(
+    (_e: unknown, page: number): void => updateParams({ page }),
+    [updateParams]
+  );
 
-    onFilterSubmit: (filters: IFilterData): void =>
-      updateParams({ filters, page: 1 }),
-  };
+  const onFilterSubmit = useCallback(
+    (filters: IFilterData): void => updateParams({ filters, page: 1 }),
+    [updateParams]
+  );
 
   return {
     params,
     activeCategory,
-    ...handlers,
+    onCategoryChange,
+    onSearchSubmit,
+    onSortChange,
+    onLimitChange,
+    onPageChange,
+    onFilterSubmit,
   };
 };

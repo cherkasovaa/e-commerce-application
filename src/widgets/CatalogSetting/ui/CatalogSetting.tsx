@@ -5,7 +5,7 @@ import { FilterForm } from '@/features/FilterForm';
 import { SearchBar } from '@/features/SearchBar';
 import { ProductList } from '@/features/ProductList';
 import { Box, Button, Grid, Pagination, Stack } from '@mui/material';
-import { type JSX, useEffect, useState } from 'react';
+import { type JSX, useEffect, useMemo, useState } from 'react';
 
 import { useCatalogParams } from '../model/useCatalogParams';
 import { CatalogBreadcrumbs } from '@/features/CatalogBreadcrumbs';
@@ -33,6 +33,29 @@ export const CatalogSetting = (): JSX.Element => {
   useEffect(() => {
     if (isError) setShowError(true);
   }, [isError]);
+
+  const pageCount = useMemo(
+    () => Math.ceil(total / Number(params.limit)),
+    [total, params.limit]
+  );
+
+  const gridStyle = useMemo(
+    () => ({
+      display: 'grid',
+      gridTemplateColumns: {
+        xs: '1fr',
+        sm: '1fr',
+        md: isFilterFormOpen ? '1fr 3fr' : '0px 1fr',
+      },
+      gridTemplateRows: {
+        xs: isFilterFormOpen ? 'min-content 1fr' : '0px 1fr',
+        sm: isFilterFormOpen ? 'min-content 1fr' : '0px 1fr',
+        md: '1fr',
+      },
+      gap: isFilterFormOpen ? 5 : 0,
+    }),
+    [isFilterFormOpen]
+  );
 
   return (
     <Grid container p={4} size={12}>
@@ -68,7 +91,7 @@ export const CatalogSetting = (): JSX.Element => {
           <Button
             size="small"
             variant="contained"
-            onClick={() => setIsFilterFormOpen(!isFilterFormOpen)}
+            onClick={() => setIsFilterFormOpen((v) => !v)}
             sx={{ borderRadius: 0, height: '100%' }}
           >
             {isFilterFormOpen ? 'Hide' : 'Show'} filters
@@ -82,20 +105,7 @@ export const CatalogSetting = (): JSX.Element => {
           </Stack>
         </Grid>
 
-        <Grid
-          size={12}
-          spacing={4}
-          justifyContent={'center'}
-          sx={{
-            gridTemplateColumns: {
-              display: 'grid',
-              xs: '1fr',
-              sm: isFilterFormOpen ? '1fr 3fr' : '0px 1fr',
-              md: isFilterFormOpen ? '1fr 3fr' : '0px 1fr',
-            },
-            gap: isFilterFormOpen ? 5 : 0,
-          }}
-        >
+        <Grid size={12} spacing={4} justifyContent={'center'} sx={gridStyle}>
           <Box
             sx={{
               overflow: 'hidden',
@@ -109,7 +119,7 @@ export const CatalogSetting = (): JSX.Element => {
           <Box>
             <Box display="flex" justifyContent="center" mb={2}>
               <Pagination
-                count={Math.ceil(total / Number(params.limit))}
+                count={pageCount}
                 page={params.page}
                 onChange={onPageChange}
                 disabled={isLoading}
@@ -119,7 +129,7 @@ export const CatalogSetting = (): JSX.Element => {
             <ProductList products={products} isLoading={isLoading} />
             <Box display="flex" justifyContent="center" mt={2}>
               <Pagination
-                count={Math.ceil(total / Number(params.limit))}
+                count={pageCount}
                 page={params.page}
                 onChange={onPageChange}
                 disabled={isLoading}
