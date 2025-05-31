@@ -8,7 +8,6 @@ import {
   projectKey,
 } from './constants';
 import { localStorageService } from '../../lib/localStorage/localStorageService';
-import { getApiRoot } from '.';
 
 export let currentClient = createAnonymousClient();
 
@@ -18,24 +17,17 @@ export async function switchToPasswordFlow(
 ): Promise<void> {
   const newClient = createClient(username, password);
 
-  try {
-    const response = await getApiRoot().me().get().execute();
-    localStorageService.setCustomerId(response.body.id);
-    localStorageService.setAuthStatus(true);
-
-    currentClient = newClient;
-  } catch {
-    throw new Error('Failed to authenticate user');
-  }
+  currentClient = newClient;
 }
+
 export async function switchToAnonymousFlow(): Promise<void> {
   const newClient = createAnonymousClient();
+
   currentClient = newClient;
 }
 
 function createAnonymousClient(): Client {
   localStorageService.setAuthStatus(false);
-  localStorageService.removeCustomerId();
   return new ClientBuilder()
     .withAnonymousSessionFlow({
       host: authURL,
@@ -52,6 +44,7 @@ function createAnonymousClient(): Client {
 }
 
 function createClient(username: string, password: string): Client {
+  localStorageService.setAuthStatus(true);
   return new ClientBuilder()
     .withPasswordFlow({
       host: authURL,

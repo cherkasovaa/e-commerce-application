@@ -3,7 +3,7 @@ import {
   type Customer,
 } from '@commercetools/platform-sdk';
 import { type HttpErrorType } from '@commercetools/ts-client';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { type ILoginFormProps } from './types';
 import {
   switchToAnonymousFlow,
@@ -24,12 +24,16 @@ const loginWithCommercetools = async (credentials: ILoginFormProps) => {
 };
 
 export const useLogin = () => {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation<
     ClientResponse<Customer>,
     HttpErrorType,
     ILoginFormProps
   >({
     mutationFn: loginWithCommercetools,
+    onSuccess: (response) => {
+      queryClient.setQueryData(['customer'], response.body);
+    },
   });
 
   return { login: mutate };

@@ -50,6 +50,7 @@ export const createUpdateActions = (
 
 //TO DO: put as const
 export const mapServerErrors = (error: HttpErrorType) => {
+  console.log(error);
   if (error.errors) {
     const ctError = error.errors[0];
 

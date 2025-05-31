@@ -1,19 +1,16 @@
 import { getApiRoot } from '@/shared/api/commerceTools';
-import {
-  type ClientResponse,
-  type Customer,
-} from '@commercetools/platform-sdk';
+import { type Customer } from '@commercetools/platform-sdk';
 import { type HttpErrorType } from '@commercetools/ts-client';
 import { useQuery } from '@tanstack/react-query';
 
-const getUserInfo = async (): Promise<ClientResponse<Customer>> => {
-  const customerInfo = await getApiRoot().me().get().execute();
-  return customerInfo;
+const getUserInfo = async (): Promise<Customer> => {
+  const response = await getApiRoot().me().get().execute();
+  return response.body;
 };
 
 export const useGetUserInfo = () => {
-  return useQuery<ClientResponse<Customer>, HttpErrorType>({
-    queryKey: ['userInfo'],
+  return useQuery<Customer, HttpErrorType>({
+    queryKey: ['customer'],
     queryFn: getUserInfo,
   });
 };

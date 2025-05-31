@@ -8,6 +8,7 @@ export const PersonalInfo: React.FC<PersonalInfoProps> = ({
   birthDate,
   email,
 }) => {
+  //PUT TO SHARED
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',

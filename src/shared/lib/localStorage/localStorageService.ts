@@ -15,16 +15,4 @@ export const localStorageService = {
   clearAuthStatus(): void {
     localStorage.removeItem(LS_KEYS.AUTH);
   },
-
-  setCustomerId(id: string): void {
-    localStorage.setItem(LS_KEYS.CUSTOMER_ID, id);
-  },
-
-  getCustomerId(): string | null {
-    return localStorage.getItem(LS_KEYS.CUSTOMER_ID);
-  },
-
-  removeCustomerId(): void {
-    localStorage.removeItem(LS_KEYS.CUSTOMER_ID);
-  },
 };

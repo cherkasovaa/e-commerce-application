@@ -18,7 +18,7 @@ export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
   const [isEditingAddresses, setIsEditingAddresses] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { data, isLoading, error } = useGetUserInfo();
+  const { data: customer, isLoading, error } = useGetUserInfo();
 
   if (isLoading) {
     return (
@@ -31,7 +31,7 @@ export const ProfilePage = () => {
     );
   }
 
-  if (error || !data || isError) {
+  if (error || !customer || isError) {
     return (
       <Container maxWidth="md" sx={{ py: 8 }}>
         {/* <ServerError /> */}
@@ -39,10 +39,8 @@ export const ProfilePage = () => {
     );
   }
 
-  const customer = data.body;
-
   const addresses =
-    customer.addresses?.map((address) => ({
+    customer?.addresses?.map((address) => ({
       id: address.id || '',
       street: address.streetName || '',
       city: address.city || '',
