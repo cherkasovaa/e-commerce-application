@@ -6,11 +6,11 @@ import type { FC, JSX } from 'react';
 import { Link } from 'react-router-dom';
 
 interface BreadcrumbsComponentProps {
-  gameName: string;
+  pageName: string;
 }
 
 export const BreadcrumbsComponent: FC<BreadcrumbsComponentProps> = ({
-  gameName,
+  pageName,
 }): JSX.Element => {
   const linkStyles = {
     textDecoration: 'none',
@@ -45,7 +45,7 @@ export const BreadcrumbsComponent: FC<BreadcrumbsComponentProps> = ({
         {APP_PAGE_NAMES.CATALOG}
       </MuiLink>
       <Typography sx={{ color: 'text.primary', textTransform: 'uppercase' }}>
-        {gameName}
+        {pageName}
       </Typography>
     </Breadcrumbs>
   );

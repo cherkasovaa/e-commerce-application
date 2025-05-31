@@ -6,7 +6,7 @@ import type { JSX } from 'react';
 
 export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
   const theme = useTheme();
-  // console.log(props)
+
   const title = props.title;
   const description = props.description;
   const rating = props.rating;
@@ -14,7 +14,7 @@ export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
 
   return (
     <Grid container direction="column">
-      <BreadcrumbsComponent gameName={title} />
+      <BreadcrumbsComponent pageName={title} />
 
       <Grid
         container
