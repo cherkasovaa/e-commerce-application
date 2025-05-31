@@ -42,7 +42,7 @@ export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
           <Typography
             variant="body2"
             component="p"
-            sx={{ color: theme.palette.text.secondary }}
+            sx={{ color: theme.palette.text.secondary, fontSize: 18 }}
           >
             {description}
           </Typography>
