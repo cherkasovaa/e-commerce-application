@@ -12,10 +12,12 @@ import { PersonalInfo } from '@/widgets/PersonalInfo';
 import { useGetUserInfo } from '../model/useGetUserInfo';
 import { AddressInfo } from '@/widgets/AddressInfo';
 import { getCountryName } from '../model/helpers';
+import { PersonalEditForm } from '@/widgets/PersonalEditForm';
 
 export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
   const [isEditingAddresses, setIsEditingAddresses] = useState(false);
+  const [isError, setIsError] = useState(false);
   const { data, isLoading, error } = useGetUserInfo();
 
   if (isLoading) {
@@ -29,7 +31,7 @@ export const ProfilePage = () => {
     );
   }
 
-  if (error || !data) {
+  if (error || !data || isError) {
     return (
       <Container maxWidth="md" sx={{ py: 8 }}>
         {/* <ServerError /> */}
@@ -76,7 +78,27 @@ export const ProfilePage = () => {
           </Box>
 
           {isEditingPersonal ? (
-            <div>there will be personal form</div>
+            <PersonalEditForm
+              initialData={{
+                firstName: customer.firstName || '',
+                lastName: customer.lastName || '',
+                email: customer.email || '',
+                birthDate:
+                  typeof customer.dateOfBirth === 'string'
+                    ? new Date(customer.dateOfBirth)
+                    : undefined,
+              }}
+              onSuccess={() => {
+                setIsEditingPersonal(false);
+              }}
+              onError={() => {
+                setIsEditingPersonal(false);
+                setIsError(true);
+              }}
+              onCancel={() => {
+                setIsEditingPersonal(false);
+              }}
+            />
           ) : (
             <PersonalInfo
               firstName={customer.firstName || ''}

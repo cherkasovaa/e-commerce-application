@@ -9,7 +9,7 @@ export interface PersonalFormData {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  password?: string;
   birthDate: Date | undefined;
 }
 
@@ -17,7 +17,7 @@ export interface PersonalFieldNames<T> {
   firstName: Path<T>;
   lastName: Path<T>;
   email: Path<T>;
-  password: Path<T>;
+  password?: Path<T>;
   birthDate: Path<T>;
 }
 

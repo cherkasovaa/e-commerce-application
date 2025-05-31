@@ -20,43 +20,49 @@ export const PersonalForm = <T extends FieldValues>({
     <>
       {TEXT_FIELDS.map(({ key, label, type }) => {
         return (
-          <Controller
-            key={key}
-            name={fieldNames[key]}
-            control={control}
-            rules={validators[key]}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                value={field.value ?? ''}
-                label={label}
-                type={key === 'password' && showPassword ? 'text' : type}
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-                fullWidth
-                slotProps={{
-                  input: {
-                    endAdornment:
-                      key === 'password' ? (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label={
-                              showPassword
-                                ? 'hide the password'
-                                : 'display the password'
-                            }
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ) : undefined,
-                  },
-                }}
-              />
-            )}
-          />
+          fieldNames[key] && (
+            <Controller
+              key={key}
+              name={fieldNames[key]}
+              control={control}
+              rules={validators[key]}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  value={field.value ?? ''}
+                  label={label}
+                  type={key === 'password' && showPassword ? 'text' : type}
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                  fullWidth
+                  slotProps={{
+                    input: {
+                      endAdornment:
+                        key === 'password' ? (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label={
+                                showPassword
+                                  ? 'hide the password'
+                                  : 'display the password'
+                              }
+                              onClick={handleClickShowPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ) : undefined,
+                    },
+                  }}
+                />
+              )}
+            />
+          )
         );
       })}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
