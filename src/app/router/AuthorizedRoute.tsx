@@ -7,9 +7,9 @@ export const AuthorizedRoute = (): JSX.Element => {
   return (
     <>
       {localStorageService.getAuthStatus() ? (
-        <Navigate replace to={APP_PATHS.LOGIN} />
-      ) : (
         <Outlet />
+      ) : (
+        <Navigate replace to={APP_PATHS.LOGIN} />
       )}
     </>
   );
