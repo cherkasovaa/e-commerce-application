@@ -6,6 +6,7 @@ export const DEFAULT_FILTERS: IFilterData = {
   rating: [0, 10],
   tags: {},
   genre: '',
+  platform: '',
 };
 
 export const DEFAULT_PARAMS: IProductsParams = {
