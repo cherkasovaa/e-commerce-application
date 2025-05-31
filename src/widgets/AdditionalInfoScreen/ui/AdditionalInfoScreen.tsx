@@ -12,8 +12,16 @@ export const AdditionalInfoScreen: FC<CategoriesProps> = ({
   const descriptionEmptyText =
     'There is no description for this game, but we will try to add it soon.';
 
-  const description =
-    gameData.description?.[LANGUAGE.EN] || descriptionEmptyText;
+  const getChunksFromDescriptionText = (text: string): string[] =>
+    text.split('\n');
+
+  let description: string | string[] = descriptionEmptyText;
+
+  if (gameData.description?.[LANGUAGE.EN]) {
+    description = getChunksFromDescriptionText(
+      gameData.description?.[LANGUAGE.EN]
+    ).filter((chunk) => chunk);
+  }
 
   const theme = useTheme();
 
@@ -40,7 +48,15 @@ export const AdditionalInfoScreen: FC<CategoriesProps> = ({
               boxShadow: '0 0 12px rgba(0, 0, 0, 0.15)',
             }}
           >
-            {description}
+            {Array.isArray(description) ? (
+              description.map((chunk, index) => (
+                <Typography key={`chunk_${index}`} sx={{ mb: 2 }}>
+                  {chunk}
+                </Typography>
+              ))
+            ) : (
+              <Typography>{description}</Typography>
+            )}
           </Box>
         </Grid>
 

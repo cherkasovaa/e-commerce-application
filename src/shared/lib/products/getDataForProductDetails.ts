@@ -8,7 +8,10 @@ export const getDataForProductDetails = (
   data: ProductProjection
 ): ProductDetailsProps => {
   const title = data.name?.[LANGUAGE.EN] || 'No name';
-  const description = data.description?.[LANGUAGE.EN] || '';
+  const description =
+    data.metaDescription?.[LANGUAGE.EN] ||
+    data.description?.[LANGUAGE.EN] ||
+    '';
   const rating = getProductAttribute<number>(data, 'rating');
   const price = getProductPrice(data.masterVariant?.prices ?? []);
 

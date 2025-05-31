@@ -10,7 +10,10 @@ export const useProductMeta = (
     if (!product) return null;
 
     const title = `${product.name?.[LANGUAGE.EN] || 'Page'} | ${APP_NAME}`;
-    const description = `${product.description?.[LANGUAGE.EN] || ''}.`;
+    const description =
+      product.metaDescription?.[LANGUAGE.EN] ||
+      product.description?.[LANGUAGE.EN] ||
+      '';
 
     return {
       title,
