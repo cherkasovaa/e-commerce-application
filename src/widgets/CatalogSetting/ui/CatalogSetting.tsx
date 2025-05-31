@@ -11,6 +11,7 @@ import { useCatalogParams } from '../model/useCatalogParams';
 import { CatalogBreadcrumbs } from '@/features/CatalogBreadcrumbs';
 import { useProductsWithParams } from '../api/useProductsWithParams';
 import { ErrorModal } from '@/shared/ui/ModalError';
+import { LANGUAGE } from '@/shared/config/constants';
 
 export const CatalogSetting = (): JSX.Element => {
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
@@ -71,7 +72,7 @@ export const CatalogSetting = (): JSX.Element => {
         onCategoryChange={onCategoryChange}
         activeCategoryId={activeCategory?.id}
       />
-      <CatalogBreadcrumbs category={activeCategory?.name['en-US']} />
+      <CatalogBreadcrumbs category={activeCategory?.name[LANGUAGE.EN]} />
       <Grid container spacing={4} size={12}>
         <Grid size={12}>
           <SearchBar

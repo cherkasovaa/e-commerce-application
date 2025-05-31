@@ -15,6 +15,7 @@ import { type JSX } from 'react';
 
 import { useProductDetails } from '../model/useProductDetails';
 import { useProductPrice } from '../model/UseProductPrice';
+import { LANGUAGE } from '@/shared/config/constants';
 
 interface IProductCardProps {
   product: ProductProjection;
@@ -86,7 +87,7 @@ export const ProductCard = ({
             fontWeight="bold"
             mb={3}
           >
-            {product.name['en-US']}
+            {product.name[LANGUAGE.EN]}
           </Typography>
           <Box
             display="flex"

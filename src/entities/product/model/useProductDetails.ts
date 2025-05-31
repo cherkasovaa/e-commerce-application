@@ -1,5 +1,6 @@
 import { type ProductProjection } from '@commercetools/platform-sdk';
 import { getAttribute } from './getAttribute';
+import { LANGUAGE } from '@/shared/config/constants';
 
 interface IProductMetaDetails {
   genre: string;
@@ -17,7 +18,7 @@ export const useProductDetails = (
   const ratingValue = getAttribute(product, 'rating')?.value ?? undefined;
 
   const description =
-    product?.description?.['en-US'] ?? 'No description available.';
+    product?.description?.[LANGUAGE.EN] ?? 'No description available.';
 
   const image = product.masterVariant.images?.[0]?.url ?? undefined;
   const placeholder =

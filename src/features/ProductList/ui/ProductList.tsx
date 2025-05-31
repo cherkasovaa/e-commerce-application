@@ -1,4 +1,6 @@
 import { ProductCard } from '@/entities/product';
+import { LANGUAGE } from '@/shared/config/constants';
+import { APP_PATHS } from '@/shared/config/routes/paths';
 import { LoadingCircle } from '@/shared/ui/LoadingCircle/LoadingCircle';
 import { type ProductProjection } from '@commercetools/platform-sdk';
 import { Box, Grid, Typography } from '@mui/material';
@@ -31,13 +33,17 @@ export const ProductList = ({
     );
   }
 
+  const getProductPath = (id: string): string => `${APP_PATHS.CATALOG}/${id}`;
+
   return (
     <Grid container spacing={2}>
       {products.map((product) => (
         <ProductCard
           key={product.key}
           product={product}
-          onDetailsClick={() => navigate(`/catalog/${product.id}`)}
+          onDetailsClick={() =>
+            navigate(getProductPath(product.slug?.[LANGUAGE.EN]))
+          }
         />
       ))}
     </Grid>

@@ -1,3 +1,4 @@
+import { LANGUAGE } from '@/shared/config/constants';
 import { type Category } from '@commercetools/platform-sdk';
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import { type JSX } from 'react';
@@ -59,7 +60,7 @@ export const CategoryCard = ({
               textTransform: 'uppercase',
             }}
           >
-            {category.name['en-US']}
+            {category.name[LANGUAGE.EN]}
           </Typography>
         </Box>
       </ButtonBase>
