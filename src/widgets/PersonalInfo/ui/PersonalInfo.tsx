@@ -6,6 +6,7 @@ export const PersonalInfo: React.FC<PersonalInfoProps> = ({
   firstName,
   lastName,
   birthDate,
+  email,
 }) => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -45,6 +46,15 @@ export const PersonalInfo: React.FC<PersonalInfoProps> = ({
         </Typography>
         <Typography variant="body1" fontWeight="medium">
           {formatDate(birthDate)}
+        </Typography>
+      </Box>
+
+      <Box>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Email
+        </Typography>
+        <Typography variant="body1" fontWeight="medium">
+          {email}
         </Typography>
       </Box>
     </Box>

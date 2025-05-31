@@ -82,6 +82,7 @@ export const ProfilePage = () => {
               firstName={customer.firstName || ''}
               lastName={customer.lastName || ''}
               birthDate={customer.dateOfBirth || ''}
+              email={customer.email || ''}
             />
           )}
         </CardContent>
