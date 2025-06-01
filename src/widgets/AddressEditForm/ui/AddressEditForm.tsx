@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { AddressForm } from '@/features/addressForm';
 import type { AddressEditFormProps, AddressEditFormData } from '../model';
 import { useUpdateAddresses } from '../model';
+import { ErrorModal } from '@/shared/ui/ModalError';
+import { useState } from 'react';
+import { getCustomErrorInfo, getServerErrorInfo } from '../model';
 
 export const AddressEditForm = ({
   initialData,
@@ -24,6 +27,9 @@ export const AddressEditForm = ({
     },
   });
 
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorTitle, setErrorTitle] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const updateAddresses = useUpdateAddresses();
 
   const onSubmit = async (data: AddressEditFormData) => {
@@ -31,7 +37,15 @@ export const AddressEditForm = ({
       .then(() => {
         onSuccess();
       })
-      .catch((err: string) => {
+      .catch((err) => {
+        const { title, message } =
+          typeof err === 'string'
+            ? getCustomErrorInfo(err)
+            : getServerErrorInfo(err);
+        setErrorTitle(title);
+        setErrorMessage(message);
+        setErrorModalOpen(true);
+        onError(err);
         onError(err);
       });
   };
@@ -165,7 +179,13 @@ export const AddressEditForm = ({
             Cancel
           </Button>
         </Box>
-      </Box>
+      </Box>{' '}
+      <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        title={errorTitle}
+        message={errorMessage}
+      />
     </Box>
   );
 };

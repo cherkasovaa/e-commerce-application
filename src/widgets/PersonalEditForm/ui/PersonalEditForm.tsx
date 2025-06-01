@@ -2,8 +2,10 @@ import { Box, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { PersonalForm } from '@/features/personalForm';
 import type { PersonalEditFormProps, PersonalEditFormData } from '../model';
-import { mapServerErrors } from '../model';
+import { getServerErrorInfo, getCustomErrorInfo } from '../model';
 import { useUpdateUser } from '../model/useUpdateUser';
+import { ErrorModal } from '@/shared/ui/ModalError';
+import { useState } from 'react';
 
 export const PersonalEditForm = ({
   initialData,
@@ -27,6 +29,10 @@ export const PersonalEditForm = ({
     },
   });
 
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorTitle, setErrorTitle] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const updateUser = useUpdateUser();
 
   const onSubmit = (data: PersonalEditFormData) => {
@@ -35,8 +41,13 @@ export const PersonalEditForm = ({
         onSuccess();
       })
       .catch((err) => {
-        mapServerErrors(err);
-        //render error
+        const { title, message } =
+          typeof err === 'string'
+            ? getCustomErrorInfo(err)
+            : getServerErrorInfo(err);
+        setErrorTitle(title);
+        setErrorMessage(message);
+        setErrorModalOpen(true);
         onError(err);
       });
   };
@@ -78,6 +89,12 @@ export const PersonalEditForm = ({
           </Button>
         </Box>
       </Box>
+      <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        title={errorTitle}
+        message={errorMessage}
+      />
     </Box>
   );
 };

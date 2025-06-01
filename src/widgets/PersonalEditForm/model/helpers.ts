@@ -1,12 +1,12 @@
 import type { PersonalFormData } from '@/features/personalForm/model';
-import { ACTIONS } from './constants';
+import { ACTIONS, ERROR_MESSAGES } from './constants';
 import type {
   CustomerSetFirstNameAction,
   CustomerSetLastNameAction,
   CustomerChangeEmailAction,
   CustomerSetDateOfBirthAction,
 } from '@commercetools/platform-sdk';
-import type { PersonalUpdateAction } from './types';
+import type { PersonalUpdateAction, ErrorInfo } from './types';
 import type { HttpErrorType } from '@commercetools/ts-client';
 
 export const createUpdateActions = (
@@ -48,26 +48,59 @@ export const createUpdateActions = (
     .map((mapping) => mapping.create());
 };
 
-//TO DO: put as const
-export const mapServerErrors = (error: HttpErrorType) => {
-  console.log(error);
-  if (error.errors) {
+export const getServerErrorInfo = (error: HttpErrorType): ErrorInfo => {
+  if (error.errors && error.errors.length > 0) {
     const ctError = error.errors[0];
 
     switch (ctError.code) {
       case 'DuplicateField':
         if (ctError.field === 'email') {
-          throw new Error('This email is already registered');
+          return {
+            title: ERROR_MESSAGES.TITLES.DUPLICATE_EMAIL,
+            message: ERROR_MESSAGES.MESSAGES.DUPLICATE_EMAIL,
+          };
         }
         break;
+
       case 'ConcurrentModification':
-        throw new Error(
-          'Data was modified by another user. Please refresh and try again.'
-        );
+        return {
+          title: ERROR_MESSAGES.TITLES.CONCURRENT_MODIFICATION,
+          message: ERROR_MESSAGES.MESSAGES.CONCURRENT_MODIFICATION,
+        };
+
       default:
-        throw new Error(ctError.message || 'Failed to update profile');
+        return {
+          title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+          message:
+            ctError.message || ERROR_MESSAGES.MESSAGES.DEFAULT_UPDATE_FAILED,
+        };
     }
   }
 
-  throw new Error('Failed to update profile. Please try again.');
+  return {
+    title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+    message: error.message || ERROR_MESSAGES.MESSAGES.UNKNOWN_ERROR,
+  };
+};
+
+export const getCustomErrorInfo = (errorMessage: string): ErrorInfo => {
+  switch (errorMessage) {
+    case 'Customer not found':
+      return {
+        title: ERROR_MESSAGES.TITLES.CUSTOMER_NOT_FOUND,
+        message: ERROR_MESSAGES.MESSAGES.CUSTOMER_NOT_FOUND,
+      };
+
+    case 'No changes to update':
+      return {
+        title: ERROR_MESSAGES.TITLES.NO_CHANGES,
+        message: ERROR_MESSAGES.MESSAGES.NO_CHANGES_TO_UPDATE,
+      };
+
+    default:
+      return {
+        title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+        message: errorMessage || ERROR_MESSAGES.MESSAGES.UNKNOWN_ERROR,
+      };
+  }
 };

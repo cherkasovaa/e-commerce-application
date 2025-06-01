@@ -1,18 +1,37 @@
 import type { HttpErrorType } from '@commercetools/ts-client';
+import { FORM_ERROR_MESSAGES } from './constants';
 
-export const mapServerErrors = (error: HttpErrorType) => {
-  if (error.errors) {
+export const getServedErrorInfo = (error: HttpErrorType): string => {
+  if (error.errors && error.errors.length > 0) {
     const ctError = error.errors[0];
 
     switch (ctError.code) {
       case 'InvalidCurrentPassword':
-        return 'Current password is incorrect';
+        return FORM_ERROR_MESSAGES.MESSAGES.INVALID_CURRENT_PASSWORD;
+
       case 'WeakPassword':
-        return 'New password is too weak';
+        return FORM_ERROR_MESSAGES.MESSAGES.WEAK_PASSWORD;
+
+      case 'ConcurrentModification':
+        return FORM_ERROR_MESSAGES.MESSAGES.CONCURRENT_MODIFICATION;
+
       default:
-        return 'Failed to change password';
+        return (
+          ctError.message || FORM_ERROR_MESSAGES.MESSAGES.FAILED_CHANGE_PASSWORD
+        );
     }
   }
 
-  return 'Failed to change password. Please try again.';
+  return error.message || FORM_ERROR_MESSAGES.MESSAGES.FAILED_CHANGE_PASSWORD;
+};
+
+export const getCustomErrorInfo = (errorMessage: string): string => {
+  switch (errorMessage) {
+    case 'Customer not found':
+      return FORM_ERROR_MESSAGES.MESSAGES.CUSTOMER_NOT_FOUND;
+    default:
+      return (
+        errorMessage || FORM_ERROR_MESSAGES.MESSAGES.FAILED_CHANGE_PASSWORD
+      );
+  }
 };

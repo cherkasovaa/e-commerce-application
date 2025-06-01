@@ -39,7 +39,7 @@ export const ProfilePage = () => {
   if (error || !customer || isError) {
     return (
       <Container maxWidth="md" sx={{ py: 8 }}>
-        {/* <ServerError /> */}
+        Something went wrong, you'll be redirecting to main page
       </Container>
     );
   }
@@ -183,9 +183,7 @@ export const ProfilePage = () => {
       </Card>
       <PasswordChangeModal
         open={isEditingPassword}
-        onSuccess={() => setIsEditingPassword(false)}
         onClose={() => setIsEditingPassword(false)}
-        onError={() => setIsEditingPassword(false)}
       />
     </Container>
   );

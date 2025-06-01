@@ -1,5 +1,9 @@
-import { ACTIONS } from './constants';
-import type { AddressUpdateAction, AddressEditFormData } from './types';
+import { ACTIONS, ERROR_MESSAGES } from './constants';
+import type {
+  AddressUpdateAction,
+  AddressEditFormData,
+  ErrorInfo,
+} from './types';
 import type { HttpErrorType } from '@commercetools/ts-client';
 import type { Customer } from '@commercetools/platform-sdk';
 
@@ -11,7 +15,7 @@ export const createAddressUpdateActions = (
   const currentAddresses = currentUser.addresses || [];
 
   data.addresses.forEach((newAddress, index) => {
-    const existingAddress = currentAddresses[index]; // Сравниваем по индексу
+    const existingAddress = currentAddresses[index];
 
     if (!existingAddress) {
       actions.push({
@@ -73,52 +77,91 @@ export const createAddressUpdateActions = (
   return actions;
 };
 
-//TO DO: put as const
-export const mapAddressServerErrors = (error: HttpErrorType) => {
-  console.log(error);
-
-  if (error.errors) {
+export const getServerErrorInfo = (error: HttpErrorType): ErrorInfo => {
+  if (error.errors && error.errors.length > 0) {
     const ctError = error.errors[0];
 
     switch (ctError.code) {
       case 'InvalidOperation':
-        if (ctError.message.includes('does not contain an address')) {
-          throw new Error(
-            'Address not found. Please refresh the page and try again.'
-          );
+        if (ctError.message?.includes('does not contain an address')) {
+          return {
+            title: ERROR_MESSAGES.TITLES.ADDRESS_NOT_FOUND,
+            message: ERROR_MESSAGES.MESSAGES.ADDRESS_NOT_FOUND,
+          };
         }
-        throw new Error('Invalid address operation. Please check your data.');
+        return {
+          title: ERROR_MESSAGES.TITLES.INVALID_OPERATION,
+          message: ERROR_MESSAGES.MESSAGES.INVALID_ADDRESS_OPERATION,
+        };
 
       case 'ConcurrentModification':
-        throw new Error(
-          'Address data was modified by another user. Please refresh and try again.'
-        );
+        return {
+          title: ERROR_MESSAGES.TITLES.CONCURRENT_MODIFICATION,
+          message: ERROR_MESSAGES.MESSAGES.ADDRESS_CONCURRENT_MODIFICATION,
+        };
 
       case 'InvalidJsonInput':
-        throw new Error(
-          'Invalid address data format. Please check all fields.'
-        );
+        return {
+          title: ERROR_MESSAGES.TITLES.INVALID_INPUT,
+          message: ERROR_MESSAGES.MESSAGES.INVALID_JSON_INPUT,
+        };
 
       case 'RequiredField':
-        throw new Error(
-          `Required field missing: ${ctError.field || 'unknown field'}`
-        );
+        return {
+          title: ERROR_MESSAGES.TITLES.REQUIRED_FIELD,
+          message: `Required field missing: ${ctError.field || 'unknown field'}`,
+        };
 
       case 'InvalidCountryCode':
-        throw new Error(
-          'Invalid country selected. Please choose a valid country.'
-        );
+        return {
+          title: ERROR_MESSAGES.TITLES.INVALID_COUNTRY,
+          message: ERROR_MESSAGES.MESSAGES.INVALID_COUNTRY_CODE,
+        };
 
       case 'InvalidPostalCode':
-        throw new Error('Invalid postal code format for the selected country.');
+        return {
+          title: ERROR_MESSAGES.TITLES.INVALID_POSTAL_CODE,
+          message: ERROR_MESSAGES.MESSAGES.INVALID_POSTAL_CODE_FORMAT,
+        };
 
       case 'DuplicateAddress':
-        throw new Error('This address already exists.');
+        return {
+          title: ERROR_MESSAGES.TITLES.DUPLICATE_ADDRESS,
+          message: ERROR_MESSAGES.MESSAGES.DUPLICATE_ADDRESS_EXISTS,
+        };
 
       default:
-        throw new Error(ctError.message || 'Failed to update addresses');
+        return {
+          title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+          message:
+            ctError.message || ERROR_MESSAGES.MESSAGES.FAILED_UPDATE_ADDRESSES,
+        };
     }
   }
+  return {
+    title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+    message: error.message || ERROR_MESSAGES.MESSAGES.UNKNOWN_ERROR,
+  };
+};
 
-  throw new Error('Failed to update addresses. Please try again.');
+export const getCustomErrorInfo = (errorMessage: string): ErrorInfo => {
+  switch (errorMessage) {
+    case 'Customer not found':
+      return {
+        title: ERROR_MESSAGES.TITLES.CUSTOMER_NOT_FOUND,
+        message: ERROR_MESSAGES.MESSAGES.CUSTOMER_NOT_FOUND,
+      };
+
+    case 'No changes to update':
+      return {
+        title: ERROR_MESSAGES.TITLES.NO_CHANGES,
+        message: ERROR_MESSAGES.MESSAGES.NO_CHANGES_TO_UPDATE,
+      };
+
+    default:
+      return {
+        title: ERROR_MESSAGES.TITLES.GENERAL_ERROR,
+        message: errorMessage || ERROR_MESSAGES.MESSAGES.UNKNOWN_ERROR,
+      };
+  }
 };

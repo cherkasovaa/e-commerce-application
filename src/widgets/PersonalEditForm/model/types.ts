@@ -31,3 +31,8 @@ export type PersonalUpdateAction =
   | CustomerSetLastNameAction
   | CustomerChangeEmailAction
   | CustomerSetDateOfBirthAction;
+
+export interface ErrorInfo {
+  title: string;
+  message: string;
+}

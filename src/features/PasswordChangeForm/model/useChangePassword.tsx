@@ -15,27 +15,23 @@ export const useChangePassword = () => {
       throw new Error('Customer not found');
     }
 
-    try {
-      const response = await getApiRoot()
-        .customers()
-        .password()
-        .post({
-          body: {
-            id: currentUser.id,
-            version: currentUser.version,
-            currentPassword: data.currentPassword,
-            newPassword: data.newPassword,
-          },
-        })
-        .execute();
+    const response = await getApiRoot()
+      .customers()
+      .password()
+      .post({
+        body: {
+          id: currentUser.id,
+          version: currentUser.version,
+          currentPassword: data.currentPassword,
+          newPassword: data.newPassword,
+        },
+      })
+      .execute();
 
-      queryClient.setQueryData(['customer'], response.body);
-      queryClient.invalidateQueries({ queryKey: ['customer'] });
+    queryClient.setQueryData(['customer'], response.body);
+    queryClient.invalidateQueries({ queryKey: ['customer'] });
 
-      return response.body;
-    } catch {
-      throw new Error('Failed to change password');
-    }
+    return response.body;
   };
 
   return changePassword;

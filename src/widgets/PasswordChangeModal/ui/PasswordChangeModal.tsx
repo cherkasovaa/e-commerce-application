@@ -1,23 +1,21 @@
-import { Dialog, DialogTitle, DialogContent, IconButton } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { PasswordChangeForm } from '@/features/PasswordChangeForm';
 import type { PasswordChangeModalProps } from '../model';
+import { useState } from 'react';
 
 export const PasswordChangeModal = ({
   open,
   onClose,
-  onSuccess,
-  onError,
 }: PasswordChangeModalProps) => {
-  const handleSuccess = () => {
-    onSuccess();
-    onClose();
-  };
-
-  const handleError = (error: string) => {
-    onError(error);
-    onClose();
-  };
+  const [error, setError] = useState<string>('');
+  const [isChanged, setIsChanged] = useState<boolean>(false);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -37,10 +35,22 @@ export const PasswordChangeModal = ({
 
       <DialogContent sx={{ p: 1 }}>
         <PasswordChangeForm
-          onSuccess={handleSuccess}
+          onSuccess={() => setIsChanged(true)}
           onCancel={onClose}
-          onError={handleError}
+          onError={(error: string) => setError(error)}
         />
+
+        {error && (
+          <Typography color="error" sx={{ mt: 1, fontSize: '14px' }}>
+            {error}
+          </Typography>
+        )}
+
+        {isChanged && (
+          <Typography color="error" sx={{ mt: 1, fontSize: '14px' }}>
+            Your password was successfully changed.
+          </Typography>
+        )}
       </DialogContent>
     </Dialog>
   );

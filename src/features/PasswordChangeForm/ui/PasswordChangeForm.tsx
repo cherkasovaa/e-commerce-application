@@ -11,6 +11,7 @@ import { useState } from 'react';
 import type { PasswordChangeFormProps, PasswordChangeFormData } from '../model';
 import { validators } from '../model';
 import { useChangePassword } from '../model/useChangePassword';
+import { getCustomErrorInfo, getServedErrorInfo } from '../model/helpers';
 
 export const PasswordChangeForm = ({
   onSuccess,
@@ -26,6 +27,7 @@ export const PasswordChangeForm = ({
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<PasswordChangeFormData>({
     defaultValues: {
@@ -45,10 +47,15 @@ export const PasswordChangeForm = ({
       newPassword: data.newPassword,
     })
       .then(() => {
+        reset();
         onSuccess();
       })
-      .catch((err: string) => {
-        onError(err);
+      .catch((err) => {
+        const errStr =
+          typeof err === 'string'
+            ? getCustomErrorInfo(err)
+            : getServedErrorInfo(err);
+        onError(errStr);
       })
       .finally(() => {
         setIsSubmitting(false);

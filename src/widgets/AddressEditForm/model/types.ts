@@ -35,3 +35,8 @@ export type AddressUpdateAction =
   | CustomerChangeAddressAction
   | CustomerSetDefaultShippingAddressAction
   | CustomerSetDefaultBillingAddressAction;
+
+export interface ErrorInfo {
+  title: string;
+  message: string;
+}

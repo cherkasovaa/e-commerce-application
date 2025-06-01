@@ -16,7 +16,6 @@ export const useUpdateAddresses = () => {
 
   const updateAddresses = async (data: AddressFormData): Promise<Customer> => {
     const currentUser = queryClient.getQueryData<Customer>(['customer']);
-    console.log(currentUser);
     if (!currentUser) {
       throw new Error('Customer not found');
     }
@@ -30,25 +29,21 @@ export const useUpdateAddresses = () => {
       throw new Error('No changes to update');
     }
 
-    try {
-      const response = await getApiRoot()
-        .customers()
-        .withId({ ID: currentUser.id })
-        .post({
-          body: {
-            version: currentUser.version,
-            actions,
-          },
-        })
-        .execute();
+    const response = await getApiRoot()
+      .customers()
+      .withId({ ID: currentUser.id })
+      .post({
+        body: {
+          version: currentUser.version,
+          actions,
+        },
+      })
+      .execute();
 
-      queryClient.setQueryData(['customer'], response.body);
-      queryClient.invalidateQueries({ queryKey: ['customer'] });
+    queryClient.setQueryData(['customer'], response.body);
+    queryClient.invalidateQueries({ queryKey: ['customer'] });
 
-      return response.body;
-    } catch {
-      throw new Error('Failed to update addresses');
-    }
+    return response.body;
   };
 
   return updateAddresses;
