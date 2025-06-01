@@ -1,10 +1,14 @@
-import { type AuthMiddlewareOptions } from '@commercetools/ts-client';
+import type {
+  AuthMiddlewareOptions,
+  HttpMiddlewareOptions,
+} from '@commercetools/ts-client';
 import {
   authURL,
   clientId,
   clientSecret,
   projectKey,
   scopes,
+  apiURL,
 } from './constants';
 
 export const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -15,5 +19,10 @@ export const authMiddlewareOptions: AuthMiddlewareOptions = {
     clientSecret,
   },
   scopes: scopes.split(','),
+  httpClient: fetch,
+};
+
+export const httpMiddlewareOptions: HttpMiddlewareOptions = {
+  host: apiURL,
   httpClient: fetch,
 };

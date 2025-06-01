@@ -1,5 +1,5 @@
 import { type Client, ClientBuilder } from '@commercetools/ts-client';
-import { httpMiddlewareOptions } from './httpMiddlewareOptions';
+import { httpMiddlewareOptions } from './middlewares';
 import {
   authURL,
   scopes,
