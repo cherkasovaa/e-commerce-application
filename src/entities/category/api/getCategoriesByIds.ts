@@ -1,5 +1,5 @@
 import type { Category } from '@commercetools/platform-sdk';
-import { getApiRoot } from '.';
+import { getApiRoot } from '../../../shared/api/commerceTools';
 
 export const getCategoryById = async (
   categoryId: string

@@ -1,5 +1,5 @@
 import type { ProductProjection } from '@commercetools/platform-sdk';
-import { getApiRoot } from '.';
+import { getApiRoot } from '../../../shared/api/commerceTools';
 
 export async function getProductById(
   productKey: string

@@ -1,5 +1,7 @@
 import { PageMeta } from '@/features/ProductMeta';
 import { NotFoundPage } from '@/pages/not-found';
+import { useCategory } from '@/shared/lib/hooks/useCategory';
+import { useProduct } from '@/shared/lib/hooks/useProduct';
 import { useProductMeta } from '@/shared/lib/hooks/useProductMeta';
 import { getDataForProductDetails } from '@/shared/lib/products/getDataForProductDetails';
 import { AdditionalInfoScreen } from '@/widgets/AdditionalInfoScreen';
@@ -9,8 +11,6 @@ import { Grid } from '@mui/material';
 import { type FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProductSkeleton } from './ProductSkeleton';
-import { useProduct } from '@/shared/lib/hooks/useProduct';
-import { useCategory } from '@/shared/lib/hooks/useCategory';
 
 export const ProductPage: FC = () => {
   const { id } = useParams();
@@ -18,7 +18,6 @@ export const ProductPage: FC = () => {
   const { data: product, isLoading: loading, error } = useProduct(id || '');
   const { data: categories } = useCategory(product?.categories || []);
 
-  console.log(product);
   const metaData = useProductMeta(product);
 
   if (loading) return <ProductSkeleton />;

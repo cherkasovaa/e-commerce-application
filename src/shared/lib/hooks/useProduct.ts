@@ -1,4 +1,4 @@
-import { getProductById } from '@/shared/api/commerceTools/getProductById';
+import { getProductById } from '@/entities/product/api/getProductById';
 import type { QueryResult } from '@/shared/types/query';
 import type { ProductProjection } from '@commercetools/platform-sdk';
 import { useQuery } from '@tanstack/react-query';

@@ -1,4 +1,4 @@
-import { getCategoriesByIds } from '@/shared/api/commerceTools/getCategoriesByIds';
+import { getCategoriesByIds } from '@/entities/category/api/getCategoriesByIds';
 import type { QueryResult } from '@/shared/types/query';
 import type { Category, CategoryReference } from '@commercetools/platform-sdk';
 import { useQuery } from '@tanstack/react-query';
