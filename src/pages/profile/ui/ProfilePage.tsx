@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Container,
   Button,
@@ -15,6 +15,8 @@ import { getCountryName } from '../model/helpers';
 import { PersonalEditForm } from '@/widgets/PersonalEditForm';
 import { AddressEditForm } from '@/widgets/AddressEditForm';
 import { PasswordChangeModal } from '@/widgets/PasswordChangeModal';
+import { Loader } from '@/shared/ui';
+import { useNavigate } from 'react-router-dom';
 
 export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
@@ -23,15 +25,15 @@ export const ProfilePage = () => {
   const [isError, setIsError] = useState(false);
   const { data: customer, isLoading, error } = useGetUserInfo();
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!customer) {
+      navigate('/main');
+    }
+  }, [customer]);
+
   if (isLoading) {
-    return (
-      <Container
-        maxWidth="md"
-        sx={{ display: 'flex', justifyContent: 'center', py: 8 }}
-      >
-        {/* <Loader /> */}
-      </Container>
-    );
+    return <Loader />;
   }
 
   if (error || !customer || isError) {
