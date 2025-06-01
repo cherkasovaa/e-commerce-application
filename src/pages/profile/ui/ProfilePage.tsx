@@ -14,10 +14,12 @@ import { AddressInfo } from '@/widgets/AddressInfo';
 import { getCountryName } from '../model/helpers';
 import { PersonalEditForm } from '@/widgets/PersonalEditForm';
 import { AddressEditForm } from '@/widgets/AddressEditForm';
+import { PasswordChangeModal } from '@/widgets/PasswordChangeModal';
 
 export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
   const [isEditingAddresses, setIsEditingAddresses] = useState(false);
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
   const [isError, setIsError] = useState(false);
   const { data: customer, isLoading, error } = useGetUserInfo();
 
@@ -106,6 +108,14 @@ export const ProfilePage = () => {
               email={customer.email || ''}
             />
           )}
+
+          <Button
+            sx={{ mt: 2 }}
+            variant="outlined"
+            onClick={() => setIsEditingPassword(true)}
+          >
+            Change password
+          </Button>
         </CardContent>
       </Card>
 
@@ -169,6 +179,12 @@ export const ProfilePage = () => {
           )}
         </CardContent>
       </Card>
+      <PasswordChangeModal
+        open={isEditingPassword}
+        onSuccess={() => setIsEditingPassword(false)}
+        onClose={() => setIsEditingPassword(false)}
+        onError={() => setIsEditingPassword(false)}
+      />
     </Container>
   );
 };
