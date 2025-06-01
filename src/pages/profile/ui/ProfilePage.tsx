@@ -13,6 +13,7 @@ import { useGetUserInfo } from '../model/useGetUserInfo';
 import { AddressInfo } from '@/widgets/AddressInfo';
 import { getCountryName } from '../model/helpers';
 import { PersonalEditForm } from '@/widgets/PersonalEditForm';
+import { AddressEditForm } from '@/widgets/AddressEditForm';
 
 export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
@@ -132,7 +133,33 @@ export const ProfilePage = () => {
           </Box>
 
           {isEditingAddresses ? (
-            <div>there will be address form</div>
+            <AddressEditForm
+              initialData={{
+                addresses:
+                  customer.addresses?.map((address) => ({
+                    country: {
+                      code: address.country,
+                      label: getCountryName(address.country),
+                    },
+                    city: address.city || '',
+                    street: address.streetName || '',
+                    postcode: address.postalCode || '',
+                  })) || [],
+
+                defaultShippingAddressId: customer.defaultShippingAddressId,
+                defaultBillingAddressId: customer.defaultBillingAddressId,
+              }}
+              onSuccess={() => {
+                setIsEditingAddresses(false);
+              }}
+              onError={() => {
+                setIsEditingAddresses(false);
+                setIsError(true);
+              }}
+              onCancel={() => {
+                setIsEditingAddresses(false);
+              }}
+            />
           ) : (
             <AddressInfo
               addresses={addresses}
