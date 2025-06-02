@@ -69,12 +69,15 @@ export const ProfilePage = () => {
           >
             <Box display="flex" alignItems="center" gap={1}>
               <Person color="primary" />
-              <Typography variant="h6">Personal Information</Typography>
+              <Typography variant="h6">
+                Personal Information {isEditingPersonal && '(Editing)'}
+              </Typography>
             </Box>
             <Button
               variant="outlined"
               startIcon={<Edit />}
               onClick={() => setIsEditingPersonal(true)}
+              disabled={isEditingPersonal}
             >
               Edit
             </Button>
@@ -132,13 +135,15 @@ export const ProfilePage = () => {
             <Box display="flex" alignItems="center" gap={1}>
               <LocationOn color="primary" />
               <Typography variant="h6">
-                Addresses ({addresses.length})
+                Addresses ({addresses.length}){' '}
+                {isEditingAddresses && '(Editing)'}
               </Typography>
             </Box>
             <Button
               variant="outlined"
               startIcon={<Edit />}
               onClick={() => setIsEditingAddresses(true)}
+              disabled={isEditingAddresses}
             >
               Edit
             </Button>
