@@ -34,6 +34,10 @@ export const theme = createTheme({
       fontSize: '2.5rem',
       fontWeight: 700,
     },
+    h6: {
+      fontSize: '1rem',
+      fontWeight: 900,
+    },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
@@ -42,9 +46,22 @@ export const theme = createTheme({
       fontSize: '0.875rem',
       fontWeight: 400,
     },
+    caption: {
+      fontSize: '0.75rem',
+      fontWeight: 400,
+    },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 3,
   },
   spacing: 8,
+  custom: {
+    box: {
+      width: 32,
+      height: 32,
+      padding: '7px 0',
+      borderRadius: 3,
+      backgroundColor: '#58e30d',
+    },
+  },
 });

@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import { RegisterForm } from '@/widgets/RegisterForm';
-import { Container, Stack, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { SUCCESS_TIME } from '../model';
-import { RegisterSuccess } from '@/widgets/RegisterSuccess';
-import { AlreadyRegistered } from '@/widgets/AlreadyRegistered';
-import { useCountDown } from '../model';
+import { PageMeta } from '@/features/ProductMeta';
+import { APP_PAGE_NAMES } from '@/shared/config/routes/pageNames';
 import { APP_PATHS } from '@/shared/config/routes/paths';
+import { usePageMeta } from '@/shared/lib/hooks/usePageMeta';
+import { AlreadyRegistered } from '@/widgets/AlreadyRegistered';
+import { RegisterForm } from '@/widgets/RegisterForm';
+import { RegisterSuccess } from '@/widgets/RegisterSuccess';
+import { Container, Paper, Stack } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SUCCESS_TIME, useCountDown } from '../model';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -18,19 +20,25 @@ export const RegisterPage = () => {
     navigate(APP_PATHS.HOME);
   };
 
+  const metaData = usePageMeta(APP_PAGE_NAMES.REGISTER);
+
   return (
-    <Container maxWidth="md">
-      {isRegistered ? (
-        <RegisterSuccess counter={counter} />
-      ) : (
-        <Stack spacing={3} sx={{ my: 4 }}>
-          {' '}
-          <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-            <RegisterForm onSuccess={onSuccess} />
-          </Paper>
-          <AlreadyRegistered />
-        </Stack>
-      )}
-    </Container>
+    <>
+      {metaData && <PageMeta {...metaData} />}
+
+      <Container maxWidth="md">
+        {isRegistered ? (
+          <RegisterSuccess counter={counter} />
+        ) : (
+          <Stack spacing={3} sx={{ my: 4 }}>
+            {' '}
+            <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+              <RegisterForm onSuccess={onSuccess} />
+            </Paper>
+            <AlreadyRegistered />
+          </Stack>
+        )}
+      </Container>
+    </>
   );
 };
