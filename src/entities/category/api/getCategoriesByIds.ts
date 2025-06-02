@@ -14,8 +14,8 @@ export const getCategoryById = async (
       .execute();
 
     return response.body;
-  } catch (error) {
-    console.error('Error fetching category:', error);
+  } catch {
+    // console.error('Error fetching category:', error);
     return null;
   }
 };
