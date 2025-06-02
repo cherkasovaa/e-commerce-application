@@ -7,3 +7,4 @@ export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
 export { PriceContainer } from './PriceContainer/PriceContainer';
 export { SliderControls } from './SliderControls/SliderControls';
+export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';
