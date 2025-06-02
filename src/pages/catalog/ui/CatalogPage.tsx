@@ -1,3 +1,5 @@
+import { CatalogSetting } from '@/widgets/CatalogSetting';
+import { Grid } from '@mui/material';
 import { PageMeta } from '@/features/ProductMeta';
 import { APP_PAGE_NAMES } from '@/shared/config/routes/pageNames';
 import { usePageMeta } from '@/shared/lib/hooks/usePageMeta';
@@ -10,7 +12,9 @@ export const CatalogPage: React.FC = (): JSX.Element => {
   return (
     <>
       {metaData && <PageMeta {...metaData} />}
-      <div>Catalog Page</div>
+       <Grid container>
+          <CatalogSetting />
+        </Grid>
     </>
   );
 };

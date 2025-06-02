@@ -32,7 +32,7 @@ export const Header: FC = () => {
   const pages = APP_ROUTES.filter((route) => route.meta.showInNavigateMenu);
 
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static" color="transparent" id="back-to-top-anchor">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {isMobile ? (
           <>
