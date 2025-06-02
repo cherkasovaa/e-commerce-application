@@ -68,6 +68,7 @@ export const ProfilePage = () => {
             justifyContent="space-between"
             alignItems="center"
             mb={3}
+            flexWrap={'wrap'}
           >
             <Box display="flex" alignItems="center" gap={1}>
               <Person color="primary" />
@@ -134,7 +135,7 @@ export const ProfilePage = () => {
             alignItems="center"
             mb={3}
           >
-            <Box display="flex" alignItems="center" gap={1}>
+            <Box display="flex" alignItems="center" gap={1} flexWrap={'wrap'}>
               <LocationOn color="primary" />
               <Typography variant="h6">
                 Addresses ({addresses.length}){' '}
