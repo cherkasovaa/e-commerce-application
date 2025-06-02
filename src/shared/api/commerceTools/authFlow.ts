@@ -18,12 +18,15 @@ export async function switchToPasswordFlow(
   const newClient = createClient(username, password);
 
   currentClient = newClient;
+
+  window.dispatchEvent(new CustomEvent('authStatusChanged'));
 }
 
 export async function switchToAnonymousFlow(): Promise<void> {
   const newClient = createAnonymousClient();
 
   currentClient = newClient;
+  window.dispatchEvent(new CustomEvent('authStatusChanged'));
 }
 
 function createAnonymousClient(): Client {

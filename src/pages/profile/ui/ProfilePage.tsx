@@ -31,7 +31,7 @@ export const ProfilePage = () => {
   //TO DO: add context
   window.addEventListener('authStatusChanged', () => {
     const isAuth = localStorageService.getAuthStatus();
-    if (!isAuth) navigate('/');
+    if (!isAuth) navigate('/login');
   });
 
   if (isLoading) {
