@@ -3,6 +3,7 @@ export interface AppRoutes {
   name: string;
   meta: {
     showInNavigateMenu: boolean;
+    requiresAuth?: boolean;
     title: string;
   };
 }

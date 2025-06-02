@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Container,
   Button,
@@ -17,6 +17,7 @@ import { AddressEditForm } from '@/widgets/AddressEditForm';
 import { PasswordChangeModal } from '@/widgets/PasswordChangeModal';
 import { Loader } from '@/shared/ui';
 import { useNavigate } from 'react-router-dom';
+import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 
 export const ProfilePage = () => {
   const [isEditingPersonal, setIsEditingPersonal] = useState(false);
@@ -26,11 +27,12 @@ export const ProfilePage = () => {
   const { data: customer, isLoading, error } = useGetUserInfo();
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!customer) {
-      navigate('/main');
-    }
-  }, [customer]);
+
+  //TO DO: add context
+  window.addEventListener('authStatusChanged', () => {
+    const isAuth = localStorageService.getAuthStatus();
+    if (!isAuth) navigate('/');
+  });
 
   if (isLoading) {
     return <Loader />;

@@ -16,6 +16,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.LOGIN,
     meta: {
       showInNavigateMenu: false,
+      requiresAuth: false,
       title: APP_PAGE_NAMES.LOGIN,
     },
   },
@@ -24,6 +25,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.REGISTER,
     meta: {
       showInNavigateMenu: false,
+      requiresAuth: false,
       title: APP_PAGE_NAMES.REGISTER,
     },
   },
@@ -48,6 +50,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.CART,
     meta: {
       showInNavigateMenu: true,
+      requiresAuth: true,
       title: APP_PAGE_NAMES.CART,
     },
   },
@@ -56,6 +59,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.PROFILE,
     meta: {
       showInNavigateMenu: true,
+      requiresAuth: true,
       title: APP_PAGE_NAMES.PROFILE,
     },
   },
