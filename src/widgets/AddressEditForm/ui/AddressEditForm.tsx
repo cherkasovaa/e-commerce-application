@@ -1,4 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  FormControlLabel,
+  Radio,
+} from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { AddressForm } from '@/features/addressForm';
 import type { AddressEditFormProps, AddressEditFormData } from '../model';
@@ -46,7 +52,6 @@ export const AddressEditForm = ({
         setErrorMessage(message);
         setErrorModalOpen(true);
         onError(err);
-        onError(err);
       });
   };
 
@@ -82,78 +87,80 @@ export const AddressEditForm = ({
           gap: 3,
         }}
       >
-        {watch('addresses').map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              border: '1px solid #e0e0e0',
-              borderRadius: 2,
-              p: 2,
-              position: 'relative',
-            }}
-          >
+        {watch('addresses').map((address, index) => {
+          return (
             <Box
+              key={index}
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                mb: 2,
+                border: '1px solid #e0e0e0',
+                borderRadius: 2,
+                p: 2,
+                position: 'relative',
               }}
             >
-              <Typography variant="subtitle1">Address {index + 1}</Typography>
-              {watch('addresses').length > 1 && (
-                <Button
-                  variant="outlined"
-                  color="error"
-                  size="small"
-                  onClick={() => removeAddress(index)}
-                  disabled={isSubmitting}
-                >
-                  Remove
-                </Button>
-              )}
-            </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  mb: 2,
+                }}
+              >
+                <Typography variant="subtitle1">Address {index + 1}</Typography>
+                {watch('addresses').length > 1 && (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    onClick={() => removeAddress(index)}
+                    disabled={isSubmitting}
+                  >
+                    Remove
+                  </Button>
+                )}
+              </Box>
 
-            <AddressForm
-              control={control}
-              fieldNames={{
-                country: `addresses.${index}.country`,
-                city: `addresses.${index}.city`,
-                street: `addresses.${index}.street`,
-                postcode: `addresses.${index}.postcode`,
-              }}
-            />
+              <AddressForm
+                control={control}
+                fieldNames={{
+                  country: `addresses.${index}.country`,
+                  city: `addresses.${index}.city`,
+                  street: `addresses.${index}.street`,
+                  postcode: `addresses.${index}.postcode`,
+                }}
+              />
 
-            <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
-              <label>
-                <input
-                  type="radio"
-                  name="defaultShipping"
-                  checked={
-                    watch('defaultShippingAddressId') === `address-${index}`
-                  }
-                  onChange={() =>
-                    setValue('defaultShippingAddressId', `address-${index}`)
+              <Box sx={{ mt: 2 }}>
+                <FormControlLabel
+                  label="Set this address as default for shipping"
+                  control={
+                    <Radio
+                      checked={watch('defaultShippingAddressId') === address.id}
+                      onChange={() =>
+                        setValue('defaultShippingAddressId', address.id)
+                      }
+                      value={index}
+                      name="defaultShipping"
+                    />
                   }
                 />
-                Default Shipping
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="defaultBilling"
-                  checked={
-                    watch('defaultBillingAddressId') === `address-${index}`
-                  }
-                  onChange={() =>
-                    setValue('defaultBillingAddressId', `address-${index}`)
+                <FormControlLabel
+                  label="Set this address as default for billing"
+                  control={
+                    <Radio
+                      checked={watch('defaultBillingAddressId') === address.id}
+                      onChange={() =>
+                        setValue('defaultBillingAddressId', address.id)
+                      }
+                      value={index}
+                      name="defaultBilling"
+                    />
                   }
                 />
-                Default Billing
-              </label>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          );
+        })}
 
         <Button
           variant="outlined"
@@ -179,7 +186,8 @@ export const AddressEditForm = ({
             Cancel
           </Button>
         </Box>
-      </Box>{' '}
+      </Box>
+
       <ErrorModal
         open={errorModalOpen}
         onClose={() => setErrorModalOpen(false)}

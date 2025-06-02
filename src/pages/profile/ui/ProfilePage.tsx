@@ -154,6 +154,7 @@ export const ProfilePage = () => {
               initialData={{
                 addresses:
                   customer.addresses?.map((address) => ({
+                    id: address.id || '',
                     country: {
                       code: address.country,
                       label: getCountryName(address.country),
