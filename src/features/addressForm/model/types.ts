@@ -11,6 +11,7 @@ export interface CountryType {
 }
 
 export interface AddressData {
+  id?: string;
   country: CountryType;
   city: string;
   street: string;

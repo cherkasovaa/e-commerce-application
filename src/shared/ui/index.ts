@@ -3,6 +3,7 @@ export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponen
 export { DotContainer } from './DotContainer/DotContainer';
 export { GameRating } from './GameRating/GameRating';
 export { Logo } from './Logo/Logo';
+export { Loader } from './Loader';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
 export { PriceContainer } from './PriceContainer/PriceContainer';

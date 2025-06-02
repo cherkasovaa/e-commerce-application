@@ -14,6 +14,9 @@ import { mapDataToCustomerDraft } from './helpers';
 
 const registerWithCommercetools = async (data: RegisterFormData) => {
   try {
+    if (!data.password) {
+      throw new Error('No password');
+    }
     await getApiRoot()
       .customers()
       .post({

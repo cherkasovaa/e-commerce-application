@@ -1,13 +1,9 @@
 import type { AddressData } from '@/features/addressForm';
-import type { UseControllerProps } from 'react-hook-form';
+import type { UseControllerProps, Path } from 'react-hook-form';
 import { RESPONSE_ERROR_MESSAGES } from './constants';
+import type { PersonalFormData } from '@/features/personalForm/model';
 
-export interface RegisterFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  birthDate: Date | undefined;
+export interface RegisterFormData extends PersonalFormData {
   addresses: AddressData[];
   defaultShippingAddress: number;
   defaultBillingAddress: number;
@@ -20,9 +16,9 @@ export interface TextFieldConfig {
 }
 
 export type RegisterFormValidators = {
-  [K in keyof Omit<RegisterFormData, 'addresses'>]: UseControllerProps<
+  [K in 'defaultShippingAddress' | 'defaultBillingAddress']: UseControllerProps<
     RegisterFormData,
-    K
+    K extends Path<RegisterFormData> ? K : never
   >['rules'];
 };
 

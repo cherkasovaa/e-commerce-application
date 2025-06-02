@@ -1,34 +1,23 @@
 import {
   Button,
   Typography,
-  TextField,
   CircularProgress,
   Box,
   FormControlLabel,
   Radio,
-  IconButton,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import InputAdornment from '@mui/material/InputAdornment';
-import type {
-  ControllerRenderProps,
-  ControllerFieldState,
-} from 'react-hook-form';
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import type { RegisterFormData, RegisterFormProps } from '../model';
 import {
   validators,
-  TEXT_FIELDS,
   useRegister,
   getErrorInfo,
   DEFAULT_FORM_VALUE,
 } from '../model';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { AddressForm } from '@/features/addressForm';
 import { useEffect, useState } from 'react';
 import { ErrorModal } from '@/shared/ui/ModalError';
+import { PersonalForm } from '@/features/personalForm';
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const {
@@ -46,7 +35,6 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorTitle, setErrorTitle] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const {
     fields: addressFields,
     append,
@@ -60,10 +48,6 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     register('defaultShippingAddress', validators.defaultShippingAddress);
     register('defaultBillingAddress', validators.defaultBillingAddress);
   }, [register]);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const onSubmit = (data: RegisterFormData) => {
     registerUser(data, {
@@ -89,62 +73,17 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         <Typography variant="h2" component="h1" sx={{ textAlign: 'center' }}>
           Register Form
         </Typography>
-        {TEXT_FIELDS.map(({ key, label, type }) => (
-          <TextField
-            key={key}
-            label={label}
-            {...register(key, validators[key])}
-            type={key === 'password' && showPassword ? 'text' : type}
-            error={!!errors[key]}
-            helperText={errors[key]?.message}
-            slotProps={{
-              input: {
-                endAdornment: key === 'password' && (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label={
-                        showPassword
-                          ? 'hide the password'
-                          : 'display the password'
-                      }
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-        ))}
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Controller
-            name="birthDate"
-            control={control}
-            rules={validators.birthDate}
-            render={({
-              field,
-              fieldState,
-            }: {
-              field: ControllerRenderProps<RegisterFormData, 'birthDate'>;
-              fieldState: ControllerFieldState;
-            }) => (
-              <DatePicker
-                label="Date of Birth"
-                value={field.value ?? null}
-                onChange={(date) => field.onChange(date)}
-                slotProps={{
-                  textField: {
-                    error: !!fieldState.error,
-                    helperText: fieldState.error?.message,
-                    fullWidth: true,
-                  },
-                }}
-              />
-            )}
-          />
-        </LocalizationProvider>
+
+        <PersonalForm
+          control={control}
+          fieldNames={{
+            firstName: 'firstName',
+            lastName: 'lastName',
+            email: 'email',
+            birthDate: 'birthDate',
+            password: 'password',
+          }}
+        />
 
         {addressFields.map((field, index) => (
           <Box key={field.id}>
