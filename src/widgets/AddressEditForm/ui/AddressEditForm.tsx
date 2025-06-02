@@ -8,10 +8,13 @@ import {
 import { useForm } from 'react-hook-form';
 import { AddressForm } from '@/features/addressForm';
 import type { AddressEditFormProps, AddressEditFormData } from '../model';
-import { useUpdateAddresses } from '../model';
+import {
+  useUpdateAddresses,
+  getCustomErrorInfo,
+  getServerErrorInfo,
+} from '../model';
 import { ErrorModal } from '@/shared/ui/ModalError';
 import { useState } from 'react';
-import { getCustomErrorInfo, getServerErrorInfo } from '../model';
 
 export const AddressEditForm = ({
   initialData,
@@ -34,9 +37,13 @@ export const AddressEditForm = ({
   });
 
   const [errorModalOpen, setErrorModalOpen] = useState(false);
-  const [errorTitle, setErrorTitle] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorModalTitle, setErrorModalTitle] = useState('');
+  const [errorModalMessage, setErrorModalMessage] = useState('');
   const updateAddresses = useUpdateAddresses();
+
+  const watchedAddresses = watch('addresses');
+  const watchedShippingId = watch('defaultShippingAddressId');
+  const watchedBillingId = watch('defaultBillingAddressId');
 
   const onSubmit = async (data: AddressEditFormData) => {
     updateAddresses(data)
@@ -48,18 +55,19 @@ export const AddressEditForm = ({
           typeof err === 'string'
             ? getCustomErrorInfo(err)
             : getServerErrorInfo(err);
-        setErrorTitle(title);
-        setErrorMessage(message);
+        setErrorModalTitle(title);
+        setErrorModalMessage(message);
         setErrorModalOpen(true);
         onError(err);
       });
   };
 
   const addNewAddress = () => {
-    const currentAddresses = watch('addresses');
+    const currentAddresses = watchedAddresses;
     setValue('addresses', [
       ...currentAddresses,
       {
+        id: `tempId_${currentAddresses.length}`,
         country: { code: '', label: '' },
         city: '',
         street: '',
@@ -69,7 +77,17 @@ export const AddressEditForm = ({
   };
 
   const removeAddress = (index: number) => {
-    const currentAddresses = watch('addresses');
+    const currentAddresses = watchedAddresses;
+    const addressToRemove = currentAddresses[index];
+    const remainingAddresses = currentAddresses.filter((_, i) => i !== index);
+    const lastRemainingAddress = remainingAddresses.pop();
+
+    if (watchedShippingId === addressToRemove?.id) {
+      setValue('defaultShippingAddressId', lastRemainingAddress?.id);
+    }
+    if (watchedBillingId === addressToRemove?.id) {
+      setValue('defaultBillingAddressId', lastRemainingAddress?.id);
+    }
     setValue(
       'addresses',
       currentAddresses.filter((_, i) => i !== index)
@@ -87,7 +105,7 @@ export const AddressEditForm = ({
           gap: 3,
         }}
       >
-        {watch('addresses').map((address, index) => {
+        {watchedAddresses.map((address, index) => {
           return (
             <Box
               key={index}
@@ -107,7 +125,7 @@ export const AddressEditForm = ({
                 }}
               >
                 <Typography variant="subtitle1">Address {index + 1}</Typography>
-                {watch('addresses').length > 1 && (
+                {watchedAddresses.length > 1 && (
                   <Button
                     variant="outlined"
                     color="error"
@@ -135,7 +153,7 @@ export const AddressEditForm = ({
                   label="Set this address as default for shipping"
                   control={
                     <Radio
-                      checked={watch('defaultShippingAddressId') === address.id}
+                      checked={watchedShippingId === address.id}
                       onChange={() =>
                         setValue('defaultShippingAddressId', address.id)
                       }
@@ -148,7 +166,7 @@ export const AddressEditForm = ({
                   label="Set this address as default for billing"
                   control={
                     <Radio
-                      checked={watch('defaultBillingAddressId') === address.id}
+                      checked={watchedBillingId === address.id}
                       onChange={() =>
                         setValue('defaultBillingAddressId', address.id)
                       }
@@ -191,8 +209,8 @@ export const AddressEditForm = ({
       <ErrorModal
         open={errorModalOpen}
         onClose={() => setErrorModalOpen(false)}
-        title={errorTitle}
-        message={errorMessage}
+        title={errorModalTitle}
+        message={errorModalMessage}
       />
     </Box>
   );

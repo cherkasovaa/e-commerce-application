@@ -1,20 +1,18 @@
 import { useQueryClient } from '@tanstack/react-query';
 import type { Customer } from '@commercetools/platform-sdk';
 import { getApiRoot } from '@/shared/api/commerceTools';
-import type { AddressData } from '@/features/addressForm/model';
-import type { AddressUpdateAction } from './types';
-import { createAddressUpdateActions } from './helpers';
-
-interface AddressFormData {
-  addresses: AddressData[];
-  defaultShippingAddressId?: string;
-  defaultBillingAddressId?: string;
-}
+import type { AddressEditFormData, AddressUpdateAction } from './types';
+import {
+  createAddressUpdateActions,
+  createDefaultAddressActions,
+} from './helpers';
 
 export const useUpdateAddresses = () => {
   const queryClient = useQueryClient();
 
-  const updateAddresses = async (data: AddressFormData): Promise<Customer> => {
+  const updateAddresses = async (
+    data: AddressEditFormData
+  ): Promise<Customer> => {
     const currentUser = queryClient.getQueryData<Customer>(['customer']);
     if (!currentUser) {
       throw new Error('Customer not found');
@@ -29,7 +27,7 @@ export const useUpdateAddresses = () => {
       throw new Error('No changes to update');
     }
 
-    const response = await getApiRoot()
+    let updatedUser = await getApiRoot()
       .customers()
       .withId({ ID: currentUser.id })
       .post({
@@ -40,10 +38,28 @@ export const useUpdateAddresses = () => {
       })
       .execute();
 
-    queryClient.setQueryData(['customer'], response.body);
+    const defaultValuesActions = createDefaultAddressActions(
+      data,
+      currentUser,
+      updatedUser.body
+    );
+    if (defaultValuesActions.length > 0) {
+      updatedUser = await getApiRoot()
+        .customers()
+        .withId({ ID: currentUser.id })
+        .post({
+          body: {
+            version: updatedUser.body.version,
+            actions: defaultValuesActions,
+          },
+        })
+        .execute();
+    }
+
+    queryClient.setQueryData(['customer'], updatedUser.body);
     queryClient.invalidateQueries({ queryKey: ['customer'] });
 
-    return response.body;
+    return updatedUser.body;
   };
 
   return updateAddresses;

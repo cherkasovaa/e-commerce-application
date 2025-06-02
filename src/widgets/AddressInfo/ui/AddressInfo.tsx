@@ -1,13 +1,12 @@
-import React from 'react';
 import { Box, Typography, Chip, Divider } from '@mui/material';
 import { type AddressInfoProps } from '../model/types';
 import { getAddressLabels } from '../model/helpers';
 
-export const AddressInfo: React.FC<AddressInfoProps> = ({
+export const AddressInfo = ({
   addresses,
   defaultShippingAddressId,
   defaultBillingAddressId,
-}) => {
+}: AddressInfoProps) => {
   if (addresses.length === 0) {
     return (
       <Typography

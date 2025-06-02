@@ -13,65 +13,126 @@ export const createAddressUpdateActions = (
 ): AddressUpdateAction[] => {
   const actions: AddressUpdateAction[] = [];
   const currentAddresses = currentUser.addresses || [];
+  const currentAddressMap = new Map(
+    currentAddresses.map((addr) => [addr.id, addr])
+  );
 
-  data.addresses.forEach((newAddress, index) => {
-    const existingAddress = currentAddresses[index];
+  data.addresses.forEach((formAddress) => {
+    const isTemporaryId = formAddress.id?.startsWith('tempId_');
 
-    if (!existingAddress) {
+    if (isTemporaryId) {
       actions.push({
         action: ACTIONS.ADD_ADDRESS,
         address: {
-          country: newAddress.country.code,
-          city: newAddress.city,
-          streetName: newAddress.street,
-          postalCode: newAddress.postcode,
+          country: formAddress.country.code,
+          city: formAddress.city,
+          streetName: formAddress.street,
+          postalCode: formAddress.postcode,
         },
       });
-    } else {
-      const hasChanges =
-        existingAddress.country !== newAddress.country.code ||
-        existingAddress.city !== newAddress.city ||
-        existingAddress.streetName !== newAddress.street ||
-        existingAddress.postalCode !== newAddress.postcode;
-      if (hasChanges && existingAddress.id) {
-        actions.push({
-          action: ACTIONS.CHANGE_ADDRESS,
-          addressId: existingAddress.id,
-          address: {
-            country: newAddress.country.code,
-            city: newAddress.city,
-            streetName: newAddress.street,
-            postalCode: newAddress.postcode,
-          },
-        });
+    } else if (formAddress.id) {
+      const existingAddress = currentAddressMap.get(formAddress.id);
+
+      if (existingAddress) {
+        const hasChanges =
+          existingAddress.country !== formAddress.country.code ||
+          existingAddress.city !== formAddress.city ||
+          existingAddress.streetName !== formAddress.street ||
+          existingAddress.postalCode !== formAddress.postcode;
+
+        if (hasChanges) {
+          actions.push({
+            action: ACTIONS.CHANGE_ADDRESS,
+            addressId: existingAddress.id,
+            address: {
+              country: formAddress.country.code,
+              city: formAddress.city,
+              streetName: formAddress.street,
+              postalCode: formAddress.postcode,
+            },
+          });
+        }
       }
     }
   });
 
-  if (currentAddresses.length > data.addresses.length) {
-    for (let i = data.addresses.length; i < currentAddresses.length; i++) {
-      const addressToRemove = currentAddresses[i];
-      if (addressToRemove.id) {
-        actions.push({
-          action: ACTIONS.REMOVE_ADDRESS,
-          addressId: addressToRemove.id,
-        });
-      }
-    }
-  }
+  const formAddressIds = new Set(
+    data.addresses
+      .map((addr) => addr.id)
+      .filter((id) => id && !id.startsWith('tempId_'))
+  );
 
-  if (data.defaultShippingAddressId !== currentUser.defaultShippingAddressId) {
+  currentAddresses.forEach((currentAddr) => {
+    if (currentAddr.id && !formAddressIds.has(currentAddr.id)) {
+      actions.push({
+        action: ACTIONS.REMOVE_ADDRESS,
+        addressId: currentAddr.id,
+      });
+    }
+  });
+
+  if (
+    currentUser.defaultShippingAddressId !== data.defaultShippingAddressId &&
+    data.defaultShippingAddressId &&
+    !data.defaultShippingAddressId.startsWith('tempId_')
+  ) {
     actions.push({
       action: ACTIONS.DEFAULT_SHIPPING,
       addressId: data.defaultShippingAddressId,
     });
   }
-
-  if (data.defaultBillingAddressId !== currentUser.defaultBillingAddressId) {
+  if (
+    currentUser.defaultBillingAddressId !== data.defaultBillingAddressId &&
+    data.defaultBillingAddressId &&
+    !data.defaultBillingAddressId.startsWith('tempId_')
+  ) {
     actions.push({
       action: ACTIONS.DEFAULT_BILLING,
       addressId: data.defaultBillingAddressId,
     });
+  }
+  return actions;
+};
+
+export const createDefaultAddressActions = (
+  data: AddressEditFormData,
+  currentUser: Customer,
+  updatedUser: Customer
+): AddressUpdateAction[] => {
+  const actions: AddressUpdateAction[] = [];
+  const getNewAddressId = (tempId: string): string | null => {
+    const tempIndex = data.addresses.findIndex((addr) => addr.id === tempId);
+    if (tempIndex === -1) return null;
+    let newAddressesBeforeCount = 0;
+    for (let i = 0; i < tempIndex; i++) {
+      if (data.addresses[i].id?.startsWith('tempId_')) {
+        newAddressesBeforeCount++;
+      }
+    }
+    const currentAddressCount = currentUser.addresses?.length || 0;
+    const newAddressIndex = currentAddressCount + newAddressesBeforeCount;
+    const newAddress = updatedUser.addresses?.[newAddressIndex];
+    return newAddress?.id || null;
+  };
+
+  if (data.defaultShippingAddressId?.startsWith('tempId_')) {
+    const realAddressId = getNewAddressId(data.defaultShippingAddressId);
+    if (realAddressId) {
+      actions.push({
+        action: ACTIONS.DEFAULT_SHIPPING,
+        addressId: realAddressId,
+      });
+    }
+  }
+
+  if (data.defaultBillingAddressId?.startsWith('tempId_')) {
+    const realAddressId = getNewAddressId(data.defaultBillingAddressId);
+    if (realAddressId) {
+      actions.push({
+        action: ACTIONS.DEFAULT_BILLING,
+        addressId: realAddressId,
+      });
+    }
   }
 
   return actions;
