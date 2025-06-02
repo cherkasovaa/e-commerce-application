@@ -13,6 +13,7 @@ import { CatalogPage } from '@/pages/catalog';
 import { CartPage } from '@/pages/cart';
 import { ProfilePage } from '@/pages/profile';
 import { APP_PATHS } from '@/shared/config/routes/paths';
+import { ProductPage } from '@/pages/product';
 
 export const Router = (): React.JSX.Element => (
   <HashRouter>
@@ -31,6 +32,7 @@ export const Router = (): React.JSX.Element => (
 
         <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
         <Route path={APP_PATHS.CART} element={<CartPage />} />
+        <Route path={APP_PATHS.PRODUCT} element={<ProductPage />} />
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>

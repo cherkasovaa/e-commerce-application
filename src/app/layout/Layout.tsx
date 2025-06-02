@@ -1,3 +1,4 @@
+import { ScrollToTop } from '@/shared/ui/ScrollToTop';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 import { Box, Container } from '@mui/material';
@@ -18,7 +19,7 @@ export const Layout: React.FC = () => (
     <Box component="main" style={{ flex: 1 }}>
       <Outlet />
     </Box>
-
+    <ScrollToTop />
     <Footer />
   </Container>
 );

@@ -26,7 +26,7 @@ export const Header: FC = () => {
     return false;
   });
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static" color="transparent" id="back-to-top-anchor">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {isMobile ? (
           <>

@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { defineConfig } from 'vite';
 
 const BASE_URL_DEV = '';
 const BASE_URL_PROD = '/e-commerce-application/';
@@ -22,7 +22,7 @@ export default defineConfig(({ command }) => {
       globals: true,
       environment: 'jsdom',
       include: ['**/*.test.{ts,tsx}'],
-      // setupFiles: 'tests/setup.ts',
+      setupFiles: './setupTests.ts',
       coverage: {
         reporter: ['text', 'json', 'html'],
       },
