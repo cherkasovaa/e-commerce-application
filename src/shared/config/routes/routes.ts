@@ -8,7 +8,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.HOME,
     meta: {
       showInNavigateMenu: false,
-      title: APP_PAGE_NAMES.HOME,
+      title: 'Online video game store',
     },
   },
   {
@@ -32,7 +32,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.NOT_FOUND,
     meta: {
       showInNavigateMenu: false,
-      title: APP_PAGE_NAMES.NOT_FOUND,
+      title: `${APP_PAGE_NAMES.NOT_FOUND} | Page Not Found`,
     },
   },
   {

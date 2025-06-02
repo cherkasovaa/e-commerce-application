@@ -1,6 +1,16 @@
+import { PageMeta } from '@/features/ProductMeta';
+import { APP_PAGE_NAMES } from '@/shared/config/routes/pageNames';
+import { usePageMeta } from '@/shared/lib/hooks/usePageMeta';
 import type { JSX } from 'react';
 import React from 'react';
 
 export const CartPage: React.FC = (): JSX.Element => {
-  return <div>CartPage</div>;
+  const metaData = usePageMeta(APP_PAGE_NAMES.CART);
+
+  return (
+    <>
+      {metaData && <PageMeta {...metaData} />}
+      <div>Cart Page</div>
+    </>
+  );
 };
