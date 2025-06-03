@@ -5,9 +5,10 @@ import { NotificationComponent } from '../NotificationComponent/NotificationComp
 
 interface PriceProps {
   value: ProductPrice | null;
+  size?: 's' | 'm' | 'l';
 }
 
-export const PriceContainer: FC<PriceProps> = ({ value }) => {
+export const PriceContainer: FC<PriceProps> = ({ value, size = 's' }) => {
   const theme = useTheme();
 
   if (!value) {
@@ -18,7 +19,7 @@ export const PriceContainer: FC<PriceProps> = ({ value }) => {
         sx={{
           color: theme.palette.text.primary,
           letterSpacing: '0.5px',
-          mt: 6,
+          mt: size === 'l' ? 6 : 0,
         }}
       >
         Price Not available
@@ -32,7 +33,7 @@ export const PriceContainer: FC<PriceProps> = ({ value }) => {
     <Grid
       container
       direction="column"
-      sx={{ alignItems: 'flex-start', width: '100%', mt: 7 }}
+      sx={{ alignItems: 'flex-start', width: '100%', mt: size === 'l' ? 7 : 0 }}
     >
       {value.hasDiscount && (
         <Grid
@@ -69,7 +70,7 @@ export const PriceContainer: FC<PriceProps> = ({ value }) => {
       )}
 
       <Typography
-        variant="h2"
+        variant={size === 'l' ? 'h2' : 'h5'}
         component="p"
         sx={{ color: theme.palette.text.primary, letterSpacing: '0.5px' }}
       >

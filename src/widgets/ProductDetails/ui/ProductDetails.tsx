@@ -48,7 +48,7 @@ export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
           </Typography>
         </Grid>
 
-        <PriceContainer value={price} />
+        <PriceContainer value={price} size={'l'} />
       </Grid>
     </Grid>
   );

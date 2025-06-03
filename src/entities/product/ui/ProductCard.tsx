@@ -14,8 +14,9 @@ import {
 import { type JSX } from 'react';
 
 import { useProductDetails } from '../model/useProductDetails';
-import { useProductPrice } from '../model/UseProductPrice';
 import { LANGUAGE } from '@/shared/config/constants';
+import { PriceContainer } from '@/shared/ui';
+import { getProductPrice } from '@/shared/lib/products/getProductPrice';
 
 interface IProductCardProps {
   product: ProductProjection;
@@ -31,8 +32,7 @@ export const ProductCard = ({
   const { genre, platform, ratingValue, description, image } =
     useProductDetails(product);
 
-  const { originalPrice, discountedPrice, currency, isDiscounted } =
-    useProductPrice(product);
+  const price = getProductPrice(product.masterVariant?.prices ?? []);
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
@@ -54,7 +54,7 @@ export const ProductCard = ({
           },
         }}
       >
-        {isDiscounted && (
+        {price?.hasDiscount && (
           <Box
             className="discount-flag"
             sx={{
@@ -164,39 +164,7 @@ export const ProductCard = ({
             </Button>
 
             <Stack display={'flex'} direction={'column'}>
-              <Typography
-                className="price"
-                variant="subtitle1"
-                sx={{
-                  textAlign: 'right',
-                  color: discountedPrice
-                    ? theme.palette.primary.dark
-                    : theme.palette.primary.light,
-                  fontWeight: 'bold',
-                  transition: 'transform  0.3s ease-in-out',
-                }}
-              >
-                {discountedPrice
-                  ? `${(discountedPrice / 100).toFixed(2)} ${currency}`
-                  : originalPrice
-                    ? `${(originalPrice / 100).toFixed(2)} ${currency}`
-                    : '0 EUR'}
-              </Typography>
-
-              {discountedPrice &&
-                originalPrice &&
-                discountedPrice < originalPrice && (
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      textAlign: 'right',
-                      color: 'text.secondary',
-                      textDecoration: 'line-through',
-                    }}
-                  >
-                    {(originalPrice / 100).toFixed(2)} {currency}
-                  </Typography>
-                )}
+              <PriceContainer value={price} />
             </Stack>
           </Box>
         </CardContent>
