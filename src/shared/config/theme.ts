@@ -115,7 +115,7 @@ export const darkTheme = createTheme({
       paper: '#2a2a2a',
     },
     text: {
-      secondary: 'rgba(255,255,255,0.85)',
+      secondary: 'rgba(255, 255, 255, 0.6)',
       disabled: '#d0d0d0',
     },
     ...sharedPalette,

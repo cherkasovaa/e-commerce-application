@@ -163,7 +163,11 @@ export const ProductCard = ({
               view details
             </Button>
 
-            <Stack display={'flex'} direction={'column'}>
+            <Stack
+              display={'flex'}
+              direction={'column'}
+              sx={{ transform: 'scale(0.7)' }}
+            >
               <PriceContainer value={price} />
             </Stack>
           </Box>
