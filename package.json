@@ -22,6 +22,7 @@
     "@commercetools/ts-client": "^3.3.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/orbitron": "^5.2.5",
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",

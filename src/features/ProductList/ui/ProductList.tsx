@@ -25,7 +25,7 @@ export const ProductList = ({
   if (!products?.length) {
     return (
       <Box width="100%" textAlign="center" mt={4}>
-        <Typography variant="h6">
+        <Typography variant="subtitle2">
           Oops! Nothing matches your search. How about exploring our hottest
           deals or other categories?
         </Typography>

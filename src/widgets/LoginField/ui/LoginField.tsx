@@ -2,8 +2,7 @@ import { type JSX } from 'react';
 import { LoginForm } from '@/features/LoginForm';
 import { Avatar, Paper, Typography } from '@mui/material';
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
-import { Link } from 'react-router-dom';
-import { APP_PATHS } from '@/shared/config/routes/paths';
+import { NotRegistered } from '@/features/NotRegistered';
 
 export const LoginField = (): JSX.Element => {
   return (
@@ -36,10 +35,7 @@ export const LoginField = (): JSX.Element => {
         Sign in
       </Typography>
       <LoginForm />
-      <Typography sx={{ textAlign: 'center' }}>
-        Don't have an account yet?{' '}
-        <Link to={APP_PATHS.REGISTER}>Register here!</Link>
-      </Typography>
+      <NotRegistered />
     </Paper>
   );
 };
