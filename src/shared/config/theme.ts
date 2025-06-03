@@ -80,6 +80,14 @@ const sharedTypography = {
   overline: {
     fontFamily: 'Orbitron, monospace',
   },
+  body1: {
+    fontSize: '1rem',
+    fontWeight: 400,
+  },
+  body2: {
+    fontSize: '0.875rem',
+    fontWeight: 400,
+  },
 };
 
 export const lightTheme = createTheme({

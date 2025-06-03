@@ -14,6 +14,8 @@ export const MenuDesktop: FC<{ pages: AppRoutes[] }> = ({ pages }) => {
         justifyContent: 'center',
         backgroundColor: theme.palette.background.paper,
         padding: 0,
+        borderRadius: 2,
+        overflow: 'hidden',
       }}
     >
       <NavigationLinks pages={pages} />

@@ -2,6 +2,7 @@ import { PageMeta } from '@/features/ProductMeta';
 import { APP_PAGE_NAMES } from '@/shared/config/routes/pageNames';
 import { getGradientBackground } from '@/shared/helpers/getGradientBackground';
 import { usePageMeta } from '@/shared/lib/hooks/usePageMeta';
+import { GameNews } from '@/widgets/GameNews';
 import { HeroContent } from '@/widgets/HeroContent';
 import { useTheme } from '@emotion/react';
 import { Grid } from '@mui/material';
@@ -14,14 +15,15 @@ export const MainPage: React.FC = () => {
     <>
       {metaData && <PageMeta {...metaData} />}
       <Grid
-        size={12}
-        p={3}
+        container
+        gap={2}
         sx={{
           borderRadius: 2,
           backgroundImage: getGradientBackground(theme),
         }}
       >
         <HeroContent />
+        <GameNews />
       </Grid>
     </>
   );

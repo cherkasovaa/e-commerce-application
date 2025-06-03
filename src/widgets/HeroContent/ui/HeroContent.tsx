@@ -19,7 +19,7 @@ export const HeroContent = (): JSX.Element => {
       }}
       container
     >
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 6 }} p={2}>
         <Typography variant="h6">Real games come on discs </Typography>
         <Typography
           variant="h2"
@@ -49,7 +49,7 @@ export const HeroContent = (): JSX.Element => {
           <MUILink
             component={Link}
             color="inherit"
-            to={APP_PATHS.HOME}
+            to={APP_PATHS.CATALOG}
             sx={linkStyle}
           >
             Own the Game. Literally.
