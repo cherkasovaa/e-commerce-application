@@ -41,42 +41,44 @@ const sharedTypography = {
   fontFamily: ' "Open Sans", sans-serif',
   fontWeightLight: 400,
   h1: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
     fontSize: '3rem',
     fontWeight: 700,
   },
   h2: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
     fontSize: '2.5rem',
     fontWeight: 700,
   },
   h3: {
     fontSize: '2rem',
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
     fontWeight: 400,
   },
   h4: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
     fontSize: '1.7rem',
   },
   h5: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
   },
   h6: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
   },
   button: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
     fontWeight: 700,
   },
   subtitle1: {
+    fontFamily: 'Orbitron, monospace',
+    fontWeight: 400,
+  },
+  caption1: {
     fontFamily: ' "Open Sans", sans-serif',
     fontWeight: 400,
-    lineHeight: 1,
-    letterSpacing: '0.01em',
   },
   overline: {
-    fontFamily: 'Orbitron',
+    fontFamily: 'Orbitron, monospace',
   },
 };
 

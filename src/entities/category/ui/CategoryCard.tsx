@@ -24,7 +24,6 @@ export const CategoryCard = ({
           overflow: 'hidden',
           position: 'relative',
           transition: 'transform 0.3s ease-in-out',
-          boxShadow: active ? ' 0 0 15px red' : 'none',
           '&:hover': {
             transform: 'scale(1.05)',
           },
