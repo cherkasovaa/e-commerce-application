@@ -32,7 +32,7 @@ export const Header: FC = () => {
       id="back-to-top-anchor"
       elevation={0}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', mt: 1 }}>
+      <Toolbar sx={{ justifyContent: 'space-between', my: 2 }}>
         {isMobile ? (
           <>
             <MenuMobile pages={pages} />

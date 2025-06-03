@@ -23,6 +23,7 @@ export const CategoryCard = ({
           paddingTop: { xs: '10%', sm: '30%', md: '40%' },
           overflow: 'hidden',
           position: 'relative',
+          borderRadius: 2,
           transition: 'transform 0.3s ease-in-out',
           '&:hover': {
             transform: 'scale(1.05)',

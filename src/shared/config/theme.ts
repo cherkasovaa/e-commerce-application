@@ -109,6 +109,8 @@ export const darkTheme = createTheme({
     mode: 'dark',
     primary: {
       main: '#3b952f',
+      light: '#3b952f',
+      dark: 'rgb(41, 104, 32)',
     },
     background: {
       default: '#1a1a1a',

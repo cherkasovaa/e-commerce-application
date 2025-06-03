@@ -12,9 +12,9 @@ export const CatalogPage: React.FC = (): JSX.Element => {
   return (
     <>
       {metaData && <PageMeta {...metaData} />}
-       <Grid container>
-          <CatalogSetting />
-        </Grid>
+      <Grid container>
+        <CatalogSetting />
+      </Grid>
     </>
   );
 };
