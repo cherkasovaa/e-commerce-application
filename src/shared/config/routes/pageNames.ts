@@ -5,5 +5,6 @@ export const APP_PAGE_NAMES = {
   CATALOG: 'Catalog',
   CART: 'Cart',
   PROFILE: 'Profile',
+  ABOUT: 'About Us',
   NOT_FOUND: '404',
 } as const;
