@@ -1,5 +1,6 @@
 import { convertToLink } from '@/shared/helpers/convertToLink';
 import { getChunksFromText } from '@/shared/helpers/getChunksFromText';
+import { RSSLogo } from '@/shared/ui';
 import { Box, Link, Typography } from '@mui/material';
 import type { JSX } from 'react';
 import { contentArray } from '../model/constants';
@@ -12,12 +13,15 @@ export const AboutIntro = (): JSX.Element => {
   return (
     <Box component="section" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
       <Box sx={{ mb: { xs: 0, md: 3 } }}>
-        <Typography variant="h1" component="h1" sx={{ mb: 3, flex: 1 }}>
-          {SECTION_TITLE}
-        </Typography>
+        <Box sx={{ display: 'flex', alignContent: 'center', gap: 2, mb: 3 }}>
+          <RSSLogo />
+          <Typography variant="h1" component="h1" sx={{ flex: 1 }}>
+            {SECTION_TITLE}
+          </Typography>
+        </Box>
 
         <Typography component="p">
-          Welcome to Game Shop — a modern e-commerce project created by a team
+          Welcome to «Game Shop» — a modern e-commerce project created by a team
           of three talented developers as part of the{' '}
           <Link href={RSS_SCHOOL_URL} target="_blank" underline="none">
             RSSchool
