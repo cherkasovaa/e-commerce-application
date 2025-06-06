@@ -1,7 +1,8 @@
+import { TextSlider } from '@/features/TextSlider';
 import { convertToLink } from '@/shared/helpers/convertToLink';
 import { getChunksFromText } from '@/shared/helpers/getChunksFromText';
 import { RSSLogo } from '@/shared/ui';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Link, Typography, useMediaQuery, useTheme } from '@mui/material';
 import type { JSX } from 'react';
 import { contentArray } from '../model/constants';
 import type { About } from '../model/types';
@@ -9,6 +10,9 @@ import type { About } from '../model/types';
 export const AboutIntro = (): JSX.Element => {
   const SECTION_TITLE = 'About Us';
   const RSS_SCHOOL_URL = 'https://rs.school';
+
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <Box component="section" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
@@ -52,6 +56,8 @@ export const AboutIntro = (): JSX.Element => {
           </Box>
         )
       )}
+
+      {isTablet && <TextSlider />}
     </Box>
   );
 };
