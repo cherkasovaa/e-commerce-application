@@ -1,11 +1,13 @@
 export { AboutGame } from './AboutGame/AboutGame';
 export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
 export { DotContainer } from './DotContainer/DotContainer';
+export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';
 export { GameRating } from './GameRating/GameRating';
-export { Logo } from './Logo/Logo';
 export { Loader } from './Loader';
+export { Logo } from './Logo/Logo';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
 export { PriceContainer } from './PriceContainer/PriceContainer';
+export { RSSLogo } from './RSSLogo/RSSLogo';
 export { SliderControls } from './SliderControls/SliderControls';
-export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';
+export { TeamMemberCard } from './TeamMemberCard/TeamMemberCard';
