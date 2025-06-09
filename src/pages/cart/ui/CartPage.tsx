@@ -24,7 +24,7 @@ export const CartPage: React.FC = () => {
         <Typography variant="h4" gutterBottom>
           Cart
         </Typography>
-        {isEmpty ? <CartEmpty /> : <CartProductList />}
+        {isEmpty ? <CartEmpty /> : <CartProductList items={cart.lineItems} />}
       </Container>
     </>
   );
