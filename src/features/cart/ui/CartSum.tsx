@@ -1,10 +1,11 @@
-import { Paper, Typography, Stack } from '@mui/material';
+import { Paper, Typography, Stack, Divider } from '@mui/material';
 import { useCartQuery } from '@/entities/cart';
+import { PromocodeWrapper } from './PromocodeWrapper';
 
 export const CartSum = () => {
   const { data: cart } = useCartQuery();
 
-  if (!cart) return null;
+  if (!cart) return;
 
   const totalItems = cart.lineItems.reduce(
     (acc, item) => acc + item.quantity,
@@ -33,6 +34,9 @@ export const CartSum = () => {
             {totalPrice} {currency}
           </strong>
         </Typography>
+
+        <Divider sx={{ my: 2 }} />
+        <PromocodeWrapper />
       </Stack>
     </Paper>
   );
