@@ -1,8 +1,8 @@
-import { CartEmpty, CartProductList } from '@/features/cart';
+import { CartEmpty, CartProductList, CartSum } from '@/features/cart';
 import { PageMeta } from '@/features/ProductMeta';
 import { APP_PAGE_NAMES } from '@/shared/config/routes/pageNames';
 import { usePageMeta } from '@/shared/lib/hooks/usePageMeta';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
 import React from 'react';
 import { useCartQuery } from '@/entities/cart/';
 import { Loader } from '@/shared/ui';
@@ -24,7 +24,32 @@ export const CartPage: React.FC = () => {
         <Typography variant="h4" gutterBottom>
           Cart
         </Typography>
-        {isEmpty ? <CartEmpty /> : <CartProductList items={cart.lineItems} />}
+
+        {isEmpty ? (
+          <CartEmpty />
+        ) : (
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', md: 'row' }}
+            gap={4}
+            alignItems={{ lg: 'flex-start' }}
+          >
+            <Box flex={1}>
+              <CartProductList items={cart.lineItems} />
+            </Box>
+
+            <Box
+              width={{ xs: '100%', md: 300 }}
+              position={{ xs: 'static', md: 'sticky' }}
+              top={{ lg: 100 }}
+              sx={{
+                alignSelf: { lg: 'flex-start' },
+              }}
+            >
+              <CartSum />
+            </Box>
+          </Box>
+        )}
       </Container>
     </>
   );
