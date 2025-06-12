@@ -6,6 +6,8 @@ import { Container, Typography, Box } from '@mui/material';
 import React from 'react';
 import { useCartQuery } from '@/entities/cart/';
 import { Loader } from '@/shared/ui';
+import { Banner } from '@/shared/ui/Banner';
+import { SALES } from '@/shared/constants';
 
 export const CartPage: React.FC = () => {
   const metaData = usePageMeta(APP_PAGE_NAMES.CART);
@@ -21,6 +23,14 @@ export const CartPage: React.FC = () => {
       {metaData && <PageMeta {...metaData} />}
 
       <Container maxWidth="lg" sx={{ py: 4 }}>
+        {!isEmpty && (
+          <Banner
+            title={SALES.FIRST_ORDER.title}
+            description={SALES.FIRST_ORDER.description}
+            promo={{ code: SALES.FIRST_ORDER.code, isCopied: true }}
+            imageUrl={SALES.FIRST_ORDER.imageUrl}
+          />
+        )}
         <Typography variant="h4" gutterBottom>
           Cart
         </Typography>
