@@ -13,6 +13,7 @@ import { useRemoveCartItem } from '@/entities/cart';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useUpdateItemQuantity } from '@/entities/cart';
+import { Loader } from '@/shared/ui';
 
 export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const name = item.name?.['en-US'];
@@ -21,9 +22,11 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const totalPrice = (item.totalPrice.centAmount / 100).toFixed(2);
   const currency = item.price.value.currencyCode;
   const imageUrl = item.variant.images?.[0]?.url;
-  const { mutate: remove } = useRemoveCartItem();
-  const { mutate: updateQuantity } = useUpdateItemQuantity();
+  const { mutate: remove, isPending: isRemoving } = useRemoveCartItem();
+  const { mutate: updateQuantity, isPending: isUpdating } =
+    useUpdateItemQuantity();
 
+  const isLoading = isRemoving || isUpdating;
   const handleRemove = () => {
     remove(item.id);
   };
@@ -33,9 +36,10 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   };
 
   return (
-    <Paper variant="outlined" sx={{ p: 2 }}>
-      {' '}
-      <Paper variant="outlined" sx={{ p: 2 }}>
+    <Paper variant="outlined" sx={{ p: 2, minHeight: 150 }}>
+      {isLoading ? (
+        <Loader />
+      ) : (
         <Stack direction="row" spacing={2} alignItems="center">
           {imageUrl && (
             <Avatar
@@ -60,10 +64,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
               </IconButton>
             </Stack>
             <Typography variant="body2" color="text.secondary">
-              Quantity: {quantity}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Unit price: {unitPrice} {currency}
+              {unitPrice} {currency}
             </Typography>
             <Typography variant="body2" fontWeight="bold">
               Total: {totalPrice} {currency}
@@ -73,7 +74,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
             <DeleteIcon />
           </IconButton>
         </Stack>
-      </Paper>
+      )}
     </Paper>
   );
 };
