@@ -1,7 +1,7 @@
 import { Paper, Typography, Stack } from '@mui/material';
 import { useCartQuery } from '@/entities/cart';
 
-export const CartSum: React.FC = () => {
+export const CartSum = () => {
   const { data: cart } = useCartQuery();
 
   if (!cart) return null;
@@ -22,7 +22,7 @@ export const CartSum: React.FC = () => {
         </Typography>
         <Stack spacing={0.5}>
           {cart.lineItems.map((item) => (
-            <Typography variant="body2" color="text.secondary">
+            <Typography key={item.id} variant="body2" color="text.secondary">
               • {item.name?.['en-US']} x {item.quantity}
             </Typography>
           ))}
