@@ -18,7 +18,9 @@ export const CartProductList: React.FC<CartProductListProps> = ({ items }) => {
       <Box
         display="flex"
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ xs: 'flex-start', md: 'center' }}
+        flexDirection={{ xs: 'column', md: 'row' }}
+        gap={0.5}
         mb={2}
       >
         <Typography variant="h6">Cart Items</Typography>

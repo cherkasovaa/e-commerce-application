@@ -24,28 +24,34 @@ export const Banner = (props: BannerProps) => {
       });
     }
   };
+
   return (
     <Paper
       elevation={3}
       sx={{
         display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        alignItems: 'center',
-        gap: 2,
-        p: 3,
+        flexDirection: 'row',
+        alignItems: { xs: 'flex-start', md: 'center' },
+        gap: { xs: 0.5, md: 2 },
+        p: { xs: 2, sm: 3 },
         mb: 4,
         backgroundColor: 'primary.light',
-        boxShadow: '0 4px 10px rgba(255,255,255,0.5)',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
       }}
     >
-      <Stack spacing={1} flex={1}>
+      <Stack spacing={1} flex={1} width="100%">
         <Typography variant="h6">{title}</Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
 
-        {promo && promo.code && (
-          <Stack direction="row" spacing={1} alignItems="center">
+        {promo?.code && (
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            flexWrap="wrap"
+          >
             <Box
               sx={{
                 border: '1px solid',
@@ -53,7 +59,7 @@ export const Banner = (props: BannerProps) => {
                 borderRadius: 1,
                 px: 1.5,
                 py: 0.5,
-                minWidth: 150,
+                minWidth: { xs: 100, md: 150 },
                 textAlign: 'center',
                 backgroundColor: copied ? 'success.light' : 'background.paper',
                 transition: 'all 0.3s ease',
@@ -79,10 +85,11 @@ export const Banner = (props: BannerProps) => {
           src={imageUrl}
           alt="Promo"
           sx={{
-            width: { xs: '100%', md: 180 },
-            height: 'auto',
-            borderRadius: 2,
+            width: { xs: '25%', md: 180 },
+            maxHeight: 160,
             objectFit: 'cover',
+            borderRadius: 2,
+            alignSelf: { xs: 'center', md: 'flex-start' },
           }}
         />
       )}
