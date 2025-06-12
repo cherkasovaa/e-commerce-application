@@ -33,16 +33,26 @@ export const PriceContainer: FC<PriceProps> = ({ value, size = 's' }) => {
     <Grid
       container
       direction="column"
-      sx={{ alignItems: 'flex-start', width: '100%', mt: size === 'l' ? 7 : 0 }}
+      sx={{
+        alignItems: size === 'l' ? 'flex-start' : 'flex-end',
+        width: '100%',
+        mt: size === 'l' ? 7 : 0,
+      }}
+      gap={1}
     >
       {value.hasDiscount && (
         <Grid
           container
           className="discount"
-          sx={{ alignItems: 'center', gap: '8px' }}
+          sx={{
+            alignItems: 'center',
+            gap: size === 'l' ? 2 : 1,
+            justifyContent: size === 'l' ? 'flex-start' : 'flex-end',
+          }}
         >
+          <NotificationComponent props={discount} />
           <Typography
-            variant="h6"
+            variant={size === 'l' ? 'h6' : 'subtitle1'}
             component="span"
             sx={{
               color: theme.palette.text.secondary,
@@ -64,15 +74,18 @@ export const PriceContainer: FC<PriceProps> = ({ value, size = 's' }) => {
           >
             {value.original}
           </Typography>
-
-          <NotificationComponent props={discount} />
         </Grid>
       )}
 
       <Typography
-        variant={size === 'l' ? 'h2' : 'h5'}
+        variant={size === 'l' ? 'h2' : 'h6'}
         component="p"
-        sx={{ color: theme.palette.text.primary, letterSpacing: '0.5px' }}
+        sx={{
+          color: theme.palette.text.primary,
+          letterSpacing: '0.5px',
+          fontWeight: 'bold',
+          alignSelf: size === 'l' ? 'start' : 'end',
+        }}
       >
         {value.value}
       </Typography>
