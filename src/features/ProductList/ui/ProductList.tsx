@@ -1,3 +1,4 @@
+import { useSendProductToCart } from '@/entities/cart';
 import { ProductCard } from '@/entities/product';
 import { LANGUAGE } from '@/shared/config/constants';
 import { APP_PATHS } from '@/shared/config/routes/paths';
@@ -17,6 +18,12 @@ export const ProductList = ({
   isLoading,
 }: ProductListProps): JSX.Element => {
   const navigate = useNavigate();
+
+  const { mutate } = useSendProductToCart();
+
+  const handleCartClick = (id: string): void => {
+    mutate(id);
+  };
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -44,6 +51,9 @@ export const ProductList = ({
           onDetailsClick={() =>
             navigate(getProductPath(product.slug?.[LANGUAGE.EN]))
           }
+          onCartClick={() => {
+            handleCartClick(product.id);
+          }}
         />
       ))}
     </Grid>
