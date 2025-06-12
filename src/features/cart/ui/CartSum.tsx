@@ -27,14 +27,35 @@ export const CartSum = () => {
               • {item.name?.['en-US']} x {item.quantity}
             </Typography>
           ))}
-        </Stack>
-        <Typography>
+        </Stack>{' '}
+        {cart.discountOnTotalPrice && (
+          <>
+            <Typography>
+              Total without discount:{' '}
+              <strong>
+                {(cart.totalPrice.centAmount +
+                  (cart.discountOnTotalPrice?.discountedAmount.centAmount ||
+                    0)) /
+                  100}{' '}
+                {currency}
+              </strong>
+            </Typography>
+
+            <Typography color="success.main">
+              Discount: –{' '}
+              {(
+                cart.discountOnTotalPrice.discountedAmount.centAmount / 100
+              ).toFixed(2)}{' '}
+              {currency}
+            </Typography>
+          </>
+        )}
+        <Typography variant="h6">
           Total:{' '}
           <strong>
             {totalPrice} {currency}
           </strong>
         </Typography>
-
         <Divider sx={{ my: 2 }} />
         <PromocodeWrapper />
       </Stack>
