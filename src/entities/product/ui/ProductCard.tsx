@@ -22,12 +22,13 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 interface IProductCardProps {
   product: ProductProjection;
+  isInCart: boolean;
   onDetailsClick: () => void;
   onCartClick: () => void;
 }
-
 export const ProductCard = ({
   product,
+  isInCart,
   onDetailsClick,
   onCartClick,
 }: IProductCardProps): JSX.Element => {
@@ -47,7 +48,7 @@ export const ProductCard = ({
           position: 'relative',
           '&:hover': {
             transform: 'scale(1.01)',
-            boxShadow: `0 5px 16px ${theme.palette.primary.main}33`,
+            boxShadow: ` 0 5px 16px ${theme.palette.primary.main}33`,
             '.discount-flag': {
               opacity: 0,
             },
@@ -178,8 +179,13 @@ export const ProductCard = ({
                 variant="outlined"
                 onClick={onCartClick}
                 color="secondary"
+                disabled={isInCart}
                 sx={{
-                  backgroundColor: theme.palette.primary.main,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  backgroundColor: isInCart
+                    ? theme.palette.primary.dark
+                    : theme.palette.primary.main,
                   color: theme.palette.primary.contrastText,
                   border: 'none',
                   transition:
@@ -193,7 +199,8 @@ export const ProductCard = ({
                   },
                 }}
               >
-                <AddShoppingCartIcon /> add to cart
+                <AddShoppingCartIcon />
+                <span>{isInCart ? 'in cart' : 'add to cart'} </span>
               </Button>
             </Stack>
 

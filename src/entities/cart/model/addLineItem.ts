@@ -1,4 +1,5 @@
 import { getApiRoot } from '@/shared/api/commerceTools';
+import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 import type { Cart } from '@commercetools/platform-sdk';
 
 export const addLineItem = async (
@@ -23,5 +24,10 @@ export const addLineItem = async (
       },
     })
     .execute();
+
+  if (response.body.anonymousId) {
+    localStorageService.setAnonymousID(response.body.anonymousId);
+  }
+
   return response.body;
 };
