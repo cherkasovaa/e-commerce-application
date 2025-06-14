@@ -1,26 +1,23 @@
+import type { ButtonProps } from '@mui/material';
 import { Button, useTheme } from '@mui/material';
 import type { JSX } from 'react';
-import React from 'react';
 
-interface CartActionButtonProps {
-  handleClick: () => void;
-  isDisabled: boolean;
-  children: React.ReactNode;
+interface ActionButtonProps extends ButtonProps {
+  minWidth?: string | number;
 }
 
-export const CartActionButton = ({
-  handleClick,
-  isDisabled,
+export const ActionButton = ({
+  minWidth = 205,
+  sx,
   children,
-}: CartActionButtonProps): JSX.Element => {
+  ...rest
+}: ActionButtonProps): JSX.Element => {
   const theme = useTheme();
 
   return (
     <Button
       size="small"
       variant="outlined"
-      onClick={handleClick}
-      disabled={isDisabled}
       color="secondary"
       sx={{
         backgroundColor: theme.palette.primary.main,
@@ -33,8 +30,10 @@ export const CartActionButton = ({
           color: theme.palette.getContrastText(theme.palette.primary.main),
           transform: 'scale(1.05)',
         },
-        minWidth: 205,
+        minWidth,
+        ...sx,
       }}
+      {...rest}
     >
       {children}
     </Button>

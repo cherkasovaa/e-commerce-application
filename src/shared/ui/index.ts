@@ -1,6 +1,6 @@
 export { AboutGame } from './AboutGame/AboutGame';
+export { ActionButton } from './ActionButton/ActionButton';
 export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
-export { CartActionButton } from './CartActionButton/CartActionButton';
 export { DotContainer } from './DotContainer/DotContainer';
 export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';
 export { GameRating } from './GameRating/GameRating';

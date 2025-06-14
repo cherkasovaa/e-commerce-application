@@ -3,11 +3,7 @@ import type { ProductDetailsProps } from '@/pages/product/model/types';
 import { CART_MESSAGES } from '@/shared/constants/cartMessages';
 import { useCartActions } from '@/shared/lib/hooks/useCartActions';
 import { useNotification } from '@/shared/lib/hooks/useNotification';
-import {
-  BreadcrumbsComponent,
-  CartActionButton,
-  GameRating,
-} from '@/shared/ui';
+import { ActionButton, BreadcrumbsComponent, GameRating } from '@/shared/ui';
 import { PriceContainer } from '@/shared/ui/PriceContainer/PriceContainer';
 import { SnackNotification } from '@/shared/ui/SnackNotification/SnackNotification';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -93,14 +89,14 @@ export const ProductDetails = (props: ProductDetailsProps): JSX.Element => {
         <PriceContainer value={price} size={'l'} />
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mt: 3 }}>
-          <CartActionButton handleClick={addToCart} isDisabled={isInCart}>
+          <ActionButton onClick={addToCart} disabled={isInCart}>
             <AddShoppingCartIcon />
             {inCartIds.has(id) ? 'In cart' : 'Add to cart'}
-          </CartActionButton>
+          </ActionButton>
 
-          <CartActionButton handleClick={removeFromCart} isDisabled={!isInCart}>
+          <ActionButton onClick={removeFromCart} disabled={!isInCart}>
             <RemoveShoppingCartIcon /> Remove from cart
-          </CartActionButton>
+          </ActionButton>
         </Box>
 
         <SnackNotification
