@@ -7,6 +7,7 @@ import { getProductPrice } from './getProductPrice';
 export const getDataForProductDetails = (
   data: ProductProjection
 ): ProductDetailsProps => {
+  const id = data.id;
   const title = data.name?.[LANGUAGE.EN] || 'No name';
   const description =
     data.metaDescription?.[LANGUAGE.EN] ||
@@ -16,6 +17,7 @@ export const getDataForProductDetails = (
   const price = getProductPrice(data.masterVariant?.prices ?? []);
 
   return {
+    id,
     title,
     description,
     rating,
