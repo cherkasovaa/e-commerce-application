@@ -7,7 +7,7 @@ export const DEVELOPERS: AppDeveloper[] = [
   {
     name: 'Kseniia',
     role: 'Developer',
-    bio: 'Here will be a few words about me',
+    bio: "Simplicity, accessibility, structure, creativity, and growth — these are the values I care about most in life. And I find all of them in frontend. Not just about the interface — it is about the inner logic too: how elegantly and beautifully code can be structured, how processes can be orchestrated. That is exactly why I' ve grown to love it.",
     photo: akseeePhoto,
     github: 'https://github.com/akseee',
     nickname: 'akseee',
