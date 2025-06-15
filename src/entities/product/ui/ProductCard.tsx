@@ -1,7 +1,6 @@
 import { type ProductProjection } from '@commercetools/platform-sdk';
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -19,6 +18,7 @@ import { PriceContainer } from '@/shared/ui';
 import { getProductPrice } from '@/shared/lib/products/getProductPrice';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { ActionButton } from '@/shared/ui/ActionButton/ActionButton';
 
 interface IProductCardProps {
   product: ProductProjection;
@@ -152,56 +152,37 @@ export const ProductCard = ({
             mt={3}
           >
             <Stack gap={2} maxWidth={'50%'}>
-              <Button
-                size="small"
-                variant="outlined"
+              <ActionButton
+                minWidth={'min-content'}
                 onClick={onDetailsClick}
-                color="secondary"
                 sx={{
                   backgroundColor: theme.palette.secondary.main,
                   color: theme.palette.secondary.contrastText,
-                  border: 'none',
-                  transition:
-                    'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
                   '&:hover': {
                     backgroundColor: theme.palette.secondary.dark,
                     color: theme.palette.getContrastText(
                       theme.palette.secondary.dark
                     ),
-                    transform: 'scale(1.05)',
                   },
                 }}
               >
                 view details
-              </Button>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={onCartClick}
-                color="secondary"
-                disabled={isInCart}
+              </ActionButton>
+              <ActionButton
+                minWidth={'min-content'}
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
                   backgroundColor: isInCart
                     ? theme.palette.primary.dark
                     : theme.palette.primary.main,
-                  color: theme.palette.primary.contrastText,
-                  border: 'none',
-                  transition:
-                    'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
-                  '&:hover': {
-                    backgroundColor: theme.palette.primary.dark,
-                    color: theme.palette.getContrastText(
-                      theme.palette.primary.main
-                    ),
-                    transform: 'scale(1.05)',
-                  },
+                  display: 'flex',
+                  justifyContent: 'space-between',
                 }}
+                onClick={onCartClick}
+                disabled={isInCart}
               >
                 <AddShoppingCartIcon />
                 <span>{isInCart ? 'in cart' : 'add to cart'} </span>
-              </Button>
+              </ActionButton>
             </Stack>
 
             <Stack display={'flex'} direction={'column'} alignContent={'end'}>
