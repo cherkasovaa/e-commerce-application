@@ -3,7 +3,7 @@ import type { FC, MouseEvent } from 'react';
 
 import { Box, IconButton, Menu } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
+import { NavigationLinks } from './NavigationLinks';
 import type { AppRoutes } from '@/shared/types/appRoutes';
 
 export const MenuMobile: FC<{ pages: AppRoutes[] }> = ({ pages }) => {

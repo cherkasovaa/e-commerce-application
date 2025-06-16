@@ -50,7 +50,6 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.CART,
     meta: {
       showInNavigateMenu: true,
-      requiresAuth: true,
       title: APP_PAGE_NAMES.CART,
     },
   },
