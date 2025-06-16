@@ -127,7 +127,7 @@ export const CatalogSetting = (): JSX.Element => {
                 size="small"
               />
             </Box>
-            <ProductList products={products} isLoading={isLoading} />
+            <ProductList products={products} isListLoading={isLoading} />
             <Box display="flex" justifyContent="center" mt={2}>
               <Pagination
                 count={pageCount}

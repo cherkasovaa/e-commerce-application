@@ -18,14 +18,19 @@ import { LANGUAGE } from '@/shared/config/constants';
 import { PriceContainer } from '@/shared/ui';
 import { getProductPrice } from '@/shared/lib/products/getProductPrice';
 
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 interface IProductCardProps {
   product: ProductProjection;
+  isInCart: boolean;
   onDetailsClick: () => void;
+  onCartClick: () => void;
 }
-
 export const ProductCard = ({
   product,
+  isInCart,
   onDetailsClick,
+  onCartClick,
 }: IProductCardProps): JSX.Element => {
   const theme = useTheme();
 
@@ -43,7 +48,7 @@ export const ProductCard = ({
           position: 'relative',
           '&:hover': {
             transform: 'scale(1.01)',
-            boxShadow: `0 5px 16px ${theme.palette.primary.main}33`,
+            boxShadow: ` 0 5px 16px ${theme.palette.primary.main}33`,
             '.discount-flag': {
               opacity: 0,
             },
@@ -78,7 +83,13 @@ export const ProductCard = ({
         )}
         <CardMedia component="img" image={image} height="200" />
 
-        <CardContent>
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography
             variant="subtitle1"
             component="h2"
@@ -140,34 +151,60 @@ export const ProductCard = ({
             alignItems="center"
             mt={3}
           >
-            <Button
-              size="small"
-              variant="outlined"
-              onClick={onDetailsClick}
-              color="secondary"
-              sx={{
-                backgroundColor: theme.palette.secondary.main,
-                color: theme.palette.secondary.contrastText,
-                border: 'none',
-                transition:
-                  'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
-                '&:hover': {
-                  backgroundColor: theme.palette.secondary.dark,
-                  color: theme.palette.getContrastText(
-                    theme.palette.secondary.dark
-                  ),
-                  transform: 'scale(1.05)',
-                },
-              }}
-            >
-              view details
-            </Button>
+            <Stack gap={2} maxWidth={'50%'}>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={onDetailsClick}
+                color="secondary"
+                sx={{
+                  backgroundColor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.contrastText,
+                  border: 'none',
+                  transition:
+                    'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
+                  '&:hover': {
+                    backgroundColor: theme.palette.secondary.dark,
+                    color: theme.palette.getContrastText(
+                      theme.palette.secondary.dark
+                    ),
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                view details
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={onCartClick}
+                color="secondary"
+                disabled={isInCart}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  backgroundColor: isInCart
+                    ? theme.palette.primary.dark
+                    : theme.palette.primary.main,
+                  color: theme.palette.primary.contrastText,
+                  border: 'none',
+                  transition:
+                    'transform 0.2s ease, background-color 0.2s ease, color 0.2s ease',
+                  '&:hover': {
+                    backgroundColor: theme.palette.primary.dark,
+                    color: theme.palette.getContrastText(
+                      theme.palette.primary.main
+                    ),
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                <AddShoppingCartIcon />
+                <span>{isInCart ? 'in cart' : 'add to cart'} </span>
+              </Button>
+            </Stack>
 
-            <Stack
-              display={'flex'}
-              direction={'column'}
-              sx={{ transform: 'scale(0.7)' }}
-            >
+            <Stack display={'flex'} direction={'column'} alignContent={'end'}>
               <PriceContainer value={price} />
             </Stack>
           </Box>
