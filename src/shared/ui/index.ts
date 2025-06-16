@@ -9,4 +9,6 @@ export { Logo } from './Logo/Logo';
 export { NavigationButton } from './NavigationButton/NavigationButton';
 export { NotificationComponent } from './NotificationComponent/NotificationComponent';
 export { PriceContainer } from './PriceContainer/PriceContainer';
+export { RSSLogo } from './RSSLogo/RSSLogo';
 export { SliderControls } from './SliderControls/SliderControls';
+export { TeamMemberCard } from './TeamMemberCard/TeamMemberCard';

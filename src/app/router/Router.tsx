@@ -1,19 +1,20 @@
 import React from 'react';
 
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
-import { LoginPage } from '@/pages/login';
-import { UnauthorizedRoute } from './UnathorizedRoute';
-import { AuthorizedRoute } from './AuthorizedRoute';
-import { MainPage } from '@/pages/main';
-import { RegisterPage } from '@/pages/register';
-import { NotFoundPage } from '@/pages/not-found';
-import { Layout } from '../layout/Layout';
-import { CatalogPage } from '@/pages/catalog';
+import { About } from '@/pages/about';
 import { CartPage } from '@/pages/cart';
-import { ProfilePage } from '@/pages/profile';
-import { APP_PATHS } from '@/shared/config/routes/paths';
+import { CatalogPage } from '@/pages/catalog';
+import { LoginPage } from '@/pages/login';
+import { MainPage } from '@/pages/main';
+import { NotFoundPage } from '@/pages/not-found';
 import { ProductPage } from '@/pages/product';
+import { ProfilePage } from '@/pages/profile';
+import { RegisterPage } from '@/pages/register';
+import { APP_PATHS } from '@/shared/config/routes/paths';
+import { Layout } from '../layout/Layout';
+import { AuthorizedRoute } from './AuthorizedRoute';
+import { UnauthorizedRoute } from './UnathorizedRoute';
 
 export const Router = (): React.JSX.Element => (
   <HashRouter>
@@ -33,6 +34,7 @@ export const Router = (): React.JSX.Element => (
         <Route path={APP_PATHS.CATALOG} element={<CatalogPage />} />
         <Route path={APP_PATHS.CART} element={<CartPage />} />
         <Route path={APP_PATHS.PRODUCT} element={<ProductPage />} />
+        <Route path={APP_PATHS.ABOUT} element={<About />} />
         <Route path={APP_PATHS.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>
