@@ -48,4 +48,16 @@ export const localStorageService = {
     this.remove('AUTH');
     this.remove('REFRESH_TOKEN');
   },
+
+  setAnonymousID(token: string): void {
+    this.set('ANONYMOUS_TOKEN', token);
+  },
+
+  clearAnonymousID(): void {
+    this.remove('ANONYMOUS_TOKEN');
+  },
+
+  getAnonymousID(): string | null {
+    return this.get('ANONYMOUS_TOKEN');
+  },
 };

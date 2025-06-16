@@ -2,14 +2,19 @@ import { localStorageService } from '@/shared/lib/localStorage/localStorageServi
 import { Button } from '@mui/material';
 import React from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { switchToAnonymousFlow } from '@/shared/api/commerceTools/authFlow';
 
 export const LogoutButton: React.FC = () => {
   const queryClient = useQueryClient();
-  const logout = (): void => {
+  const logout = async (): Promise<void> => {
     localStorageService.clearAuth();
+
+    await switchToAnonymousFlow();
+
+    queryClient.invalidateQueries({ queryKey: ['cart'] });
+
     queryClient.setQueryData(['customer'], undefined);
     queryClient.invalidateQueries({ queryKey: ['customer'] });
-    window.dispatchEvent(new CustomEvent('authStatusChanged'));
   };
 
   return (

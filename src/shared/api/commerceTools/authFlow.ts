@@ -15,7 +15,9 @@ export async function switchToPasswordFlow(
   username: string,
   password: string
 ): Promise<void> {
-  const newClient = createClient(username, password);
+  const anonymousId = localStorageService.getAnonymousID();
+
+  const newClient = createClient(username, password, anonymousId);
 
   currentClient = newClient;
 
@@ -31,6 +33,8 @@ export async function switchToAnonymousFlow(): Promise<void> {
 
 function createAnonymousClient(): Client {
   localStorageService.setAuthStatus(false);
+  localStorageService.clearAnonymousID();
+
   return new ClientBuilder()
     .withAnonymousSessionFlow({
       host: authURL,
@@ -46,7 +50,11 @@ function createAnonymousClient(): Client {
     .build();
 }
 
-function createClient(username: string, password: string): Client {
+function createClient(
+  username: string,
+  password: string,
+  anonymousId: string | null
+): Client {
   localStorageService.setAuthStatus(true);
   return new ClientBuilder()
     .withPasswordFlow({
@@ -59,6 +67,7 @@ function createClient(username: string, password: string): Client {
       },
       scopes: scopes.split(','),
       httpClient: fetch,
+      ...(anonymousId ? { anonymousId } : {}),
     })
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();

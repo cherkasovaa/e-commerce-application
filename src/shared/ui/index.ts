@@ -1,4 +1,5 @@
 export { AboutGame } from './AboutGame/AboutGame';
+export { ActionButton } from './ActionButton/ActionButton';
 export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
 export { DotContainer } from './DotContainer/DotContainer';
 export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';

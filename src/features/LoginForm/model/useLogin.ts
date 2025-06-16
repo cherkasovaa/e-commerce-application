@@ -14,7 +14,6 @@ import { getApiRoot } from '@/shared/api/commerceTools';
 const loginWithCommercetools = async (credentials: ILoginFormProps) => {
   try {
     await switchToPasswordFlow(credentials.email, credentials.password);
-    //NEED REFACTOR
     const response = await getApiRoot().me().get().execute();
     return response;
   } catch (err) {
@@ -33,6 +32,7 @@ export const useLogin = () => {
     mutationFn: loginWithCommercetools,
     onSuccess: (response) => {
       queryClient.setQueryData(['customer'], response.body);
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
   });
 
