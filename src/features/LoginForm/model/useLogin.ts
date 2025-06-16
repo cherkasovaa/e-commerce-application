@@ -17,7 +17,6 @@ const loginWithCommercetools = async (credentials: ILoginFormProps) => {
   const anonymousId = localStorageService.getAnonymousID();
 
   try {
-<<<<<<< feature/cart-page
     if (anonymousId) {
       try {
         const loginResponse = await getApiRoot()
@@ -48,9 +47,6 @@ const loginWithCommercetools = async (credentials: ILoginFormProps) => {
 
     await switchToPasswordFlow(email, password);
 
-=======
-    await switchToPasswordFlow(credentials.email, credentials.password);
->>>>>>> sprint-4
     const response = await getApiRoot().me().get().execute();
     return response;
   } catch (err) {
