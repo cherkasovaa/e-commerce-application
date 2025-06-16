@@ -23,7 +23,7 @@ export const DEVELOPERS: AppDeveloper[] = [
   {
     name: 'Anastasiia',
     role: 'Team Lead',
-    bio: 'Here will be a few words about me',
+    bio: 'Web developer with one year of experience in a marketing company. I build widgets for partner websites and develop UI solutions to improve the main product’s interface. Passionate about modern technologies and constantly growing in frontend development.',
     photo: anastasiiaPhoto,
     github: 'https://github.com/aissatsana',
     nickname: 'aissatsana',
