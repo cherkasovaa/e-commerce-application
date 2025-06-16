@@ -1,12 +1,12 @@
 import { useState, type FC } from 'react';
 
 import { AuthButtons, LogoutButton } from '@/features/auth';
+import { APP_ROUTES } from '@/shared/config/routes/routes';
+import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 import { Logo } from '@/shared/ui';
 import { AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { MenuDesktop } from './MenuDesktop';
 import { MenuMobile } from './MenuMobile';
-import { APP_ROUTES } from '@/shared/config/routes/routes';
-import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 
 export const Header: FC = () => {
   const [isAuth, setIsAuth] = useState(localStorageService.getAuthStatus());
@@ -16,7 +16,7 @@ export const Header: FC = () => {
   });
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const pages = APP_ROUTES.filter((route) => {
     if (!route.meta.showInNavigateMenu) return false;
