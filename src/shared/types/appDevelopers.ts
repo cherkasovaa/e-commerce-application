@@ -1,4 +1,9 @@
 export interface AppDeveloper {
-  github: string;
   name: string;
+  role: string;
+  bio: string;
+  photo: string;
+  github: string;
+  nickname: string;
+  responsibilities: string[];
 }

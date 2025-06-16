@@ -1,10 +1,10 @@
-import type { FC } from 'react';
-import { Box, Container, Grid, Link, Typography } from '@mui/material';
-import { FooterLinkGroup, Logo } from '@/shared/ui';
+import { COURSE_LINK, COURSE_NAME } from '@/shared/config/constants';
 import { DEVELOPERS } from '@/shared/config/developers';
 import { APP_ROUTES } from '@/shared/config/routes/routes';
 import type { FooterLink } from '@/shared/types/footerLink';
-import { COURSE_LINK, COURSE_NAME } from '@/shared/config/constants';
+import { FooterLinkGroup, Logo } from '@/shared/ui';
+import { Box, Container, Grid, Link, Typography } from '@mui/material';
+import type { FC } from 'react';
 
 export const Footer: FC = () => {
   const navigationLinks: FooterLink[] = APP_ROUTES.filter(
@@ -15,7 +15,7 @@ export const Footer: FC = () => {
   }));
 
   const developerLinks: FooterLink[] = Object.values(DEVELOPERS).map((dev) => ({
-    name: dev.name,
+    name: dev.nickname,
     href: dev.github,
     external: true,
   }));
