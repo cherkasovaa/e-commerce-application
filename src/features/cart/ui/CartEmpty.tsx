@@ -1,4 +1,5 @@
-import { Box, Typography, Button } from '@mui/material';
+import { APP_PATHS } from '@/shared/config/routes/paths';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ export const CartEmpty: React.FC = () => {
         variant="contained"
         color="primary"
         component={Link}
-        to="/catalog"
+        to={APP_PATHS.CATALOG}
       >
         Browse products
       </Button>
