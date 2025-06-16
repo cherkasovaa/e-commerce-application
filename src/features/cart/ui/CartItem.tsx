@@ -1,4 +1,5 @@
 import { useRemoveCartItem, useUpdateItemQuantity } from '@/entities/cart';
+import { LANGUAGE } from '@/shared/config/constants';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -14,7 +15,7 @@ import React from 'react';
 import type { CartItemProps } from '../model';
 
 export const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const name = item.name?.['en-US'];
+  const name = item.name?.[LANGUAGE.EN];
   const quantity = item.quantity;
   const unitPrice = (item.price.value.centAmount / 100).toFixed(2);
   const totalPrice = (item.totalPrice.centAmount / 100).toFixed(2);
@@ -43,7 +44,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
           />
         )}
         <Box flex={1}>
-          <Typography variant="body1">{name}</Typography>{' '}
+          <Typography variant="subtitle1">{name}</Typography>{' '}
           <Stack direction="row" spacing={1} alignItems="center">
             <IconButton
               onClick={() => handleChangeQuantity(quantity - 1)}
@@ -51,15 +52,15 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
             >
               <RemoveIcon />
             </IconButton>
-            <Typography>{quantity}</Typography>
+            <Typography variant="h6">{quantity}</Typography>
             <IconButton onClick={() => handleChangeQuantity(quantity + 1)}>
               <AddIcon />
             </IconButton>
           </Stack>
-          <Typography variant="body2" color="text.secondary">
+          <Typography color="text.secondary">
             {unitPrice} {currency}
           </Typography>
-          <Typography variant="body2" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Total: {totalPrice} {currency}
           </Typography>
         </Box>{' '}
