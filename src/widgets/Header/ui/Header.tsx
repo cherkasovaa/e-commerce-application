@@ -3,8 +3,8 @@ import { useState, type FC } from 'react';
 import { AuthButtons, LogoutButton } from '@/features/auth';
 import { Logo } from '@/shared/ui';
 import { AppBar, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-import { MenuDesktop } from '@/shared/ui/MenuDesktop/MenuDesktop';
-import { MenuMobile } from '@/shared/ui/MenuMobile/MenuMobile';
+import { MenuDesktop } from './MenuDesktop';
+import { MenuMobile } from './MenuMobile';
 import { APP_ROUTES } from '@/shared/config/routes/routes';
 import { localStorageService } from '@/shared/lib/localStorage/localStorageService';
 
