@@ -6,7 +6,6 @@ import {
   IconButton,
   InputLabel,
   OutlinedInput,
-  Typography,
 } from '@mui/material';
 
 import { type ChangeEvent, useState, type FormEvent, type JSX } from 'react';
@@ -20,6 +19,7 @@ import {
   useLogin,
   usePasswordField,
 } from '../model';
+import { ErrorModal } from '@/shared/ui/ModalError';
 
 export const LoginForm = (): JSX.Element => {
   const { email, emailError, handleEmailChange, isEmailValid } =
@@ -36,8 +36,10 @@ export const LoginForm = (): JSX.Element => {
   } = usePasswordField();
 
   const isFormValid = isEmailValid && isPasswordValid;
+
   const [formError, setFormError] = useState('');
   const [loading, setIsLoading] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const { login } = useLogin();
 
@@ -57,6 +59,7 @@ export const LoginForm = (): JSX.Element => {
         onError: (error) => {
           const message = mapServerErrors(error);
           setFormError(message);
+          setErrorModalOpen(true);
         },
       }
     );
@@ -130,7 +133,6 @@ export const LoginForm = (): JSX.Element => {
           <FormHelperText error>{passwordError}</FormHelperText>
         )}
       </FormControl>
-      <Typography sx={{ color: 'red' }}>{formError}</Typography>
       <Button
         type="submit"
         variant="contained"
@@ -140,6 +142,12 @@ export const LoginForm = (): JSX.Element => {
       >
         Submit
       </Button>
+      <ErrorModal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        title={formError}
+        message={passwordError}
+      />
     </Box>
   );
 };

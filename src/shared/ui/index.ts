@@ -1,2 +1,11 @@
-export { NavigationButton } from './NavigationButton/NavigationButton';
+export { AboutGame } from './AboutGame/AboutGame';
+export { BreadcrumbsComponent } from './BreadcrumbsComponent/BreadcrumbsComponent';
+export { DotContainer } from './DotContainer/DotContainer';
+export { GameRating } from './GameRating/GameRating';
 export { Logo } from './Logo/Logo';
+export { Loader } from './Loader';
+export { NavigationButton } from './NavigationButton/NavigationButton';
+export { NotificationComponent } from './NotificationComponent/NotificationComponent';
+export { PriceContainer } from './PriceContainer/PriceContainer';
+export { SliderControls } from './SliderControls/SliderControls';
+export { FooterLinkGroup } from './FooterLinkGroup/FooterLinkGroup';

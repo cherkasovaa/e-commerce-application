@@ -8,7 +8,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.HOME,
     meta: {
       showInNavigateMenu: false,
-      title: APP_PAGE_NAMES.HOME,
+      title: 'Online video game store',
     },
   },
   {
@@ -16,6 +16,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.LOGIN,
     meta: {
       showInNavigateMenu: false,
+      requiresAuth: false,
       title: APP_PAGE_NAMES.LOGIN,
     },
   },
@@ -24,6 +25,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.REGISTER,
     meta: {
       showInNavigateMenu: false,
+      requiresAuth: false,
       title: APP_PAGE_NAMES.REGISTER,
     },
   },
@@ -32,7 +34,7 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.NOT_FOUND,
     meta: {
       showInNavigateMenu: false,
-      title: APP_PAGE_NAMES.NOT_FOUND,
+      title: `${APP_PAGE_NAMES.NOT_FOUND} | Page Not Found`,
     },
   },
   {
@@ -48,7 +50,17 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.CART,
     meta: {
       showInNavigateMenu: true,
+      requiresAuth: true,
       title: APP_PAGE_NAMES.CART,
+    },
+  },
+  {
+    path: APP_PATHS.PROFILE,
+    name: APP_PAGE_NAMES.PROFILE,
+    meta: {
+      showInNavigateMenu: true,
+      requiresAuth: true,
+      title: APP_PAGE_NAMES.PROFILE,
     },
   },
 ];

@@ -2,6 +2,7 @@ import { RESPONSE_ERROR_MESSAGES } from './constants';
 import { isErrorKey, type RegisterFormData } from './types';
 import { type HttpErrorType } from '@commercetools/ts-client';
 import { type CustomerDraft } from '@commercetools/platform-sdk';
+import { formatDate } from '@/shared/helpers';
 
 export const getErrorInfo = (error: HttpErrorType) => {
   const statusCode = error.error?.statusCode;
@@ -34,11 +35,7 @@ export function mapDataToCustomerDraft(
     country: addressInfo.country.code,
   }));
 
-  const dateOfBirth = formData.birthDate
-    ? formData.birthDate instanceof Date
-      ? formData.birthDate.toISOString().split('T')[0]
-      : formData.birthDate
-    : undefined;
+  const dateOfBirth = formatDate(formData.birthDate);
 
   return {
     email: formData.email,

@@ -14,7 +14,6 @@ export const AlreadyRegistered = () => {
         component={RouterLink}
         to={APP_PATHS.LOGIN}
         sx={{
-          color: 'red',
           fontWeight: 700,
           textDecoration: 'none',
           '&:hover': {

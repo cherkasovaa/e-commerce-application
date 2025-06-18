@@ -4,5 +4,6 @@ export const APP_PAGE_NAMES = {
   REGISTER: 'Register',
   CATALOG: 'Catalog',
   CART: 'Cart',
+  PROFILE: 'Profile',
   NOT_FOUND: '404',
 } as const;
