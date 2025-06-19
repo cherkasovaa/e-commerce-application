@@ -13,6 +13,7 @@ To purchase a game, users need to log in or register an account. Registered user
 The application leverages CommerceTools as the backend service for product management, user authentication, and order processing, ensuring a reliable and scalable e-commerce solution.
 
 ## Demo
+
 [Live Demo](https://cherkasovaa.github.io/e-commerce-application/)
 
 ## Technology Stack
@@ -38,7 +39,7 @@ The application leverages CommerceTools as the backend service for product manag
 - **User Authentication**: Secure registration and login system to access personalized features
 - **User Profile**: Registered users can access and edit their personal information on the dedicated profile page
 - **Shopping Cart**: Full shopping cart functionality for registered users - add, remove, and manage items
-- **Product Details Page**: 
+- **Product Details Page**:
   - Comprehensive game information with detailed descriptions
   - Interactive media slider for screenshots
   - Modal window for enlarged image viewing
@@ -51,26 +52,30 @@ The application leverages CommerceTools as the backend service for product manag
 
 To start working on the project, clone the repository to your local machine.
 
+Repository: https://github.com/cherkasovaa/e-commerce-application.git
+
 ```bash
-git clone https://github.com/cherkasovaa/eCommerce-Application.git
+git clone https://github.com/cherkasovaa/e-commerce-application.git
 ```
 
 After cloning, navigate to the project directory:
 
 ```bash
-cd eCommerce-Application
+cd e-commerce-application
 ```
 
 ### Installing dependencies
 
-To start working on the project, install all dependencies: 
+To start working on the project, install all dependencies:
+
 ```bash
 npm install
 ```
 
 ### Development mode
 
-During development, use the development mode. To start the dev server, run: 
+During development, use the development mode. To start the dev server, run:
+
 ```bash
 npm run dev
 ```
