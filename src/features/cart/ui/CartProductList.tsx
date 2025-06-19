@@ -1,16 +1,28 @@
-import React from 'react';
-import { Box, Typography, Divider, Button } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Divider,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from '@mui/material';
 import { CartItem } from './CartItem';
 import type { CartProductListProps } from '../model';
 import { useCartQuery, useClearCart } from '@/entities/cart';
 
 export const CartProductList: React.FC<CartProductListProps> = ({ items }) => {
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { mutate: clearCart, isPending } = useClearCart();
   const { data: cart } = useCartQuery();
 
   const handleClear = () => {
     if (cart) {
       clearCart(cart);
+      setIsConfirmOpen(false);
     }
   };
   return (
@@ -27,7 +39,7 @@ export const CartProductList: React.FC<CartProductListProps> = ({ items }) => {
         <Button
           variant="outlined"
           color="error"
-          onClick={handleClear}
+          onClick={() => setIsConfirmOpen(true)}
           disabled={isPending}
         >
           Clear cart
@@ -41,6 +53,21 @@ export const CartProductList: React.FC<CartProductListProps> = ({ items }) => {
           <CartItem key={item.id} item={item} />
         ))}
       </Box>
+
+      <Dialog open={isConfirmOpen} onClose={() => setIsConfirmOpen(false)}>
+        <DialogTitle>Confirming</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to empty your cart?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsConfirmOpen(false)}>Cancel</Button>
+          <Button onClick={handleClear} color="error" disabled={isPending}>
+            Clear
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
