@@ -25,6 +25,7 @@ export const Header: FC = () => {
     if (route.meta.requiresAuth === false) return !isAuth;
     return false;
   });
+  console.log(pages);
   return (
     <AppBar
       position="static"
