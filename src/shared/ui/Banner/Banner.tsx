@@ -1,6 +1,14 @@
-import { Box, Paper, Stack, Typography, IconButton } from '@mui/material';
+import {
+  Box,
+  Paper,
+  Stack,
+  Typography,
+  IconButton,
+  useTheme,
+} from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useState } from 'react';
+import { getGradientBackground } from '@/shared/helpers/getGradientBackground';
 
 interface BannerProps {
   title: string;
@@ -15,6 +23,7 @@ interface BannerProps {
 export const Banner = (props: BannerProps) => {
   const { title, description, promo, imageUrl } = props;
   const [copied, setCopied] = useState(false);
+  const theme = useTheme();
 
   const handleCopy = () => {
     if (promo?.code) {
@@ -35,7 +44,7 @@ export const Banner = (props: BannerProps) => {
         gap: { xs: 0.5, md: 2 },
         p: { xs: 2, sm: 3 },
         mb: 4,
-        backgroundColor: 'primary.light',
+        backgroundImage: getGradientBackground(theme),
         boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
       }}
     >
