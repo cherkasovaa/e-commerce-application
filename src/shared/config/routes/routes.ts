@@ -67,7 +67,6 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.ABOUT,
     meta: {
       showInNavigateMenu: true,
-      requiresAuth: false,
       title: APP_PAGE_NAMES.ABOUT,
     },
   },

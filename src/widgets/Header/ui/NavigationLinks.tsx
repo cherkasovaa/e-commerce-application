@@ -15,7 +15,7 @@ interface Props {
 export const NavigationLinks: FC<Props> = ({ pages, onClickItem }) => {
   const theme = useTheme();
   const { data: cart } = useCartQuery();
-  const cartCount = getCartItemCount(cart);
+  const cartCount = getCartItemCount(cart || undefined);
 
   return (
     <>
@@ -32,6 +32,9 @@ export const NavigationLinks: FC<Props> = ({ pages, onClickItem }) => {
               transition: '0.4s ease-in-out',
               fontWeight: 700,
               padding: '0.4em 2em',
+              [theme.breakpoints.between('md', 'lg')]: {
+                fontSize: '0.8rem',
+              },
               '&:hover': {
                 backgroundColor: theme.palette.primary.main,
               },
@@ -57,6 +60,12 @@ export const NavigationLinks: FC<Props> = ({ pages, onClickItem }) => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontWeight: 'bold',
+                      [theme.breakpoints.between('md', 'lg')]: {
+                        fontSize: '0.6rem',
+                        width: 12,
+                        height: 12,
+                        right: 16,
+                      },
                     }}
                   >
                     {cartCount}
