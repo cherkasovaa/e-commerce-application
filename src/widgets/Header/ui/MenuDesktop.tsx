@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { MenuList, useTheme } from '@mui/material';
-import { NavigationLinks } from '../NavigationLinks/NavigationLinks';
+import { NavigationLinks } from './NavigationLinks';
 import type { AppRoutes } from '@/shared/types/appRoutes';
 
 export const MenuDesktop: FC<{ pages: AppRoutes[] }> = ({ pages }) => {

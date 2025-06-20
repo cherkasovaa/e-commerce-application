@@ -50,7 +50,6 @@ export const APP_ROUTES: AppRoutes[] = [
     name: APP_PAGE_NAMES.CART,
     meta: {
       showInNavigateMenu: true,
-      requiresAuth: true,
       title: APP_PAGE_NAMES.CART,
     },
   },
@@ -61,6 +60,14 @@ export const APP_ROUTES: AppRoutes[] = [
       showInNavigateMenu: true,
       requiresAuth: true,
       title: APP_PAGE_NAMES.PROFILE,
+    },
+  },
+  {
+    path: APP_PATHS.ABOUT,
+    name: APP_PAGE_NAMES.ABOUT,
+    meta: {
+      showInNavigateMenu: true,
+      title: APP_PAGE_NAMES.ABOUT,
     },
   },
 ];

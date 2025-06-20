@@ -17,15 +17,16 @@ export const NotificationComponent: FC<NotificationComponentProps> = ({
       sx={{
         textAlign: 'center',
         backgroundColor: theme.palette.primary.main,
-        p: '0 10px',
-        borderRadius: '12px',
-        minWidth: '20px',
+        px: 1.5,
+        borderRadius: 3,
+        minWidth: '18px',
       }}
     >
       <Typography
-        variant="h6"
+        variant="subtitle1"
         component="span"
         sx={{
+          fontSize: '1em',
           fontWeight: 600,
           letterSpacing: '0.5px',
           color: theme.palette.primary.contrastText,
