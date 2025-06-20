@@ -20,7 +20,7 @@ export const MainPage: React.FC = () => {
         title={SALES.FIRST_ORDER.title}
         description={SALES.FIRST_ORDER.description}
         promo={{ code: SALES.FIRST_ORDER.code, isCopied: true }}
-        imageUrl={SALES.FIRST_ORDER.imageUrl}
+        image={SALES.FIRST_ORDER.image}
       />
       <Grid
         container

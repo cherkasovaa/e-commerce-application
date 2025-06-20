@@ -17,11 +17,11 @@ interface BannerProps {
     code: string;
     isCopied: boolean;
   };
-  imageUrl?: string;
+  image?: string;
 }
 
 export const Banner = (props: BannerProps) => {
-  const { title, description, promo, imageUrl } = props;
+  const { title, description, promo, image } = props;
   const [copied, setCopied] = useState(false);
   const theme = useTheme();
 
@@ -88,10 +88,10 @@ export const Banner = (props: BannerProps) => {
         )}
       </Stack>
 
-      {imageUrl && (
+      {image && (
         <Box
           component="img"
-          src={imageUrl}
+          src={image}
           alt="Promo"
           sx={{
             width: { xs: '25%', md: 180 },
